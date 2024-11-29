@@ -5,11 +5,11 @@ const getAllPosts = async (req, res) => {
   const filter = req.query.owner;
   try {
     if (filter) {
-      const posts = await PostModel.find({ owner: filter });
-      res.send(posts);
+      const allposts = await PostModel.find({ owner: filter });
+      res.send(allposts);
     } else {
-      const posts = await PostModel.find();
-      res.send(posts);
+      const allpostsbyUser = await PostModel.find();
+      res.send(allpostsbyUser);
     }
   } catch (error) {
     res.status(400).send(error.message);
@@ -20,9 +20,9 @@ const getPostById = async (req, res) => {
   const postId = req.params.id;
 
   try {
-    const post = await PostModel.findById(postId);
+    const postById = await PostModel.findById(postId);
     if (post != null) {
-      res.send(post);
+      res.send(postById);
     } else {
       res.status(404).send("Post not found");
     }
@@ -34,8 +34,8 @@ const getPostById = async (req, res) => {
 const createPost = async (req, res) => {
   const postBody = req.body;
   try {
-    const post = await PostModel.create(postBody);
-    res.status(201).send(post);
+    const newPost = await PostModel.create(postBody);
+    res.status(201).send(newPost);
   } catch (error) {
     res.status(400).send(error.message);
   }
