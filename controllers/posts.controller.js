@@ -21,13 +21,14 @@ const getPostById = async (req, res) => {
 
   try {
     const postById = await PostModel.findById(postId);
-    if (post != null) {
+    if (postById != null) {
+      // Fix for null check
       res.send(postById);
     } else {
       res.status(404).send("Post not found");
     }
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send("Invalid post ID format");
   }
 };
 
@@ -43,11 +44,16 @@ const createPost = async (req, res) => {
 
 const deletePost = async (req, res) => {
   const postId = req.params.id;
+
   try {
-    const rs = await postModel.findByIdAndDelete(postId);
-    res.status(200).send(rs);
+    const deletedPost = await PostModel.findByIdAndDelete(postId);
+
+    if (!deletedPost) {
+      return res.status(404).send("Post not found");
+    }
+    res.status(200).send(deletedPost);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send("Invalid post ID format");
   }
 };
 
