@@ -51,9 +51,29 @@ const deletePost = async (req, res) => {
   }
 };
 
+const updatePost = async (req, res) => {
+  const postId = req.params.id;
+  const updateData = req.body;
+
+  try {
+    const updatedPost = await PostModel.findByIdAndUpdate(postId, updateData, {
+      new: true, // Return the updated document
+      runValidators: true, // Run validation on the updated data
+    });
+    if (updatedPost != null) {
+      res.status(200).send(updatedPost);
+    } else {
+      res.status(404).send("Post not found");
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 module.exports = {
   getAllPosts,
   createPost,
   deletePost,
   getPostById,
+  updatePost, // Export the new function
 };
