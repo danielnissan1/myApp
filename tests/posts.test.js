@@ -7,12 +7,12 @@ let app;
 let postId;
 
 beforeAll(async () => {
-  app = await initApp(); // Initialize the app
-  await PostModel.deleteMany(); // Clear the database before tests
+  app = await initApp();
+  await PostModel.deleteMany();
 });
 
 afterAll(async () => {
-  await mongoose.connection.close(); // Close the database connection after all tests
+  await mongoose.connection.close();
 });
 
 test("Create a new post", async () => {
@@ -26,7 +26,6 @@ test("Create a new post", async () => {
   expect(response.body.content).toBe("This is test content.");
   expect(response.body.owner).toBe("TestOwner");
 
-  // Save the post ID for future tests
   postId = response.body._id;
 });
 
@@ -39,7 +38,7 @@ test("Get all posts", async () => {
 
 test("Get post by ID", async () => {
   const response = await request(app).get(`/posts/${postId}`);
-  expect(response.statusCode).toBe(200); // Ensure valid postId
+  expect(response.statusCode).toBe(200);
   expect(response.body.title).toBe("Test Post");
   expect(response.body.content).toBe("This is test content.");
   expect(response.body.owner).toBe("TestOwner");
@@ -63,14 +62,13 @@ test("Update post", async () => {
   expect(response.body.title).toBe("Updated Test Post");
   expect(response.body.content).toBe("This is updated content.");
 
-  // Verify the update in the database
   const updatedPost = await PostModel.findById(postId);
   expect(updatedPost.title).toBe("Updated Test Post");
   expect(updatedPost.content).toBe("This is updated content.");
 });
 
 test("Fail to update a non-existent post", async () => {
-  const fakePostId = new mongoose.Types.ObjectId(); // Generate a valid but non-existent ID
+  const fakePostId = new mongoose.Types.ObjectId();
   const response = await request(app).put(`/posts/${fakePostId}`).send({
     title: "Non-existent Post",
   });
@@ -80,23 +78,22 @@ test("Fail to update a non-existent post", async () => {
 
 test("Delete post", async () => {
   const response = await request(app).delete(`/posts/${postId}`);
-  expect(response.statusCode).toBe(200); // Ensure valid postId
+  expect(response.statusCode).toBe(200);
 
-  // Confirm the post is deleted
   const response2 = await request(app).get(`/posts/${postId}`);
   expect(response2.statusCode).toBe(404);
 });
 
 test("Fail to delete a non-existent post", async () => {
-  const fakePostId = new mongoose.Types.ObjectId(); // Generate valid, non-existent ID
+  const fakePostId = new mongoose.Types.ObjectId();
   const response = await request(app).delete(`/posts/${fakePostId}`);
-  expect(response.statusCode).toBe(404); // Updated expected response
+  expect(response.statusCode).toBe(404);
   expect(response.body).toMatchObject({});
 });
 
 test("Fail to create a post with invalid data", async () => {
   const response = await request(app).post("/posts").send({
-    title: "", // Invalid data
+    title: "",
   });
   expect(response.statusCode).toBe(400);
 });
