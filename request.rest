@@ -34,6 +34,9 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3000/posts/674df9fd01eff817a54fedad
+Content-Type: application/json
+
+{
     "title" : "my first post",
     "content" : "this is the content of my first post!",
     "owner" : "Daniel"
