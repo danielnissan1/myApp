@@ -16,41 +16,6 @@ GET http://localhost:3000/posts/6734b0c818a1cf8344804554
 POST http://localhost:3000/posts
 Content-Type: application/json
 
-{
-    "title" : "my first post",
-    "content" : "this is the content of my first post!",
-    "owner" : "Daniel"
-}
-
 ###
 
 DELETE http://localhost:3000/posts/6734b0c818a1cf8344804554
-
-###
-GET http://localhost:3000/comments/6750bfe2721f4c8d837fcc81
-
-###
-GET http://localhost:3000/comments?postId=6750bda162e51099f2860616
-
-###
-DELETE http://localhost:3000/comments/6750bfe2721f4c8d837fcc81
-
-###
-POST http://localhost:3000/comments/
-Content-Type: application/json
-
-{
-    "owner" : "noa",
-    "content" : "this is my comment",
-    "postId" : "6750bda162e51099f2860617"
-}
-
-###
-PUT  http://localhost:3000/comments/6750c14a131e0fc0a96525a4
-Content-Type: application/json
-
-{
-    "owner" : "noa",
-    "content" : "this is my updated comment",
-    "postId" : "6750bda162e51099f2860616"
-}
