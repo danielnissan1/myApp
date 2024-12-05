@@ -5,11 +5,11 @@ GET http://localhost:3000/posts
 
 ###
 
-GET http://localhost:3000/posts?owner=Eliav
+GET http://localhost:3000/posts?owner=Daniel
 
 ###
 
-GET http://localhost:3000/posts/6734b0c818a1cf8344804554
+GET http://localhost:3000/posts/674df9fd01eff817a54fedad
 
 ###
 
@@ -17,6 +17,23 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
+    "title": "Hello",
+    "owner": "Daniel",
+    "content": "Hello World..."
+}
+###
+
+PUT  http://localhost:3000/posts/674dfecd927634c2b2381c38
+Content-Type: application/json
+
+{
+    "title": "Hello Again",
+    "owner": "Daniel",
+    "content": "Hello World... update"
+}
+###
+
+DELETE http://localhost:3000/posts/674df9fd01eff817a54fedad
     "title" : "my first post",
     "content" : "this is the content of my first post!",
     "owner" : "Daniel"
