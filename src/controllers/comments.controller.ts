@@ -1,6 +1,7 @@
-const commentsModel = require("../models/comments.model");
+import commentsModel from "../models/comments.model";
+import { Request, Response } from "express";
 
-const getAllComments = async (req, res) => {
+const getAllComments = async (req: Request, res: Response): Promise<void> => {
   const filterByPostId = req.query.postId;
   try {
     if (filterByPostId) {
@@ -12,12 +13,12 @@ const getAllComments = async (req, res) => {
       const allCommentsOnPost = await commentsModel.find();
       res.send(allCommentsOnPost);
     }
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send(error.message);
   }
 };
 
-const getCommentById = async (req, res) => {
+const getCommentById = async (req: Request, res: Response): Promise<void> => {
   const commentId = req.params.id;
   try {
     const commentById = await commentsModel.findById(commentId);
@@ -26,22 +27,22 @@ const getCommentById = async (req, res) => {
     } else {
       res.status(404).send("Comment not found");
     }
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send(error.message);
   }
 };
 
-const createComment = async (req, res) => {
+const createComment = async (req: Request, res: Response): Promise<void> => {
   const commentBody = req.body;
   try {
     const newComment = await commentsModel.create(commentBody);
     res.status(201).send(newComment);
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send(error.message);
   }
 };
 
-const deleteComment = async (req, res) => {
+const deleteComment = async (req: Request, res: Response): Promise<void> => {
   const commentId = req.params.id;
   try {
     const commentById = await commentsModel.findByIdAndDelete(commentId);
@@ -50,12 +51,12 @@ const deleteComment = async (req, res) => {
     } else {
       res.status(404).send("Comment not found");
     }
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send(error.message);
   }
 };
 
-const updateComment = async (req, res) => {
+const updateComment = async (req: Request, res: Response): Promise<void> => {
   const commentId = req.params.id;
   const updatedComment = req.body;
   try {
@@ -68,7 +69,7 @@ const updateComment = async (req, res) => {
     } else {
       res.status(404).send("Comment not found");
     }
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).send(error.message);
   }
 };
