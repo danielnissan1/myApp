@@ -1,15 +1,21 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const commentsController = require("../controllers/comments.controller");
+import commentsController from "../controllers/comments.controller";
+// import { authMiddleware } from "../controllers/auth_controller";
 
-router.get("/", commentsController.getAllComments);
+/**
+ * @swagger
+ * tags:
+ *   name: Comments
+ *   description: The Comments API
+ */
 
-router.get("/:id", commentsController.getCommentById);
+router.get("/", commentsController.getAll.bind(commentsController));
 
-router.post("/", commentsController.createComment);
+router.get("/:id", commentsController.getById.bind(commentsController));
 
-router.delete("/:id", commentsController.deleteComment);
+router.post("/", commentsController.create.bind(commentsController));
 
-router.put("/:id", commentsController.updateComment);
+router.delete("/:id", commentsController.deleteItem.bind(commentsController));
 
-module.exports = router;
+export default router;

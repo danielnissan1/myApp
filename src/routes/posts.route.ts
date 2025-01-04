@@ -1,15 +1,21 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const postsController = require("../controllers/posts.controller");
+import postsController from "../controllers/posts.controller";
+// import { authMiddleware } from "../controllers/auth_controller";
 
-router.get("/", postsController.getAllPosts);
+/**
+ * @swagger
+ * tags:
+ *   name: Posts
+ *   description: The Posts API
+ */
 
-router.get("/:id", postsController.getPostById);
+router.get("/", postsController.getAll.bind(postsController));
 
-router.post("/", postsController.createPost);
+router.get("/:id", postsController.getById.bind(postsController));
 
-router.delete("/:id", postsController.deletePost);
+router.post("/", postsController.create.bind(postsController));
 
-router.put("/:id", postsController.updatePost);
+router.delete("/:id", postsController.deleteItem.bind(postsController));
 
-module.exports = router;
+export default router;
