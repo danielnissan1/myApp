@@ -1,24 +1,25 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 export interface IUser {
+  _id?: Types.ObjectId;
   email: string;
   password: string;
-  _id?: string;
+  refreshToken?: string[];
 }
 
 const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-  },
-  content: String,
   email: {
     type: String,
     required: true,
+    unique: true,
   },
-  phoneNumber: {
+  password: {
     type: String,
     required: true,
+  },
+  refreshToken: {
+    type: [String],
+    default: [],
   },
 });
 

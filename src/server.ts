@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import express, { Express } from "express";
 import postsRoute from "./routes/posts.route";
 import commentsRoute from "./routes/comments.route";
-// import authRoutes from "./routes/auth_route";
+import authRoutes from "./routes/auth_routes";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
 
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/posts", postsRoute);
 app.use("/comments", commentsRoute);
-// app.use("/auth", authRoutes);
+app.use("/auth", authRoutes);
 
 const options = {
   definition: {
