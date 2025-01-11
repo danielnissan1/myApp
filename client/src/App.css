@@ -1,0 +1,68 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: rgb(245, 245, 245); */
+}
+
+.pages {
+  /* width: 100%; */
+  max-height: calc(100vh - 56px - 15vh);
+  overflow-y: scroll;
+  margin-top: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome */
+.pages::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+  -webkit-appearance: none;
+}
+
+.css-1syf4pq-MuiPaper-root-MuiCard-root {
+  border-radius: 0%;
+}
+
+.pages .css-hip9hq-MuiPaper-root-MuiAppBar-root {
+  color: black;
+  background-color: white;
+  /* border-color: black; */
+  /* border: 1px solid; */
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.prof {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin-top: 15vh; */
+}
+
+.prof .css-8h65ya-MuiAvatar-root {
+  position: static;
+}
+
+.pages .css-1wlk0hk-MuiAvatar-root {
+  position: static;
+}
+
+.pages .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+  position: static;
+}
+
+.addPost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
