@@ -1,0 +1,17 @@
+[
+  {
+    "comment": "This is a comment",
+    "owner": "Daniel",
+    "postId": "67836a29426aee8a835c5763"
+  },
+  {
+    "comment": "This is another comment",
+    "owner": "Daniel2",
+    "postId": "67836a29426aee8a835c5763"
+  },
+  {
+    "comment": "This is another comment",
+    "owner": "Noa",
+    "postId": "67836a29426aee8a835c5763"
+  }
+]
