@@ -2,6 +2,18 @@ import commentsModel, { IComments } from "../models/comments.model";
 import { Request, Response } from "express";
 import BaseController from "./base.controller";
 
-const commentsController = new BaseController<IComments>(commentsModel);
+class CommentsController extends BaseController<IComments> {
+  constructor() {
+    super(commentsModel);
+  }
 
-export default commentsController;
+  async create(req: Request, res: Response) {
+    const comment = {
+      ...req.body,
+    };
+    req.body = comment;
+    super.create(req, res);
+  }
+}
+
+export default new CommentsController();
