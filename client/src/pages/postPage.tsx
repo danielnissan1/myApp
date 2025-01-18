@@ -19,15 +19,6 @@ const PostPage = () => {
 
   return (
     <div className="Home">
-      {/* <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Instagram
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </Box> */}
       {post && (
         <div>
           <Post post={post} />

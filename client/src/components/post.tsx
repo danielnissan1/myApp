@@ -5,6 +5,7 @@ import { instance } from "../App";
 import { UserContext } from "../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faLocationDot } from "@fortawesome/free-solid-svg-icons"; // Import the location icon
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   post: IPost;
@@ -12,6 +13,7 @@ interface Props {
 
 const Post = ({ post }: Props) => {
   const userContext = useContext(UserContext);
+  const navigate = useNavigate();
 
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
@@ -50,6 +52,11 @@ const Post = ({ post }: Props) => {
     //   : addLike();
     setIsLiked(!isLiked);
   };
+
+  const postClick = () => {
+    navigate("/post", { state: { post } });
+    console.log("post clicked");
+  };
   //   const allTasks = tasks;
 
   return (
@@ -61,7 +68,12 @@ const Post = ({ post }: Props) => {
           <FontAwesomeIcon icon={faLocationDot} />
           <p className="title">Tel Aviv</p>
         </div>
-        <img className="post-img" src={post.imgSrc} alt="" />
+        <img
+          className="post-img"
+          src={post.imgSrc}
+          alt=""
+          onClick={postClick}
+        />
         <div className="owner-details">
           <div className="circle">
             <img className="owner-img" src={post.owner.avatar} alt="" />

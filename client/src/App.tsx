@@ -13,6 +13,7 @@ import Login from "./pages/login";
 import { useNavigate } from "react-router-dom";
 import { Comments } from "./components/comments";
 import PostPage from "./pages/postPage";
+import TopBar from "./components/topbar";
 
 // const navigate = useNavigate();
 
@@ -68,6 +69,7 @@ function App() {
 
   return (
     <div className="App">
+      <TopBar />
       <div className="pages">
         <Routes>
           {/* {!user.id ? ( */}
