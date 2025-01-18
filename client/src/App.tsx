@@ -11,6 +11,7 @@ import "./App.css";
 import axios from "axios";
 import Login from "./pages/login";
 import { useNavigate } from "react-router-dom";
+import { Comments } from "./components/comments";
 
 // const navigate = useNavigate();
 
@@ -82,6 +83,7 @@ function App() {
         {/* </Routes> */}
       </div>
       <Post post={post}></Post>
+      <Comments postId={post.id.toString()} />
 
       <div className="navbar">
         <NavBar />
