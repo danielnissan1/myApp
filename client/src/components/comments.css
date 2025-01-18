@@ -14,15 +14,7 @@
   border-top-right-radius: 10px;
 }
 
-.dragHandle {
-  width: 40px;
-  height: 4px;
-  background-color: #d1d5db;
-  border-radius: 9999px;
-  margin: 8px auto;
-}
-
-.commentsContainer {
+.comments-container {
   padding: 16px;
   height: 100%;
   display: flex;
@@ -35,45 +27,45 @@
   margin-bottom: 16px;
 }
 
-.commentsList {
+.comments-list {
   flex-grow: 1;
   overflow-y: auto;
 }
 
-.commentCard {
+.comment-card {
   border: 1px solid #e5e5e5;
   border-radius: 8px;
   margin-bottom: 16px;
   padding: 16px;
 }
 
-.commentHeader {
+.comment-header {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.commentAvatar {
+.comment-avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
 
-.commentUsername {
+.comment-username {
   font-weight: 600;
 }
 
-.commentContent {
+.comment-content {
   font-size: 0.875rem;
   color: #6b7280;
   margin-top: 8px;
 }
 
-.commentForm {
+.comment-form {
   margin-top: 16px;
 }
 
-.commentInput {
+.comment-input {
   width: 100%;
   padding: 8px;
   border: 1px solid #d1d5db;
@@ -81,7 +73,7 @@
   margin-bottom: 8px;
 }
 
-.submitButton {
+.submit-button {
   background-color: #3b82f6;
   color: white;
   padding: 8px 16px;
@@ -90,6 +82,6 @@
   cursor: pointer;
 }
 
-.submitButton:hover {
+.submit-button:hover {
   background-color: #2563eb;
 }

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 // import { useAuth } from '@/hooks/useAuth'
 import * as Dialog from "@radix-ui/react-dialog";
-import styles from "./Comments.module.css";
+import "./comments.css";
 
 interface Comment {
   id: string;
@@ -56,35 +56,34 @@ export function Comments({ postId }: CommentsDialogProps) {
   };
 
   return (
-    <div className={styles.commentsContainer}>
-      <div className={styles.dragHandle} />
-      <h2 className={styles.title}>Comments</h2>
-      <div className={styles.commentsList}>
+    <div className="comments-containe">
+      <h2 className="title">Comments</h2>
+      <div className="comments-list">
         {comments.map((comment) => (
-          <div key={comment.id} className={styles.commentCard}>
-            <div className={styles.commentHeader}>
+          <div key={comment.id} className="comment-card">
+            <div className="comment-header">
               <img
                 src={comment.avatar || "/placeholder.svg"}
                 alt={comment.username}
                 width={40}
                 height={40}
-                className={styles.commentAvatar}
+                className="comment-avatar"
               />
-              <div className={styles.commentUsername}>{comment.username}</div>
+              <div className="comment-username">{comment.username}</div>
             </div>
-            <p className={styles.commentContent}>{comment.content}</p>
+            <p className="comment-content">{comment.content}</p>
           </div>
         ))}
       </div>
-      <form onSubmit={handleSubmitComment} className={styles.commentForm}>
+      <form onSubmit={handleSubmitComment} className="comment-form">
         <input
           type="text"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Add a comment..."
-          className={styles.commentInput}
+          className="comment-input"
         />
-        <button type="submit" className={styles.submitButton}>
+        <button type="submit" className="submit-button">
           Post Comment
         </button>
       </form>
