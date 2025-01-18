@@ -1,0 +1,95 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.content {
+  position: fixed;
+  inset-x: 0;
+  bottom: 0;
+  height: 50vh;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.dragHandle {
+  width: 40px;
+  height: 4px;
+  background-color: #d1d5db;
+  border-radius: 9999px;
+  margin: 8px auto;
+}
+
+.commentsContainer {
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.commentsList {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.commentCard {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.commentAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.commentUsername {
+  font-weight: 600;
+}
+
+.commentContent {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+.commentForm {
+  margin-top: 16px;
+}
+
+.commentInput {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.submitButton {
+  background-color: #3b82f6;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #2563eb;
+}
