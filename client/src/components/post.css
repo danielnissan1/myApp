@@ -1,0 +1,135 @@
+.card {
+  display: flex;
+  border: #0000004a solid 1px;
+  border-radius: 9px;
+  height: 55vh;
+  width: 40vw;
+  flex-direction: column;
+}
+
+.location {
+  display: flex;
+  /* border-bottom: #0000004a solid 1px; */
+  height: 10vh; /* Increased to allow space for text */
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px;
+  overflow: hidden;
+}
+
+.title {
+  color: black;
+  margin-left: 8px;
+}
+
+.post-img {
+  width: 100%;
+  height: 35vh; /* Adjusted to take up space within the card */
+  object-fit: cover;
+}
+
+.owner-details {
+  display: flex;
+  height: 15vh;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px;
+  overflow: hidden;
+}
+
+.circle {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.owner-img {
+  height: 100%; /* Ensure the image takes the full height of the circle */
+  width: 100%; /* Ensure the image takes the full width of the circle */
+  object-fit: cover; /* To maintain aspect ratio */
+}
+
+.owner-name {
+  font-size: small;
+  font-weight: bold;
+}
+
+.post-text {
+  font-size: small;
+}
+
+.text {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.text p {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Optional: reset padding if needed */
+}
+
+.price {
+  margin-left: 20vw;
+  margin-right: 10px;
+}
+/* .card {
+  display: flex
+  border: #0000004a solid 1px;
+  border-radius: 9px;
+  height: 45vh;
+  width: 65vw;
+  flex-direction: column;
+}
+.location {
+  display: flex;
+  border-bottom: #0000004a solid 1px;
+  height: 4vh;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px;
+  overflow: hidden;
+}
+.title {
+  color: black;
+  margin-left: 8px;
+}
+
+.post-img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.owner-details {
+  display: flex;
+  border-bottom: #0000004a solid 1px;
+  height: 15vh;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px;
+  overflow: hidden;
+}
+.circle {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.owner-img {
+  height: -webkit-fill-available;
+} */

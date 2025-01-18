@@ -1,0 +1,22 @@
+.nav-icon.css-1bjk3jo-MuiButtonBase-root-MuiBottomNavigationAction-root.Mui-selected {
+  color: #000000;
+  border-bottom: groove;
+  border-bottom-color: rgb(55, 55, 55);
+}
+
+.css-8u9tfx-MuiButtonBase-root-MuiBottomNavigationAction-root {
+  margin: 2px;
+  color: #000000;
+}
+
+.css-1bjk3jo-MuiButtonBase-root-MuiBottomNavigationAction-root {
+  box-sizing: border-box;
+}
+
+.css-16lloyr-MuiBottomNavigation-root {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
