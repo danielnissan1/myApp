@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 // import { useAuth } from '@/hooks/useAuth'
-import * as Dialog from "@radix-ui/react-dialog";
 import "./comments.css";
 
 interface Comment {

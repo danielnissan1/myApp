@@ -12,6 +12,7 @@ import axios from "axios";
 import Login from "./pages/login";
 import { useNavigate } from "react-router-dom";
 import { Comments } from "./components/comments";
+import PostPage from "./pages/postPage";
 
 // const navigate = useNavigate();
 
@@ -68,22 +69,22 @@ function App() {
   return (
     <div className="App">
       <div className="pages">
-        {/* <Routes>
-          {!user.id ? (
-            <Route path="/*" element={<Navigate to="/login" />} />
-          ) : (
-            <>
-              <Route path="/new_post" element={<NewPost />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/" element={<Feed />} />
-            </>
-          )} */}
-
-        {/* <Route path="/login" element={<Login />} /> */}
-        {/* </Routes> */}
+        <Routes>
+          {/* {!user.id ? ( */}
+          {/* // <Route path="/*" element={<Navigate to="/login" />} /> */}
+          {/* // ) : ( */}
+          <>
+            {/* <Route path="/new_post" element={<NewPost />} /> */}
+            {/* <Route path="/profile" element={<Profile />} /> */}
+            <Route path="/" element={<Feed />} />
+            <Route path="/post" element={<PostPage />} />{" "}
+            {/* Add PostPage route */}
+          </>
+          {/* )} */}
+        </Routes>
       </div>
-      <Post post={post}></Post>
-      <Comments postId={post.id.toString()} />
+      {/* <Post post={post}></Post>
+      <Comments postId={post.id.toString()} /> */}
 
       <div className="navbar">
         <NavBar />
