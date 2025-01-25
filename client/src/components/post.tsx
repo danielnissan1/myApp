@@ -6,6 +6,7 @@ import { UserContext } from "../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faLocationDot } from "@fortawesome/free-solid-svg-icons"; // Import the location icon
 import { useNavigate } from "react-router-dom";
+import { Comments } from "./comments";
 
 interface Props {
   post: IPost;
@@ -16,6 +17,7 @@ const Post = ({ post }: Props) => {
   const navigate = useNavigate();
 
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [openComments, setOpenComments] = useState<boolean>(false);
 
   useEffect(() => {
     checkUserLike();
@@ -72,7 +74,7 @@ const Post = ({ post }: Props) => {
           className="post-img"
           src={post.imgSrc}
           alt=""
-          onClick={postClick}
+          // onClick={postClick}
         />
         <div className="owner-details">
           <div className="circle">
@@ -83,9 +85,17 @@ const Post = ({ post }: Props) => {
             <p className="post-text">my old pants</p>
           </div>
           <p className="price">20₪</p>
-          <FontAwesomeIcon icon={faComment} />
+          <FontAwesomeIcon
+            icon={faComment}
+            onClick={() => setOpenComments((prev) => !prev)}
+          />
         </div>
       </div>
+      <Comments
+        postId={post.id.toString()}
+        opened={openComments}
+        setOpened={setOpenComments}
+      />
       {/* <Card sx={{ width: 345 }}>
         <CardHeader
           avatar={<Avatar alt={post.owner.userName} src={post.owner.avatar} />}

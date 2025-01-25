@@ -1,7 +1,5 @@
-"use client";
-
-import React, { useEffect, useRef, useState } from "react";
-// import { useAuth } from '@/hooks/useAuth'
+import React, { useEffect, useState } from "react";
+import { SwipeableDrawer } from "@mui/material";
 import "./comments.css";
 
 interface Comment {
@@ -13,16 +11,15 @@ interface Comment {
 
 interface CommentsDialogProps {
   postId: string;
+  opened: boolean;
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function Comments({ postId }: CommentsDialogProps) {
-  //   const { user } = useAuth();
+export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
-    // Fetch comments from API
-    // For now, we'll use dummy data
     const dummyComments = [
       {
         id: "1",
@@ -54,38 +51,57 @@ export function Comments({ postId }: CommentsDialogProps) {
     }
   };
 
+  const toggleDrawer = (event: React.KeyboardEvent | React.MouseEvent) => {
+    if (
+      (event && (event as React.KeyboardEvent).key === "Tab") ||
+      (event as React.KeyboardEvent).key === "Shift"
+    ) {
+      return;
+    } else {
+      setOpened((prev) => !prev);
+    }
+  };
+
   return (
-    <div className="comments-containe">
-      <h2 className="title">Comments</h2>
-      <div className="comments-list">
-        {comments.map((comment) => (
-          <div key={comment.id} className="comment-card">
-            <div className="comment-header">
-              <img
-                src={comment.avatar || "/placeholder.svg"}
-                alt={comment.username}
-                width={40}
-                height={40}
-                className="comment-avatar"
-              />
-              <div className="comment-username">{comment.username}</div>
+    <SwipeableDrawer
+      classes={{ paper: "comments-containe" }}
+      anchor="bottom"
+      open={opened}
+      onOpen={toggleDrawer}
+      onClose={toggleDrawer}
+    >
+      <div className="comments-content">
+        {/* <h2 className="title">Comments</h2> */}
+        <div className="comments-list">
+          {comments.map((comment) => (
+            <div key={comment.id} className="comment-card">
+              <div className="comment-header">
+                <img
+                  src={comment.avatar || "/placeholder.svg"}
+                  alt={comment.username}
+                  width={40}
+                  height={40}
+                  className="comment-avatar"
+                />
+                <div className="comment-username">{comment.username}</div>
+              </div>
+              <p className="comment-content">{comment.content}</p>
             </div>
-            <p className="comment-content">{comment.content}</p>
-          </div>
-        ))}
+          ))}
+        </div>
+        <form onSubmit={handleSubmitComment} className="comment-form">
+          <input
+            type="text"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Add a comment..."
+            className="comment-input"
+          />
+          <button type="submit" className="submit-button">
+            Post Comment
+          </button>
+        </form>
       </div>
-      <form onSubmit={handleSubmitComment} className="comment-form">
-        <input
-          type="text"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add a comment..."
-          className="comment-input"
-        />
-        <button type="submit" className="submit-button">
-          Post Comment
-        </button>
-      </form>
-    </div>
+    </SwipeableDrawer>
   );
 }

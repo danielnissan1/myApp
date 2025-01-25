@@ -8,6 +8,7 @@ import Post from "../components/post";
 const PostPage = () => {
   const location = useLocation();
   const [post, setPost] = useState<IPost | null>(null);
+  const [openComments, setOpenComments] = useState<boolean>(false);
 
   useEffect(() => {
     if (location.state) {
@@ -22,7 +23,11 @@ const PostPage = () => {
       {post && (
         <div>
           <Post post={post} />
-          <Comments postId={post.id.toString()} />
+          <Comments
+            postId={post.id.toString()}
+            opened={openComments}
+            setOpened={setOpenComments}
+          />
         </div>
       )}
     </div>
