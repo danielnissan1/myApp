@@ -37,6 +37,7 @@ export interface IPost {
   likes: IUser[];
   imgSrc: string;
   date: Date;
+  isSold: boolean;
 }
 const user: IUser = {
   id: 1,
@@ -51,6 +52,7 @@ const post: IPost = {
     "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
   likes: [user],
   owner: user,
+  isSold: true,
 };
 
 function App() {

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faLocationDot } from "@fortawesome/free-solid-svg-icons"; // Import the location icon
 import { useNavigate } from "react-router-dom";
 import { Comments } from "./comments";
+import Sold from "./sold";
 
 interface Props {
   post: IPost;
@@ -69,6 +70,9 @@ const Post = ({ post }: Props) => {
         <div className="location">
           <FontAwesomeIcon icon={faLocationDot} />
           <p className="title">Tel Aviv</p>
+          <div className="sold-badge">
+            <span className="sold-text">SOLD</span>
+          </div>
         </div>
         <img
           className="post-img"

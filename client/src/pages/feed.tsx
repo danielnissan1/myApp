@@ -26,6 +26,7 @@ const posts: IPost[] = [
       "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
     likes: [user],
     owner: user,
+    isSold: true,
   },
   {
     id: 2,
@@ -34,6 +35,7 @@ const posts: IPost[] = [
       "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
     likes: [user],
     owner: user,
+    isSold: true,
   },
   {
     id: 3,
@@ -42,6 +44,7 @@ const posts: IPost[] = [
       "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
     likes: [user],
     owner: user,
+    isSold: true,
   },
 ];
 
