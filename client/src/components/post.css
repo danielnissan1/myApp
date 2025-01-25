@@ -59,10 +59,12 @@
 .owner-name {
   font-size: small;
   font-weight: bold;
+  margin: 2px;
 }
 
 .post-text {
   font-size: small;
+  margin: 2px;
 }
 
 .text {
