@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import axios from "axios";
 
 interface Props {}
 
@@ -20,29 +21,26 @@ const user: IUser = {
 };
 const posts: IPost[] = [
   {
-    id: 1,
+    id: "1",
     date: new Date(),
     imgSrc:
       "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
-    likes: [user],
     owner: user,
     isSold: true,
   },
   {
-    id: 2,
+    id: "2",
     date: new Date(),
     imgSrc:
       "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
-    likes: [user],
     owner: user,
     isSold: true,
   },
   {
-    id: 3,
+    id: "3",
     date: new Date(),
     imgSrc:
       "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
-    likes: [user],
     owner: user,
     isSold: true,
   },
@@ -55,12 +53,17 @@ const Feed = ({}: Props) => {
 
   useEffect(() => {
     const getPosts = () => {
+      axios
+        .get("http://localhost:3001/posts")
+        .then((res) => setPosts(res.data))
+        .catch((err) => console.error("CORS Error:", err));
+
       // instance
       //   .get("/posts")
       //   .then((res: any) => {
       //     // handle success
       //     // console.log(res.data);
-      //     setPosts(res.data);
+      // setPosts(res.data);
       //     // setPosts(res);
       //   })
       //   .catch((error: any) => {
@@ -72,6 +75,7 @@ const Feed = ({}: Props) => {
       //   });
       // // console.log(posts);
     };
+    getPosts();
   }, []);
 
   return (

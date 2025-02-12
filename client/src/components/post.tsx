@@ -20,42 +20,6 @@ const Post = ({ post }: Props) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [openComments, setOpenComments] = useState<boolean>(false);
 
-  useEffect(() => {
-    checkUserLike();
-  }, []);
-
-  useEffect(() => {}, [isLiked]);
-
-  const addLikeApp = () => {
-    // addLike(post.id).then(() => {});
-  };
-
-  const deleteLikeApp = () => {
-    // deleteLike(post.id).then(() => {});
-  };
-
-  const checkUserLike = () => {
-    setIsLiked(post.likes.some((like) => like.id === userContext.user.id));
-  };
-
-  const onLike = () => {
-    if (isLiked) {
-      deleteLikeApp();
-      post.likes.length--;
-    } else {
-      addLikeApp();
-      post.likes.length++;
-    }
-
-    // isLiked
-    //   ? (() => {
-    //       deleteLike();
-    //       post.likes.length--;
-    //     })()
-    //   : addLike();
-    setIsLiked(!isLiked);
-  };
-
   const postClick = () => {
     navigate("/post", { state: { post } });
     console.log("post clicked");
@@ -96,7 +60,7 @@ const Post = ({ post }: Props) => {
         </div>
       </div>
       <Comments
-        postId={post.id.toString()}
+        postId={post.id}
         opened={openComments}
         setOpened={setOpenComments}
       />

@@ -1,13 +1,16 @@
 import mongoose from "mongoose";
 
 export interface IPost {
-  title: string;
+  imgSrc: string;
   content: string;
   owner: string;
+  location: string;
+  isSold: boolean;
+  date: Date;
 }
 
 const postSchema = new mongoose.Schema<IPost>({
-  title: {
+  imgSrc: {
     type: String,
     required: true,
   },
@@ -15,6 +18,20 @@ const postSchema = new mongoose.Schema<IPost>({
   owner: {
     type: String,
     required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  isSold: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  date: {
+    type: Date,
+    required: true,
+    default: Date.now(),
   },
 });
 

@@ -32,12 +32,13 @@ export interface IUser {
   avatar: string;
 }
 export interface IPost {
-  id: number;
+  id: string;
   owner: IUser;
-  likes: IUser[];
   imgSrc: string;
   date: Date;
   isSold: boolean;
+  content?: string;
+  location?: string;
 }
 const user: IUser = {
   id: 1,
@@ -46,11 +47,10 @@ const user: IUser = {
     "https://i.pinimg.com/474x/db/08/0f/db080fceb9fa616315bd6f9c3b8a9632.jpg",
 };
 const post: IPost = {
-  id: 1,
+  id: "1",
   date: new Date(),
   imgSrc:
     "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
-  likes: [user],
   owner: user,
   isSold: true,
 };
