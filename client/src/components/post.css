@@ -1,16 +1,17 @@
 .card {
   display: flex;
-  border: #0000004a solid 1px;
+  border: #0000001c solid 1px;
   border-radius: 9px;
   height: 55vh;
+  margin: 12px;
   width: 40vw;
   flex-direction: column;
+  position: relative;
 }
 
 .location {
   display: flex;
-  /* border-bottom: #0000004a solid 1px; */
-  height: 10vh; /* Increased to allow space for text */
+  height: 10vh;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
@@ -25,7 +26,7 @@
 
 .post-img {
   width: 100%;
-  height: 35vh; /* Adjusted to take up space within the card */
+  height: 35vh;
   object-fit: cover;
 }
 
@@ -50,18 +51,20 @@
 }
 
 .owner-img {
-  height: 100%; /* Ensure the image takes the full height of the circle */
-  width: 100%; /* Ensure the image takes the full width of the circle */
-  object-fit: cover; /* To maintain aspect ratio */
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .owner-name {
   font-size: small;
   font-weight: bold;
+  margin: 2px;
 }
 
 .post-text {
   font-size: small;
+  margin: 2px;
 }
 
 .text {
@@ -72,64 +75,22 @@
   padding: 10px;
 }
 
-.text p {
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Optional: reset padding if needed */
-}
-
 .price {
   margin-left: 20vw;
   margin-right: 10px;
 }
-/* .card {
-  display: flex
-  border: #0000004a solid 1px;
-  border-radius: 9px;
-  height: 45vh;
-  width: 65vw;
-  flex-direction: column;
-}
-.location {
-  display: flex;
-  border-bottom: #0000004a solid 1px;
-  height: 4vh;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 15px;
-  overflow: hidden;
-}
-.title {
-  color: black;
-  margin-left: 8px;
-}
 
-.post-img {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: cover;
+.sold-badge {
+  position: absolute;
+  top: 10px;
+  right: -1px;
+  background-color: #d9534f;
+  color: white;
+  font-weight: bold;
+  font-size: 8px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); */
+  transform: rotate(40deg);
+  z-index: 0;
 }
-
-.owner-details {
-  display: flex;
-  border-bottom: #0000004a solid 1px;
-  height: 15vh;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 15px;
-  overflow: hidden;
-}
-.circle {
-  border-radius: 50%;
-  height: 50px;
-  width: 50px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.owner-img {
-  height: -webkit-fill-available;
-} */
