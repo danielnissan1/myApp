@@ -37,6 +37,7 @@
   margin-bottom: 8px;
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
 }
 
 .comment-header {
