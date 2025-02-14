@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { SwipeableDrawer } from "@mui/material";
 import "./comments.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 interface Comment {
   id: string;
@@ -69,6 +71,7 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
       open={opened}
       onOpen={toggleDrawer}
       onClose={toggleDrawer}
+      PaperProps={{ style: { borderRadius: "12px 12px 0 0" } }}
     >
       <div className="comments-content">
         {/* <h2 className="title">Comments</h2> */}
@@ -98,7 +101,7 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
             className="comment-input"
           />
           <button type="submit" className="submit-button">
-            Post Comment
+            <FontAwesomeIcon icon={faArrowUp} />
           </button>
         </form>
       </div>
