@@ -7,6 +7,7 @@ export interface IPost {
   location: string;
   isSold: boolean;
   date: Date;
+  price: number;
 }
 
 const postSchema = new mongoose.Schema<IPost>({
@@ -32,6 +33,10 @@ const postSchema = new mongoose.Schema<IPost>({
     type: Date,
     required: true,
     default: Date.now(),
+  },
+  price: {
+    type: Number,
+    required: true,
   },
 });
 

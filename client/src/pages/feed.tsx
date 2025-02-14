@@ -19,35 +19,9 @@ const user: IUser = {
   avatar:
     "https://i.pinimg.com/474x/db/08/0f/db080fceb9fa616315bd6f9c3b8a9632.jpg",
 };
-const posts: IPost[] = [
-  {
-    id: "1",
-    date: new Date(),
-    imgSrc:
-      "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
-    owner: user,
-    isSold: true,
-  },
-  {
-    id: "2",
-    date: new Date(),
-    imgSrc:
-      "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
-    owner: user,
-    isSold: true,
-  },
-  {
-    id: "3",
-    date: new Date(),
-    imgSrc:
-      "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
-    owner: user,
-    isSold: true,
-  },
-];
 
 const Feed = ({}: Props) => {
-  const [allposts, setPosts] = useState<IPost[]>(posts);
+  const [allposts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => console.log("here"), []);
 

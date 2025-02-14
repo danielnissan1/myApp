@@ -37,22 +37,15 @@ export interface IPost {
   imgSrc: string;
   date: Date;
   isSold: boolean;
-  content?: string;
-  location?: string;
+  content: string;
+  location: string;
+  price: number;
 }
 const user: IUser = {
   id: 1,
   userName: "Kermit",
   avatar:
     "https://i.pinimg.com/474x/db/08/0f/db080fceb9fa616315bd6f9c3b8a9632.jpg",
-};
-const post: IPost = {
-  id: "1",
-  date: new Date(),
-  imgSrc:
-    "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
-  owner: user,
-  isSold: true,
 };
 
 function App() {
