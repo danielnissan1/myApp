@@ -1,14 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import Post from "../components/post";
 import { IPost, IUser } from "../App";
-import { instance } from "../App";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import TopBar from "../components/Bars/topbar";
+import BottomNavbar from "../components/Bars/bottomNavbar";
 
 interface Props {}
 
@@ -75,11 +70,20 @@ const Feed = ({}: Props) => {
   }, []);
 
   return (
-    <div className="Home">
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <TopBar />
       {allposts.map((currPost) => (
         <Post key={currPost.id} post={currPost} />
       ))}
-    </div>
+      <BottomNavbar />
+    </Box>
   );
 };
 

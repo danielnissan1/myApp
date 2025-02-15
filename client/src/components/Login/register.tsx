@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Box,
   Button,
   FormControl,
   InputAdornment,
@@ -10,6 +11,8 @@ import { FieldValues, useForm } from "react-hook-form";
 import { AccountCircle, Email, Home, Lock, Phone } from "@mui/icons-material";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
+import { RoutesValues } from "../../consts/routes";
 
 const schema = z.object({
   username: z.string().refine((value) => /^[A-Z]/.test(value), {
@@ -45,119 +48,135 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<formData>({ resolver: zodResolver(schema) });
+  const navigate = useNavigate();
 
-  //TODO
   const onSignUp = (data: FieldValues) => {
-    console.log(data);
+    //TODO
+    // console.log(data);
+    navigate(RoutesValues.HOME);
   };
 
   return (
-    <FormControl
-      fullWidth
-      sx={{
-        width: "400px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
     >
-      <Typography variant="h4" mt="40px">
-        Yad Shniya
-      </Typography>
-      <Typography>Let's sign up!</Typography>
-      <form onSubmit={handleSubmit(onSignUp)}>
-        <TextField
-          fullWidth
-          sx={{ margin: "20px" }}
-          label="username"
-          {...register("username", { required: true, minLength: 9 })}
-          required={true}
-          error={!!errors.username}
-          helperText={errors.username ? errors.username.message : ""}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AccountCircle />
-              </InputAdornment>
-            ),
-          }}
-          variant="standard"
-        ></TextField>
-        <TextField
-          fullWidth
-          sx={{ margin: "20px" }}
-          label="password"
-          {...register("password", { required: true })}
-          required={true}
-          error={!!errors.password}
-          helperText={errors.password ? errors.password.message : ""}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Lock />
-              </InputAdornment>
-            ),
-          }}
-          variant="standard"
-        ></TextField>
-        <TextField
-          fullWidth
-          sx={{ margin: "20px" }}
-          label="email"
-          {...register("email")}
-          required={true}
-          error={!!errors.email}
-          helperText={errors.email ? errors.email.message : ""}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Email />
-              </InputAdornment>
-            ),
-          }}
-          variant="standard"
-        ></TextField>
-        <TextField
-          fullWidth
-          sx={{ margin: "20px" }}
-          label="phone number"
-          {...register("phoneNumber")}
-          required={true}
-          error={!!errors.phoneNumber}
-          helperText={errors.phoneNumber ? errors.phoneNumber.message : ""}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Phone />
-              </InputAdornment>
-            ),
-          }}
-          variant="standard"
-        ></TextField>
-        <TextField
-          fullWidth
-          sx={{ margin: "20px" }}
-          label="address"
-          {...register("address")}
-          required={true}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Home />
-              </InputAdornment>
-            ),
-          }}
-          variant="standard"
-        ></TextField>
-        <Button
-          variant="outlined"
-          type="submit"
-          sx={{ width: "150px", mt: "10px" }}
-        >
-          sign up
-        </Button>
-      </form>
-    </FormControl>
+      <FormControl
+        fullWidth
+        sx={{
+          width: "400px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h4" mt="40px">
+          Yad Shniya
+        </Typography>
+        <Typography>Let's sign up!</Typography>
+        <form onSubmit={handleSubmit(onSignUp)}>
+          <TextField
+            fullWidth
+            sx={{ margin: "20px" }}
+            label="username"
+            {...register("username", { required: true, minLength: 9 })}
+            required={true}
+            error={!!errors.username}
+            helperText={errors.username ? errors.username.message : ""}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              ),
+            }}
+            variant="standard"
+          ></TextField>
+          <TextField
+            fullWidth
+            sx={{ margin: "20px" }}
+            label="password"
+            {...register("password", { required: true })}
+            required={true}
+            error={!!errors.password}
+            helperText={errors.password ? errors.password.message : ""}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock />
+                </InputAdornment>
+              ),
+            }}
+            variant="standard"
+          ></TextField>
+          <TextField
+            fullWidth
+            sx={{ margin: "20px" }}
+            label="email"
+            {...register("email")}
+            required={true}
+            error={!!errors.email}
+            helperText={errors.email ? errors.email.message : ""}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Email />
+                </InputAdornment>
+              ),
+            }}
+            variant="standard"
+          ></TextField>
+          <TextField
+            fullWidth
+            sx={{ margin: "20px" }}
+            label="phone number"
+            {...register("phoneNumber")}
+            required={true}
+            error={!!errors.phoneNumber}
+            helperText={errors.phoneNumber ? errors.phoneNumber.message : ""}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Phone />
+                </InputAdornment>
+              ),
+            }}
+            variant="standard"
+          ></TextField>
+          <TextField
+            fullWidth
+            sx={{ margin: "20px" }}
+            label="address"
+            {...register("address")}
+            required={true}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Home />
+                </InputAdornment>
+              ),
+            }}
+            variant="standard"
+          ></TextField>
+          <Box display="flex" justifyContent="center" mt="10px">
+            <Button
+              type="submit"
+              sx={{
+                width: "200px",
+                mt: "10px",
+                backgroundColor: "#ebe2e2",
+                color: "black",
+                margin: "0 auto",
+              }}
+            >
+              sign up
+            </Button>
+          </Box>
+        </form>
+      </FormControl>
+    </Box>
   );
 };
 export default Register;
