@@ -77,16 +77,16 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/" element={<Feed />} />
             </>
-          )} */}
+          )}
 
-        {/* <Route path="/login" element={<Login />} /> */}
-        {/* </Routes> */}
+      <Route path="/login" element={<Login />} />
+      </Routes>
       </div>
       <Post post={post}></Post>
       <Comments postId={post.id.toString()} />
 
       <div className="navbar">
-        <NavBar />
+        <NavBar /> */}
       </div>
     </div>
   );
