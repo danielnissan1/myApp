@@ -12,25 +12,26 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { RoutesValues } from "../../consts/routes";
 import hangerImage from "/Users/noa/Desktop/Projects/Degree/webApplications/firstAssignment/myApp/client/src/assets/hanger.jpg";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
-  //   const handleMouseDownPassword = (
-  //     event: React.MouseEvent<HTMLButtonElement>
-  //   ) => {
-  //     event.preventDefault();
-  //   };
-
-  //   const handleMouseUpPassword = (
-  //     event: React.MouseEvent<HTMLButtonElement>
-  //   ) => {
-  //     event.preventDefault();
-  //   };
+  const login = () => {
+    //TODO auth
+    navigate(RoutesValues.HOME);
+  };
 
   return (
-    <FormControl>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+    >
       <Box
         display="flex"
         justifyContent="center"
@@ -53,8 +54,6 @@ const Login = () => {
               <InputAdornment position="end">
                 <IconButton
                   onClick={() => setShowPassword(!showPassword)}
-                  //   onMouseDown={handleMouseDownPassword}
-                  //   onMouseUp={handleMouseUpPassword}
                   edge="end"
                 >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -65,14 +64,31 @@ const Login = () => {
           />
         </FormControl>
       </Box>
-      <Button sx={{ mt: "30px" }} variant="contained">
+      <Button
+        sx={{
+          mt: "30px",
+          width: "450px",
+          backgroundColor: "#ebe2e2",
+          color: "black",
+        }}
+        onClick={login}
+      >
         Login
       </Button>
       <Box display="flex" justifyContent="center" alignItems="center" mt="5px">
         <Typography>Don't have an account?</Typography>
-        <Button>Sign up</Button>
+        <Button
+          sx={{
+            color: "rgb(192, 160, 160)",
+            borderColor: "black",
+            fontWeight: "bold",
+          }}
+          onClick={() => navigate(RoutesValues.REGISTER)}
+        >
+          Sign up
+        </Button>
       </Box>
-    </FormControl>
+    </Box>
   );
 };
 

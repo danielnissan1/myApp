@@ -8,19 +8,23 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import HomeIcon from "@mui/icons-material/Home";
 import Avatar from "@mui/material/Avatar";
-import "./navbar.css";
 import Container from "@mui/material/Container";
 
 import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = ({}) => {
   const [value, setValue] = React.useState(0);
-
   const navigate = useNavigate();
 
   return (
-    // <Box sx={{ width: 100% }}>
-    <Container fixed>
+    <Box
+      sx={{
+        position: "sticky",
+        bottom: 0,
+        zIndex: 1000,
+        width: "100%",
+      }}
+    >
       <BottomNavigation
         showLabels
         value={value}
@@ -36,14 +40,12 @@ const NavBar = ({}) => {
 
         <BottomNavigationAction
           className="nav-icon"
-          //   label="Add Post"
           icon={<AddPhotoAlternateIcon />}
           onClick={() => navigate("/new_post")}
         />
 
         <BottomNavigationAction
           className="nav-icon"
-          //   label="Nearby"
           icon={
             <Avatar
               alt="Remy Sharp"
@@ -54,8 +56,7 @@ const NavBar = ({}) => {
           onClick={() => navigate("/profile")}
         />
       </BottomNavigation>
-      {/* </Box> */}
-    </Container>
+    </Box>
   );
 };
 
