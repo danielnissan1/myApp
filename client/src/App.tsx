@@ -12,6 +12,8 @@ import axios from "axios";
 import Login from "./pages/login";
 import { useNavigate } from "react-router-dom";
 import { Comments } from "./components/comments";
+import PostPage from "./pages/postPage";
+import TopBar from "./components/topbar";
 
 // const navigate = useNavigate();
 
@@ -35,6 +37,7 @@ export interface IPost {
   likes: IUser[];
   imgSrc: string;
   date: Date;
+  isSold: boolean;
 }
 const user: IUser = {
   id: 1,
@@ -49,6 +52,7 @@ const post: IPost = {
     "https://i.pinimg.com/474x/ed/69/55/ed6955fe79e587d6f648f82c2e445dd4.jpg",
   likes: [user],
   owner: user,
+  isSold: true,
 };
 
 function App() {
@@ -67,23 +71,24 @@ function App() {
 
   return (
     <div className="App">
+      <TopBar />
       <div className="pages">
-        {/* <Routes>
-          {!user.id ? (
-            <Route path="/*" element={<Navigate to="/login" />} />
-          ) : (
-            <>
-              <Route path="/new_post" element={<NewPost />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/" element={<Feed />} />
-            </>
-          )}
-
-      <Route path="/login" element={<Login />} />
-      </Routes>
+        <Routes>
+          {/* {!user.id ? ( */}
+          {/* // <Route path="/*" element={<Navigate to="/login" />} /> */}
+          {/* // ) : ( */}
+          <>
+            {/* <Route path="/new_post" element={<NewPost />} /> */}
+            {/* <Route path="/profile" element={<Profile />} /> */}
+            <Route path="/" element={<Feed />} />
+            <Route path="/post" element={<PostPage />} />{" "}
+            {/* Add PostPage route */}
+          </>
+          {/* )} */}
+        </Routes>
       </div>
-      <Post post={post}></Post>
-      <Comments postId={post.id.toString()} />
+      {/* <Post post={post}></Post>
+      <Comments postId={post.id.toString()} /> */}
 
       <div className="navbar">
         <NavBar /> */}

@@ -4,21 +4,18 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.content {
+.comments-containe {
+  margin: auto;
   position: fixed;
-  inset-x: 0;
-  bottom: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   height: 50vh;
   background-color: white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.comments-container {
-  padding: 16px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  border-radius: 10px 10px 0 0;
+  padding: 20px;
+  width: 90%; /* Adjust the width as needed */
+  max-width: 600px; /* Set a maximum width */
 }
 
 .title {
@@ -35,14 +32,14 @@
 .comment-card {
   border: 1px solid #e5e5e5;
   border-radius: 8px;
-  margin-bottom: 16px;
-  padding: 16px;
+  margin-bottom: 10px;
+  padding: 10px;
 }
 
 .comment-header {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .comment-avatar {

@@ -5,6 +5,9 @@ import { instance } from "../App";
 import { UserContext } from "../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faLocationDot } from "@fortawesome/free-solid-svg-icons"; // Import the location icon
+import { useNavigate } from "react-router-dom";
+import { Comments } from "./comments";
+import Sold from "./sold";
 
 interface Props {
   post: IPost;
@@ -12,8 +15,10 @@ interface Props {
 
 const Post = ({ post }: Props) => {
   const userContext = useContext(UserContext);
+  const navigate = useNavigate();
 
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [openComments, setOpenComments] = useState<boolean>(false);
 
   useEffect(() => {
     checkUserLike();
@@ -50,6 +55,11 @@ const Post = ({ post }: Props) => {
     //   : addLike();
     setIsLiked(!isLiked);
   };
+
+  const postClick = () => {
+    navigate("/post", { state: { post } });
+    console.log("post clicked");
+  };
   //   const allTasks = tasks;
 
   return (
@@ -60,8 +70,16 @@ const Post = ({ post }: Props) => {
         <div className="location">
           <FontAwesomeIcon icon={faLocationDot} />
           <p className="title">Tel Aviv</p>
+          <div className="sold-badge">
+            <span className="sold-text">SOLD</span>
+          </div>
         </div>
-        <img className="post-img" src={post.imgSrc} alt="" />
+        <img
+          className="post-img"
+          src={post.imgSrc}
+          alt=""
+          // onClick={postClick}
+        />
         <div className="owner-details">
           <div className="circle">
             <img className="owner-img" src={post.owner.avatar} alt="" />
@@ -71,9 +89,17 @@ const Post = ({ post }: Props) => {
             <p className="post-text">my old pants</p>
           </div>
           <p className="price">20₪</p>
-          <FontAwesomeIcon icon={faComment} />
+          <FontAwesomeIcon
+            icon={faComment}
+            onClick={() => setOpenComments((prev) => !prev)}
+          />
         </div>
       </div>
+      <Comments
+        postId={post.id.toString()}
+        opened={openComments}
+        setOpened={setOpenComments}
+      />
       {/* <Card sx={{ width: 345 }}>
         <CardHeader
           avatar={<Avatar alt={post.owner.userName} src={post.owner.avatar} />}
