@@ -91,7 +91,7 @@ function App() {
       <Comments postId={post.id.toString()} /> */}
 
       <div className="navbar">
-        <NavBar />
+        <NavBar /> */}
       </div>
     </div>
   );
