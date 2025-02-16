@@ -70,6 +70,9 @@ const Login = () => {
           width: "450px",
           backgroundColor: "#ebe2e2",
           color: "black",
+          "&:hover": {
+            backgroundColor: "rgb(229, 212, 212)",
+          },
         }}
         onClick={login}
       >
@@ -82,6 +85,10 @@ const Login = () => {
             color: "rgb(192, 160, 160)",
             borderColor: "black",
             fontWeight: "bold",
+            "&:hover": {
+              backgroundColor: "transparent",
+              transform: "scale(1.1)",
+            },
           }}
           onClick={() => navigate(RoutesValues.REGISTER)}
         >

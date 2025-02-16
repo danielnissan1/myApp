@@ -48,6 +48,7 @@ const post: IPost = {
   isSold: true,
 };
 
+//maybe add the topbar+botoombar here above the right routes
 function App() {
   return (
     <Routes>

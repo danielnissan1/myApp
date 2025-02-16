@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../../consts/routes";
+import hangerImage from "/Users/noa/Desktop/Projects/Degree/webApplications/firstAssignment/myApp/client/src/assets/hanger.jpg";
 
 const schema = z.object({
   username: z.string().refine((value) => /^[A-Z]/.test(value), {
@@ -72,10 +73,7 @@ const Register = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h4" mt="40px">
-          Yad Shniya
-        </Typography>
-        <Typography>Let's sign up!</Typography>
+        <img src={hangerImage} width={"150px"} />
         <form onSubmit={handleSubmit(onSignUp)}>
           <TextField
             fullWidth
@@ -169,6 +167,9 @@ const Register = () => {
                 backgroundColor: "#ebe2e2",
                 color: "black",
                 margin: "0 auto",
+                "&:hover": {
+                  backgroundColor: "rgb(229, 212, 212)",
+                },
               }}
             >
               sign up
