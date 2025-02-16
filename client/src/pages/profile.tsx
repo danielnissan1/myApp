@@ -60,7 +60,7 @@ const Profile = ({}: Props) => {
 
         <div className="posts">
           {userPosts.map((currPost) => (
-            <Post key={currPost.id} post={currPost} />
+            <Post key={currPost._id} post={currPost} />
           ))}
         </div>
       </div>

@@ -18,6 +18,8 @@ const Post = ({ post }: Props) => {
 
   const postClick = () => navigate("/post", { state: { post } });
 
+  console.log(post);
+
   return (
     <div className="card">
       <div className="location">
@@ -50,7 +52,7 @@ const Post = ({ post }: Props) => {
       </div>
       {openComments && (
         <Comments
-          postId={post.id}
+          postId={post._id}
           opened={openComments}
           setOpened={setOpenComments}
         />

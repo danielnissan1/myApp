@@ -32,7 +32,7 @@ export interface IUser {
   avatar: string;
 }
 export interface IPost {
-  id: string;
+  _id: string;
   owner: IUser;
   imgSrc: string;
   date: Date;
@@ -71,7 +71,7 @@ function App() {
           {/* // <Route path="/*" element={<Navigate to="/login" />} /> */}
           {/* // ) : ( */}
           <>
-            {/* <Route path="/new_post" element={<NewPost />} /> */}
+            <Route path="/new_post" element={<NewPost />} />
             {/* <Route path="/profile" element={<Profile />} /> */}
             <Route path="/" element={<Feed />} />
             <Route path="/post" element={<PostPage />} />{" "}

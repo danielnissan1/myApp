@@ -1,69 +1,92 @@
-import React, { FC, useEffect, useState, useContext } from "react";
-import TextField from "@mui/material/TextField";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { IPost, instance } from "../App";
-import { UserContext } from "../context";
-import Button from "@mui/material/Button";
-import { off } from "process";
-// import { postNewPost } from "../services/postService";
+import React, { useState } from "react";
+import {
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+} from "@mui/material";
+import "./newpost.css";
 
-interface Props {}
-const NewPost = ({}: Props) => {
-  const [postSrc, setPostSrc] = useState<string>("");
-  const user = useContext(UserContext);
+const NewPost = () => {
+  const [image, setImage] = useState<File | null>(null);
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [price, setPrice] = useState("");
 
-  // const postNewPost = () => {
-  //   instance
-  //     .post(`/posts/new_post`, {
-  //       // user: user,
-  //       imgSrc: postSrc,
-  //     })
-  //     .then((res: any) => {
-  //       // handle success
-  //       console.log(res.data);
-  //     })
-  //     .catch((error: any) => {
-  //       // handle error
-  //       console.log(error);
-  //     })
-  //     .finally(() => {
-  //       // always executed
-  //     });
-  // };
-
-  const newPostApp = () => {
-    // postNewPost(postSrc).then(() => {});
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
   };
-  const updateSrc = (newSrc: string) => {
-    console.log(newSrc);
-    setPostSrc(newSrc);
+
+  const handleSubmit = () => {
+    if (!image || !description || !location || !price) {
+      alert("Please fill all fields and upload an image");
+      return;
+    }
+    const newPost = { image, description, location, price };
+    console.log("New Post Submitted:", newPost);
   };
 
   return (
-    <div className="addPost">
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              New Post
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </Box>
-
-      <TextField
-        id="filled-password-input"
-        label="Image URL"
-        autoComplete="off"
-        variant="filled"
-        onChange={(e) => {
-          updateSrc(e.target.value);
-        }}
-      />
-      <Button onClick={newPostApp}>Post</Button>
+    <div className="new-post-container">
+      <Card className="new-post-card">
+        <CardContent>
+          <Typography variant="h5" className="title">
+            Create a New Post
+          </Typography>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="file-input"
+          />
+          {image && (
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Preview"
+              className="image-preview"
+            />
+          )}
+          <TextField
+            label="Description"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={3}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="input-field"
+          />
+          <TextField
+            label="Location"
+            variant="outlined"
+            fullWidth
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="input-field"
+          />
+          <TextField
+            label="Price (₪)"
+            variant="outlined"
+            fullWidth
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            className="input-field"
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleSubmit}
+            className="submit-button"
+          >
+            Submit
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 };

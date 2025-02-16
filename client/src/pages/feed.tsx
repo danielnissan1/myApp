@@ -55,7 +55,7 @@ const Feed = ({}: Props) => {
   return (
     <div className="Home">
       {allposts.map((currPost) => (
-        <Post key={currPost.id} post={currPost} />
+        <Post key={currPost._id} post={currPost} />
       ))}
     </div>
   );
