@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import logo from "./logo.svg";
-import Post from "./components/post";
-import UserProvider, { UserContext } from "./context";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Feed from "./pages/feed";
 import Profile from "./pages/profile";
 import NewPost from "./pages/newPost";
-import NavBar from "./components/navbar";
+import PostPage from "./pages/postPage";
+import Login from "./components/Login/login";
+import Register from "./components/Login/register";
 import "./App.css";
 import axios from "axios";
-import Login from "./pages/login";
-import { useNavigate } from "react-router-dom";
-import { Comments } from "./components/comments";
-import PostPage from "./pages/postPage";
-import TopBar from "./components/topbar";
-
-// const navigate = useNavigate();
+import { RoutesValues } from "./consts/routes";
+import NavBar from "./components/Bars/bottomNavbar";
+import TopBar from "./components/Bars/topbar";
 
 const baseURL = "http://localhost:3001";
 export const instance = axios.create({
@@ -48,40 +43,21 @@ const user: IUser = {
     "https://i.pinimg.com/474x/db/08/0f/db080fceb9fa616315bd6f9c3b8a9632.jpg",
 };
 
+//maybe add the topbar+botoombar here above the right routes
 function App() {
-  // const [users, setUserss] = useState<IUser[]>([
-  //   {
-  //     id: 1,
-  //     name: "Ariel",
-  //     avatar:
-  //       "C:UsersקורלDocumentsinstagram\frontend-Instagram\frontsrcariel.jpg",
-  //   },
-  // ]);
-
-  // navigate("/login");
-
-  const { user } = React.useContext(UserContext);
-
   return (
     <div className="App">
       <TopBar />
       <div className="pages">
         <Routes>
-          {/* {!user.id ? ( */}
-          {/* // <Route path="/*" element={<Navigate to="/login" />} /> */}
-          {/* // ) : ( */}
-          <>
-            <Route path="/new_post" element={<NewPost />} />
-            {/* <Route path="/profile" element={<Profile />} /> */}
-            <Route path="/" element={<Feed />} />
-            <Route path="/post" element={<PostPage />} />{" "}
-            {/* Add PostPage route */}
-          </>
-          {/* )} */}
+          <Route path={RoutesValues.LOGIN} element={<Login />}></Route>
+          <Route path={RoutesValues.REGISTER} element={<Register />}></Route>
+          <Route path={RoutesValues.HOME} element={<Feed />}></Route>
+          <Route path={RoutesValues.POSTS} element={<PostPage />}></Route>
+          <Route path={RoutesValues.PROFILE} element={<Profile />}></Route>
+          <Route path={RoutesValues.NEW_POST} element={<NewPost />}></Route>
         </Routes>
       </div>
-      {/* <Post post={post}></Post>
-      <Comments postId={post.id.toString()} /> */}
 
       <div className="navbar">
         <NavBar />
