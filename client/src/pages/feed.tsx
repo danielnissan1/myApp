@@ -46,7 +46,7 @@ const posts: IPost[] = [
 const Feed = ({}: Props) => {
   const [allposts, setPosts] = useState<IPost[]>(posts);
 
-  useEffect(() => console.log("here"), []);
+  // useEffect(() => console.log("here"), []);
 
   useEffect(() => {
     const getPosts = () => {

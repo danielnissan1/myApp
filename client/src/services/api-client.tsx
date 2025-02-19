@@ -1,8 +1,9 @@
-import axios from "axios";
+import axios, { CanceledError } from "axios";
 
 const baseURL = "http://localhost:3001";
 
-export const instance = axios.create({
+export { CanceledError };
+export const apiClient = axios.create({
   baseURL,
   headers: {
     "Access-Control-Allow-Origin": "*",
