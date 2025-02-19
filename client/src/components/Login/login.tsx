@@ -37,9 +37,9 @@ const Login = () => {
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
-        width={"450px"}
+        width={"28rem"}
       >
-        <img src={hangerImage} width={"300px"} />
+        <img src={hangerImage} width={"300rem"} />
         <TextField
           sx={{ margin: "20px", width: "100%" }}
           label="username"
