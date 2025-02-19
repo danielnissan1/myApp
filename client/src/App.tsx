@@ -47,21 +47,19 @@ const user: IUser = {
 function App() {
   return (
     <div className="App">
-      <TopBar />
-      <div className="pages">
-        <Routes>
-          <Route path={RoutesValues.LOGIN} element={<Login />}></Route>
-          <Route path={RoutesValues.REGISTER} element={<Register />}></Route>
-          <Route path={RoutesValues.HOME} element={<Feed />}></Route>
-          <Route path={RoutesValues.POSTS} element={<PostPage />}></Route>
-          <Route path={RoutesValues.PROFILE} element={<Profile />}></Route>
-          <Route path={RoutesValues.NEW_POST} element={<NewPost />}></Route>
-        </Routes>
-      </div>
+      {/* <TopBar /> */}
+      {/* <div className="pages"> */}
+      <Routes>
+        <Route path={RoutesValues.LOGIN} element={<Login />}></Route>
+        <Route path={RoutesValues.REGISTER} element={<Register />}></Route>
+        <Route path={RoutesValues.HOME} element={<Feed />}></Route>
+        <Route path={RoutesValues.POSTS} element={<PostPage />}></Route>
+        <Route path={RoutesValues.PROFILE} element={<Profile />}></Route>
+        <Route path={RoutesValues.NEW_POST} element={<NewPost />}></Route>
+      </Routes>
+      {/* </div> */}
 
-      <div className="navbar">
-        <NavBar />
-      </div>
+      {/* <div className="navbar"><NavBar /></div> */}
     </div>
   );
 }

@@ -32,7 +32,7 @@ const Post = ({ post }: Props) => {
         <div className="circle">
           <img
             className="owner-img"
-            src={post.owner.avatar}
+            src={post.owner.avatar || "../assets/default-avatar.png"}
             alt="Owner avatar"
           />
         </div>

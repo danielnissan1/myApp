@@ -16,6 +16,26 @@ class PostsController extends BaseController<IPost> {
     req.body = post;
     super.create(req, res);
   }
+
+  async getAllPosts(req: Request, res: Response) {
+    const filter = req.query.owner;
+    try {
+      if (filter) {
+        const posts = await postModel
+          .find()
+          .populate("owner", "username avatar");
+        res.send(posts);
+      } else {
+        const items = await this.model
+          .find()
+          .populate("owner", "avatar")
+          .lean();
+        res.send(items);
+      }
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
 }
 
 export default new PostsController();

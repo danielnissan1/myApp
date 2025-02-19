@@ -1,23 +1,24 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 export interface IPost {
   imgSrc: string;
   content: string;
-  owner: string;
+  owner: Types.ObjectId; // Reference to User
   location: string;
   isSold: boolean;
   date: Date;
   price: number;
 }
 
-const postSchema = new mongoose.Schema<IPost>({
+const postSchema = new Schema<IPost>({
   imgSrc: {
     type: String,
     required: true,
   },
   content: String,
   owner: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "Users", // Reference to Users collection
     required: true,
   },
   location: {
@@ -32,7 +33,7 @@ const postSchema = new mongoose.Schema<IPost>({
   date: {
     type: Date,
     required: true,
-    default: Date.now(),
+    default: Date.now,
   },
   price: {
     type: Number,
