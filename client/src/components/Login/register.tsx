@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../../consts/routes";
-import hangerImage from "/Users/noa/Desktop/Projects/Degree/webApplications/firstAssignment/myApp/client/src/assets/hanger.jpg";
+import hangerImage from "../../assets/hanger.jpg";
 import axios from "axios";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 

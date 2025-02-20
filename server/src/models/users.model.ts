@@ -2,8 +2,10 @@ import mongoose, { Types } from "mongoose";
 
 export interface IUser {
   _id?: Types.ObjectId;
+  username: string;
   email: string;
   password: string;
+  avatar: string;
   refreshToken?: string[];
 }
 
@@ -14,6 +16,14 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   password: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  avatar: {
     type: String,
     required: true,
   },

@@ -45,7 +45,7 @@ const Profile = ({}: Props) => {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              {userContext.user.userName}
+              {userContext.user.username}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -53,14 +53,14 @@ const Profile = ({}: Props) => {
 
       <div className="prof">
         <Avatar
-          alt={userContext.user.userName}
+          alt={userContext.user.username}
           src={userContext.user.avatar}
           sx={{ width: 56, height: 56 }}
         />
 
         <div className="posts">
           {userPosts.map((currPost) => (
-            <Post key={currPost.id} post={currPost} />
+            <Post key={currPost._id} post={currPost} />
           ))}
         </div>
       </div>

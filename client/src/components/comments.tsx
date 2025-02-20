@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { SwipeableDrawer } from "@mui/material";
 import "./comments.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { IUser } from "../App";
 
 interface Comment {
   id: string;
-  username: string;
-  content: string;
-  avatar?: string;
+  owner: IUser;
+  comment: string;
+  postId: string;
 }
 
 interface CommentsDialogProps {
@@ -20,31 +24,44 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
   const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
-    const dummyComments = [
-      {
-        id: "1",
-        username: "user2",
-        content: "Is this still available?",
-        avatar: "/placeholder.svg?height=40&width=40",
-      },
-      {
-        id: "2",
-        username: "user3",
-        content: "Great condition!",
-        avatar: "/placeholder.svg?height=40&width=40",
-      },
-    ];
-    setComments(dummyComments);
-  }, [postId]);
+    const getComments = () => {
+      axios
+        .get("http://localhost:3001/comments/" + postId)
+        .then((res) => setComments(res.data))
+        .catch((err) => console.error("CORS Error:", err));
+
+      // instance
+      //   .get("/posts")
+      //   .then((res: any) => {
+      //     // handle success
+      //     // console.log(res.data);
+      // setPosts(res.data);
+      //     // setPosts(res);
+      //   })
+      //   .catch((error: any) => {
+      //     // handle error
+      //     console.log(error);
+      //   })
+      //   .finally(() => {
+      //     // always executed
+      //   });
+      // // console.log(posts);
+    };
+    getComments();
+  }, []);
 
   const handleSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (newComment.trim()) {
-      const newCommentObj = {
+      const newCommentObj: Comment = {
         id: String(comments.length + 1),
-        username: "Anonymous",
-        content: newComment,
-        avatar: "/placeholder.svg?height=40&width=40",
+        owner: {
+          username: "Anonymous",
+          avatar: "/placeholder.svg",
+          id: 12345,
+        },
+        comment: newComment,
+        postId: postId,
       };
       setComments([...comments, newCommentObj]);
       setNewComment("");
@@ -62,6 +79,8 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
     }
   };
 
+  console.log(comments);
+
   return (
     <SwipeableDrawer
       classes={{ paper: "comments-containe" }}
@@ -69,6 +88,7 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
       open={opened}
       onOpen={toggleDrawer}
       onClose={toggleDrawer}
+      PaperProps={{ style: { borderRadius: "12px 12px 0 0" } }}
     >
       <div className="comments-content">
         {/* <h2 className="title">Comments</h2> */}
@@ -77,15 +97,15 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
             <div key={comment.id} className="comment-card">
               <div className="comment-header">
                 <img
-                  src={comment.avatar || "/placeholder.svg"}
-                  alt={comment.username}
+                  src={comment.owner.avatar || "/placeholder.svg"}
+                  alt={comment.owner.username}
                   width={40}
                   height={40}
                   className="comment-avatar"
                 />
-                <div className="comment-username">{comment.username}</div>
+                <div className="comment-username">{comment.owner.username}</div>
               </div>
-              <p className="comment-content">{comment.content}</p>
+              <p className="comment-content">{comment.comment}</p>
             </div>
           ))}
         </div>
@@ -98,7 +118,7 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
             className="comment-input"
           />
           <button type="submit" className="submit-button">
-            Post Comment
+            <FontAwesomeIcon icon={faArrowUp} />
           </button>
         </form>
       </div>

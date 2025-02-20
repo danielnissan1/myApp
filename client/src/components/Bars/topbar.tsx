@@ -1,5 +1,5 @@
 import React from "react";
-import hangerImage from "/Users/noa/Desktop/Projects/Degree/webApplications/firstAssignment/myApp/client/src/assets/hanger.jpg";
+import hangerImage from "../../assets/hanger.jpg";
 import { Box } from "@mui/material";
 
 const TopBar = () => {

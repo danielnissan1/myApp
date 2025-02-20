@@ -74,3 +74,6 @@ Content-Type: application/json
     "content" : "this is my updated comment",
     "postId" : "6750bda162e51099f2860616"
 }
+###
+
+DELETE http://localhost:3000/posts/6734b0c818a1cf8344804554

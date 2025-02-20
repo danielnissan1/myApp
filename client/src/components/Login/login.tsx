@@ -14,7 +14,7 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../../consts/routes";
-import hangerImage from "/Users/noa/Desktop/Projects/Degree/webApplications/firstAssignment/myApp/client/src/assets/hanger.jpg";
+import hangerImage from "../../assets/hanger.jpg";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
