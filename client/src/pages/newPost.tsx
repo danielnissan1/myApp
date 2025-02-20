@@ -5,10 +5,23 @@ import {
   Card,
   CardContent,
   Typography,
+  Box,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
 } from "@mui/material";
 import "./newpost.css";
+import NavBar from "../components/Bars/bottomNavbar";
+import TopBar from "../components/Bars/topbar";
+import { VisibilityOff, Visibility, LocationOn } from "@mui/icons-material";
+import { RoutesValues } from "../consts/routes";
+import login from "./login";
+import { useNavigate } from "react-router-dom";
 
-const NewPost = () => {
+const NewPost: React.FC = () => {
+  const navigate = useNavigate();
   const [image, setImage] = useState<File | null>(null);
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -27,67 +40,68 @@ const NewPost = () => {
     }
     const newPost = { image, description, location, price };
     console.log("New Post Submitted:", newPost);
+
+    navigate(RoutesValues.HOME);
   };
 
   return (
-    <div className="new-post-container">
-      <Card className="new-post-card">
-        <CardContent>
-          <Typography variant="h5" className="title">
-            Create a New Post
-          </Typography>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="file-input"
-          />
-          {image && (
-            <img
-              src={URL.createObjectURL(image)}
-              alt="Preview"
-              className="image-preview"
-            />
-          )}
-          <TextField
-            label="Description"
-            variant="outlined"
-            fullWidth
-            multiline
-            rows={3}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="input-field"
-          />
-          <TextField
-            label="Location"
-            variant="outlined"
-            fullWidth
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="input-field"
-          />
-          <TextField
-            label="Price (₪)"
-            variant="outlined"
-            fullWidth
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            className="input-field"
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={handleSubmit}
-            className="submit-button"
-          >
-            Submit
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
+    <>
+      <TopBar />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          paddingTop: "20px",
+        }}
+      >
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="inputfile"
+        ></input>
+        <TextField
+          sx={{ margin: "20px", width: "100%" }}
+          label="Description"
+        ></TextField>
+        <TextField
+          sx={{ margin: "20px", width: "100%" }}
+          label="Location"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LocationOn />
+              </InputAdornment>
+            ),
+          }}
+        ></TextField>
+
+        <TextField
+          sx={{ margin: "20px", width: "100%" }}
+          label="Price"
+          InputProps={{
+            startAdornment: <InputAdornment position="start">₪</InputAdornment>,
+          }}
+        />
+      </Box>
+      <Button
+        sx={{
+          mt: "30px",
+          width: "450px",
+          backgroundColor: "#ebe2e2",
+          color: "black",
+          "&:hover": {
+            backgroundColor: "rgb(229, 212, 212)",
+          },
+        }}
+        onClick={login}
+      >
+        Post
+      </Button>
+      <NavBar />
+    </>
   );
 };
 

@@ -49,20 +49,22 @@ const Feed = ({}: Props) => {
   }, []);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
+    <>
       <TopBar />
-      {allposts.map((currPost) => (
-        <Post key={currPost._id} post={currPost} />
-      ))}
-      <BottomNavbar />
-    </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        {allposts.map((currPost) => (
+          <Post key={currPost._id} post={currPost} />
+        ))}
+        <BottomNavbar />
+      </Box>
+    </>
   );
 };
 
