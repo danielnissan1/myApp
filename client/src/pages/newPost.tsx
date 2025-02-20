@@ -46,7 +46,6 @@ const NewPost: React.FC = () => {
 
   return (
     <>
-      <TopBar />
       <Box
         sx={{
           display: "flex",
@@ -100,7 +99,6 @@ const NewPost: React.FC = () => {
       >
         Post
       </Button>
-      <NavBar />
     </>
   );
 };
