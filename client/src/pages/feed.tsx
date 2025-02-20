@@ -2,10 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import Post from "../components/post";
 import { IPost, IUser } from "../App";
 import Box from "@mui/material/Box";
-
 import axios from "axios";
-import TopBar from "../components/Bars/topbar";
-import BottomNavbar from "../components/Bars/bottomNavbar";
 
 interface Props {}
 
@@ -18,8 +15,6 @@ const user: IUser = {
 
 const Feed = ({}: Props) => {
   const [allposts, setPosts] = useState<IPost[]>([]);
-
-  // useEffect(() => console.log("here"), []);
 
   useEffect(() => {
     const getPosts = () => {
@@ -57,11 +52,9 @@ const Feed = ({}: Props) => {
         flexDirection: "column",
       }}
     >
-      <TopBar />
       {allposts.map((currPost) => (
         <Post key={currPost._id} post={currPost} />
       ))}
-      <BottomNavbar />
     </Box>
   );
 };
