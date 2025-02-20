@@ -19,7 +19,9 @@ class CommentsController extends BaseController<IComments> {
     const id: string = req.params.id;
 
     try {
-      const item = await this.model.find({ postId: id });
+      const item = await this.model
+        .find({ postId: id })
+        .populate("owner", "username avatar");
       if (item != null) {
         res.send(item);
       } else {

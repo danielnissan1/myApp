@@ -23,7 +23,7 @@ export const instance = axios.create({
 
 export interface IUser {
   id: number;
-  userName: string;
+  username: string;
   avatar: string;
 }
 export interface IPost {
@@ -38,7 +38,7 @@ export interface IPost {
 }
 const user: IUser = {
   id: 1,
-  userName: "Kermit",
+  username: "Kermit",
   avatar:
     "https://i.pinimg.com/474x/db/08/0f/db080fceb9fa616315bd6f9c3b8a9632.jpg",
 };

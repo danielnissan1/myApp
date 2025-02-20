@@ -3,7 +3,7 @@ import mongoose, { Schema, Types } from "mongoose";
 export interface IPost {
   imgSrc: string;
   content: string;
-  owner: Types.ObjectId; // Reference to User
+  owner: Types.ObjectId;
   location: string;
   isSold: boolean;
   date: Date;
@@ -18,7 +18,7 @@ const postSchema = new Schema<IPost>({
   content: String,
   owner: {
     type: Schema.Types.ObjectId,
-    ref: "Users", // Reference to Users collection
+    ref: "Users",
     required: true,
   },
   location: {

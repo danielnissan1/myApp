@@ -4,10 +4,11 @@ import "./comments.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { IUser } from "../App";
 
 interface Comment {
   id: string;
-  owner: string;
+  owner: IUser;
   comment: string;
   postId: string;
 }
@@ -23,37 +24,42 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
   const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/comments/" + postId)
-      .then((res) => {
-        console.log("Comments:", res.data); // Logs the actual object
-        console.log("Post ID:", postId);
-      })
-      .catch((err) => console.error("CORS Error:", err));
+    const getComments = () => {
+      axios
+        .get("http://localhost:3001/comments/" + postId)
+        .then((res) => setComments(res.data))
+        .catch((err) => console.error("CORS Error:", err));
 
-    // const dummyComments = [
-    //   {
-    //     id: "1",
-    //     username: "user2",
-    //     content: "Is this still available?",
-    //     avatar: "/placeholder.svg?height=40&width=40",
-    //   },
-    //   {
-    //     id: "2",
-    //     username: "user3",
-    //     content: "Great condition!",
-    //     avatar: "/placeholder.svg?height=40&width=40",
-    //   },
-    // ];
-    // setComments(dummyComments);
-  }, [postId]);
+      // instance
+      //   .get("/posts")
+      //   .then((res: any) => {
+      //     // handle success
+      //     // console.log(res.data);
+      // setPosts(res.data);
+      //     // setPosts(res);
+      //   })
+      //   .catch((error: any) => {
+      //     // handle error
+      //     console.log(error);
+      //   })
+      //   .finally(() => {
+      //     // always executed
+      //   });
+      // // console.log(posts);
+    };
+    getComments();
+  }, []);
 
   const handleSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (newComment.trim()) {
       const newCommentObj: Comment = {
         id: String(comments.length + 1),
-        owner: "Anonymous",
+        owner: {
+          username: "Anonymous",
+          avatar: "/placeholder.svg",
+          id: 12345,
+        },
         comment: newComment,
         postId: postId,
       };
@@ -73,6 +79,8 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
     }
   };
 
+  console.log(comments);
+
   return (
     <SwipeableDrawer
       classes={{ paper: "comments-containe" }}
@@ -89,13 +97,13 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
             <div key={comment.id} className="comment-card">
               <div className="comment-header">
                 <img
-                  src={comment.owner || "/placeholder.svg"}
-                  alt={comment.owner}
+                  src={comment.owner.avatar || "/placeholder.svg"}
+                  alt={comment.owner.username}
                   width={40}
                   height={40}
                   className="comment-avatar"
                 />
-                <div className="comment-username">{comment.owner}</div>
+                <div className="comment-username">{comment.owner.username}</div>
               </div>
               <p className="comment-content">{comment.comment}</p>
             </div>
