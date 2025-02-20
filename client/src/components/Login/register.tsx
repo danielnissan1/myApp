@@ -14,11 +14,13 @@ import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../../consts/routes";
 import hangerImage from "../../assets/hanger.jpg";
+import axios from "axios";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 
 const schema = z.object({
-  username: z.string().refine((value) => /^[A-Z]/.test(value), {
-    message: "Username must start with a capital letter",
-  }),
+  // username: z.string().refine((value) => /^[A-Z]/.test(value), {
+  //   message: "Username must start with a capital letter",
+  // }),
   password: z
     .string()
     .min(5, "Password has to be at least 5 characters")
@@ -35,11 +37,11 @@ const schema = z.object({
       "Password must contain at least one capital letter, one andlowcase letter and numbers"
     ),
   email: z.string().email("Please enter a valid email address"),
-  phoneNumber: z
-    .string()
-    .length(10, "Please enter a valid phone number")
-    .startsWith("05", "Please enter a valid phone number"),
-  address: z.string(),
+  // phoneNumber: z
+  //   .string()
+  //   .length(10, "Please enter a valid phone number")
+  //   .startsWith("05", "Please enter a valid phone number"),
+  // address: z.string(),
 });
 type formData = z.infer<typeof schema>;
 
@@ -52,9 +54,27 @@ const Register = () => {
   const navigate = useNavigate();
 
   const onSignUp = (data: FieldValues) => {
-    //TODO
-    // console.log(data);
+    axios
+      .post("http://localhost:3001", {
+        email: data.email,
+        password: data.password,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     navigate(RoutesValues.HOME);
+  };
+
+  const onGoogleLoginSuccess = (credentialResponse: CredentialResponse) => {
+    console.log(credentialResponse);
+  };
+
+  const onGoogleLoginError = () => {
+    console.log("Error");
   };
 
   return (
@@ -75,9 +95,9 @@ const Register = () => {
       >
         <img src={hangerImage} width={"150px"} />
         <form onSubmit={handleSubmit(onSignUp)}>
-          <TextField
+          {/* <TextField
             fullWidth
-            sx={{ margin: "20px" }}
+            sx={{ margin: "20px", width: "400px"  }}
             label="username"
             {...register("username", { required: true, minLength: 9 })}
             required={true}
@@ -91,10 +111,10 @@ const Register = () => {
               ),
             }}
             variant="standard"
-          ></TextField>
+          ></TextField> */}
           <TextField
             fullWidth
-            sx={{ margin: "20px" }}
+            sx={{ margin: "20px", width: "400px" }}
             label="password"
             {...register("password", { required: true })}
             required={true}
@@ -111,7 +131,7 @@ const Register = () => {
           ></TextField>
           <TextField
             fullWidth
-            sx={{ margin: "20px" }}
+            sx={{ margin: "20px", width: "400px" }}
             label="email"
             {...register("email")}
             required={true}
@@ -126,9 +146,9 @@ const Register = () => {
             }}
             variant="standard"
           ></TextField>
-          <TextField
+          {/* <TextField
             fullWidth
-            sx={{ margin: "20px" }}
+            sx={{ margin: "20px", width: "400px"  }}
             label="phone number"
             {...register("phoneNumber")}
             required={true}
@@ -142,10 +162,10 @@ const Register = () => {
               ),
             }}
             variant="standard"
-          ></TextField>
-          <TextField
+          ></TextField> */}
+          {/* <TextField
             fullWidth
-            sx={{ margin: "20px" }}
+            sx={{ margin: "20px", width: "400px"  }}
             label="address"
             {...register("address")}
             required={true}
@@ -157,12 +177,12 @@ const Register = () => {
               ),
             }}
             variant="standard"
-          ></TextField>
+          ></TextField> */}
           <Box display="flex" justifyContent="center" mt="10px">
             <Button
               type="submit"
               sx={{
-                width: "200px",
+                width: "400px",
                 mt: "10px",
                 backgroundColor: "#ebe2e2",
                 color: "black",
@@ -174,6 +194,13 @@ const Register = () => {
             >
               sign up
             </Button>
+          </Box>
+          <Box display="flex" justifyContent="center" mt="10px">
+            <GoogleLogin
+              width={"400px"}
+              onSuccess={onGoogleLoginSuccess}
+              onError={onGoogleLoginError}
+            ></GoogleLogin>
           </Box>
         </form>
       </FormControl>

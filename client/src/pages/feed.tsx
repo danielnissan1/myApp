@@ -19,7 +19,7 @@ const user: IUser = {
 const Feed = ({}: Props) => {
   const [allposts, setPosts] = useState<IPost[]>([]);
 
-  useEffect(() => console.log("here"), []);
+  // useEffect(() => console.log("here"), []);
 
   useEffect(() => {
     const getPosts = () => {
