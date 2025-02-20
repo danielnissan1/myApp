@@ -1,16 +1,12 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import HomeIcon from "@mui/icons-material/Home";
 import Avatar from "@mui/material/Avatar";
-import Container from "@mui/material/Container";
-
-import { Link, useNavigate } from "react-router-dom";
+import { RoutesValues } from "../../consts/routes";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = ({}) => {
   const [value, setValue] = React.useState(0);
@@ -19,7 +15,7 @@ const NavBar = ({}) => {
   return (
     <Box
       sx={{
-        position: "sticky",
+        position: "fixed",
         bottom: 0,
         zIndex: 1000,
         width: "100%",
@@ -28,24 +24,21 @@ const NavBar = ({}) => {
       <BottomNavigation
         showLabels
         value={value}
-        onChange={(event, newValue) => {
+        onChange={(_, newValue) => {
           setValue(newValue);
         }}
       >
         <BottomNavigationAction
-          className="nav-icon"
           icon={<HomeIcon />}
-          onClick={() => navigate("/")}
+          onClick={() => navigate(RoutesValues.HOME)}
         />
 
         <BottomNavigationAction
-          className="nav-icon"
           icon={<AddPhotoAlternateIcon />}
-          onClick={() => navigate("/new_post")}
+          onClick={() => navigate(RoutesValues.NEW_POST)}
         />
 
         <BottomNavigationAction
-          className="nav-icon"
           icon={
             <Avatar
               alt="Remy Sharp"
@@ -53,7 +46,7 @@ const NavBar = ({}) => {
               sx={{ width: 24, height: 24 }}
             />
           }
-          onClick={() => navigate("/profile")}
+          onClick={() => navigate(RoutesValues.PROFILE)}
         />
       </BottomNavigation>
     </Box>
