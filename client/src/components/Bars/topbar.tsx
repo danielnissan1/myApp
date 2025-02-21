@@ -29,7 +29,7 @@ const TopBar = () => {
         direction: "rtl",
       }}
     >
-      <IconButton sx={{ ml: "auto" }} onClick={onLogout}>
+      <IconButton sx={{ ml: "auto", mr: "3rem" }} onClick={onLogout}>
         <LogoutIcon />
       </IconButton>
       <LogoutDialog onClose={cancelLogout} isDialogOpen={alertDialogOpen} />
