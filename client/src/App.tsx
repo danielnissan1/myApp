@@ -26,7 +26,7 @@ export interface IUser {
   avatar: string;
 }
 export interface IPost {
-  _id: string;
+  _id?: string;
   owner: IUser;
   imgSrc: string;
   date: Date;
