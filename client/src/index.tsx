@@ -5,21 +5,20 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import UserProvider from "./context";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <UserProvider>
-        <App />
-      </UserProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <GoogleOAuthProvider clientId="911754976498-k5bjsc5apgak34oae9rgthc97g59v2bk.apps.googleusercontent.com">
+    <React.StrictMode>
+      <BrowserRouter>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </BrowserRouter>
+    </React.StrictMode>
+  </GoogleOAuthProvider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

@@ -84,7 +84,36 @@ router.get("/", commentsController.getAll.bind(commentsController));
  *       500:
  *         description: Server error
  */
-router.get("/:id", commentsController.getById.bind(commentsController));
+// router.get("/:id", commentsController.getById.bind(commentsController));
+
+/**
+ * @swagger
+ * /comments/{id}:
+ *   get:
+ *     summary: Get all comments by post ID
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the post
+ *     responses:
+ *       200:
+ *         description: A list of comments
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Comment'
+ *       404:
+ *         description: Comments not found
+ *       500:
+ *         description: Server error
+ */
+router.get("/:id", commentsController.getByPostId.bind(commentsController));
 
 /**
  * @swagger

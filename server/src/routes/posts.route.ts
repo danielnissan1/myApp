@@ -58,7 +58,28 @@ import { authMiddleware } from "../controllers/auth.controller";
  *       500:
  *         description: Server error
  */
-router.get("/", postsController.getAll.bind(postsController));
+// router.get("/", postsController.getAll.bind(postsController));
+
+/**
+ * @swagger
+ * /posts:
+ *   get:
+ *     summary: Retrieve all posts
+ *     tags:
+ *       - Posts
+ *     responses:
+ *       200:
+ *         description: A list of all posts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Post'
+ *       500:
+ *         description: Server error
+ */
+router.get("/", postsController.getAllPosts.bind(postsController));
 
 /**
  * @swagger

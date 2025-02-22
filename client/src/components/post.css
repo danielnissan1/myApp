@@ -1,96 +1,97 @@
 .card {
   display: flex;
-  border: #0000001c solid 1px;
-  border-radius: 9px;
-  height: 55vh;
-  margin: 12px;
-  width: 40vw;
   flex-direction: column;
-  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); */
+  width: 99%;
+  margin-bottom: 10px;
 }
 
 .location {
   display: flex;
-  height: 10vh;
-  flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
-  padding: 15px;
-  overflow: hidden;
+  background: #f8f9fa;
+  padding: 3px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #ddd;
 }
 
-.title {
-  color: black;
+.icon {
+  margin-right: 8px;
   margin-left: 8px;
+  color: #333;
+  font-size: x-large;
+}
+
+.sold-badge {
+  background: #d9534f;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-left: auto;
 }
 
 .post-img {
   width: 100%;
-  height: 35vh;
-  object-fit: cover;
+  height: 300px;
+  object-fit: contain;
 }
 
 .owner-details {
   display: flex;
-  height: 15vh;
-  flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
-  padding: 15px;
-  overflow: hidden;
+  padding: 10px;
+  background: #fff;
 }
 
 .circle {
-  border-radius: 50%;
   height: 40px;
   width: 40px;
+  border-radius: 50%;
   overflow: hidden;
+  border: 2px solid #007bff;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .owner-img {
-  height: 100%;
   width: 100%;
+  height: 100%;
   object-fit: cover;
-}
-
-.owner-name {
-  font-size: small;
-  font-weight: bold;
-  margin: 2px;
-}
-
-.post-text {
-  font-size: small;
-  margin: 2px;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
 }
 
 .text {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 10px;
+  margin-left: 10px;
+  flex-grow: 1;
+}
+
+.owner-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.post-text {
+  font-size: 12px;
+  color: #555;
 }
 
 .price {
-  margin-left: 20vw;
-  margin-right: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-left: auto;
 }
 
-.sold-badge {
-  position: absolute;
-  top: 10px;
-  right: -1px;
-  background-color: #d9534f;
-  color: white;
-  font-weight: bold;
-  font-size: 8px;
-  padding: 5px 12px;
-  border-radius: 20px;
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); */
-  transform: rotate(40deg);
-  z-index: 0;
+.comment-icon {
+  margin-left: 10px;
+  cursor: pointer;
+  color: black;
 }

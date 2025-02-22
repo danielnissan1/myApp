@@ -1,70 +1,135 @@
 import React, { FC, useEffect, useState, useContext } from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { IPost, instance } from "../App";
 import { UserContext } from "../context";
 import Post from "../components/post";
-import Avatar from "@mui/material/Avatar";
+import { Avatar, Button, IconButton, TextField } from "@mui/material";
+import EditIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import CameraIcon from "@mui/icons-material/CameraAltOutlined";
+import { colors } from "../consts/colors";
 
 interface Props {}
 
 const Profile = ({}: Props) => {
   const [userPosts, setUserPosts] = useState<IPost[]>([]);
   const userContext = useContext(UserContext);
+  const [editMode, setEditMode] = useState(false);
 
-  useEffect(() => {
-    // const getUserPosts = () => {
-    //   instance
-    //     .get(`/posts/userid`)
-    //     .then((res: any) => {
-    //       // handle success
-    //       // console.log(res.data);
-    //       setUserPosts(res.data);
-    //     })
-    //     .catch((error: any) => {
-    //       // handle error
-    //       console.log(error);
-    //     })
-    //     .finally(() => {
-    //       // always executed
-    //     });
-    //   // console.log(posts);
-    // };
+  const editProfileImage = () => {
+    //TODO
+  };
 
-    const getUserPostApp = () => {
-      getUserPostApp();
-    };
-    getUserPostApp();
-  }, []);
+  // useEffect(() => {
+  //   // const getUserPosts = () => {
+  //   //   instance
+  //   //     .get(`/posts/userid`)
+  //   //     .then((res: any) => {
+  //   //       // handle success
+  //   //       // console.log(res.data);
+  //   //       setUserPosts(res.data);
+  //   //     })
+  //   //     .catch((error: any) => {
+  //   //       // handle error
+  //   //       console.log(error);
+  //   //     })
+  //   //     .finally(() => {
+  //   //       // always executed
+  //   //     });
+  //   //   // console.log(posts);
+  //   // };
+
+  //   const getUserPostApp = () => {
+  //     getUserPostApp();
+  //   };
+  //   getUserPostApp();
+  // }, []);
 
   return (
-    <div className="Home">
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              {userContext.user.userName}
-            </Typography>
-          </Toolbar>
-        </AppBar>
+    <Box>
+      <Box sx={{ direction: "rtl", marginTop: "1.2rem", marginRight: "1rem" }}>
+        <Button
+          sx={{
+            backgroundColor: "#ebe2e2",
+            color: "black",
+            width: "10rem",
+            borderRadius: "10rem",
+          }}
+          onClick={() => setEditMode(!editMode)}
+        >
+          {!editMode && <EditIcon sx={{ fontSize: "1rem", ml: "0.3rem" }} />}
+          {editMode ? "Finsh edit" : "Edit profile"}
+        </Button>
       </Box>
-
-      <div className="prof">
+      <Box
+        display={"flex"}
+        justifyContent="center"
+        alignItems={"center"}
+        position={"relative"}
+      >
         <Avatar
-          alt={userContext.user.userName}
+          alt={userContext.user.username}
           src={userContext.user.avatar}
-          sx={{ width: 56, height: 56 }}
+          sx={{
+            width: 200,
+            height: 200,
+            marginTop: "1rem",
+          }}
+        ></Avatar>
+        {editMode && (
+          <IconButton
+            onClick={editProfileImage}
+            sx={{
+              backgroundColor: colors.BABY_PINK,
+              position: "absolute",
+              top: 170,
+              left: 810,
+            }}
+          >
+            <CameraIcon />
+          </IconButton>
+        )}
+      </Box>
+      <Box
+        display={"flex"}
+        justifyContent="center"
+        alignItems={"center"}
+        marginTop={"1rem"}
+      >
+        <TextField
+          hiddenLabel
+          defaultValue={"UserName"}
+          disabled={!editMode}
+          variant="standard"
+          sx={{
+            "& .MuiInputBase-input.Mui-disabled": {
+              color: "black",
+              "-webkit-text-fill-color": "black",
+              textAlign: "center",
+            },
+            "& .MuiInput-underline:after": {
+              borderBottom: "2px solid black", // Custom color for the bottom line (before focus)
+            },
+          }}
+          InputProps={{
+            disableUnderline: !editMode,
+          }}
         />
-
-        <div className="posts">
+      </Box>
+      <Box
+        display={"flex"}
+        justifyContent="center"
+        alignItems={"center"}
+        marginTop={"0.3rem"}
+      >
+        <Typography>userEmail@gmail.com</Typography>
+      </Box>
+      {/* <div className="posts">
           {userPosts.map((currPost) => (
-            <Post key={currPost.id} post={currPost} />
+            <Post key={currPost._id} post={currPost} />
           ))}
-        </div>
-      </div>
-    </div>
+        </div> */}
+    </Box>
   );
 };
 
