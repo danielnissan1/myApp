@@ -1,60 +1,65 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   TextField,
   Button,
-  Card,
-  CardContent,
-  Typography,
   Box,
-  FormControl,
-  IconButton,
   InputAdornment,
-  InputLabel,
-  OutlinedInput,
+  Typography,
 } from "@mui/material";
-import "./newpost.css";
-import NavBar from "../components/Bars/bottomNavbar";
-import TopBar from "../components/Bars/topbar";
-import { VisibilityOff, Visibility, LocationOn } from "@mui/icons-material";
+import { LocationOn } from "@mui/icons-material";
 import { RoutesValues } from "../consts/routes";
-import login from "./login";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { IPost } from "../App";
+import picturePlaceHolder from "../assets/pic_placeholder.jpg";
+import { useForm } from "react-hook-form";
+import "./newPost.css";
+
+interface FormData {
+  img: FileList;
+  description: string;
+  location: string;
+  price: number;
+}
 
 const NewPost: React.FC = () => {
   const navigate = useNavigate();
-  const [image, setImage] = useState<File | null>(null);
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [price, setPrice] = useState<number | "">("");
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0]);
-    }
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files || event.target.files.length === 0) return;
+
+    const file = event.target.files[0];
+    setValue("img", event.target.files);
+    setPreviewImage(URL.createObjectURL(file));
   };
 
-  const handleSubmit = async () => {
-    if (!image || !description || !location || !price) {
+  const onSubmit = async (data: FormData) => {
+    if (!data.img || !data.description || !data.location || !data.price) {
       alert("Please fill all fields and upload an image");
       return;
     }
 
     const newPost: IPost = {
-      imgSrc: URL.createObjectURL(image), // Convert File to URL string
-      content: description,
-      location,
-      price: Number(price),
-      isSold: false, // Default value
-      date: new Date(), // Automatically set the date
+      imgSrc: previewImage || "",
+      content: data.description,
+      location: data.location,
+      price: Number(data.price),
+      isSold: false,
+      date: new Date(),
       owner: { avatar: "", id: 123456, username: "ppp" },
     };
 
     try {
-      const response = await axios.post(`http://localhost:3001/posts`, newPost);
-      console.log("New Post Submitted:", response.data);
-
+      await axios.post(`http://localhost:3001/posts`, newPost);
       navigate(RoutesValues.HOME);
     } catch (error) {
       console.error("Error submitting post:", error);
@@ -63,31 +68,54 @@ const NewPost: React.FC = () => {
   };
 
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
           flexDirection: "column",
-          paddingTop: "20px",
+          alignItems: "center",
+          minHeight: "100vh",
+          gap: "5px",
+          paddingBottom: "60px", // Add padding to the bottom
         }}
       >
+        {/* Image Upload */}
         <input
           type="file"
           accept="image/*"
+          {...register("img", { required: "Image is required" })}
           onChange={handleImageUpload}
+          ref={inputFileRef}
           className="inputfile"
-        ></input>
+          style={{ visibility: "hidden" }}
+        />
+        <img
+          src={previewImage || picturePlaceHolder}
+          alt="Uploaded"
+          className="uploaded-image"
+          style={{ width: "200px", height: "200px", cursor: "pointer" }}
+        />
+        <Box sx={{ height: "20px" }}>
+          {errors.img && <p className="error-message">{errors.img.message}</p>}
+        </Box>
+
+        {/* Description */}
         <TextField
-          sx={{ margin: "20px", width: "100%" }}
+          sx={{ width: "100%", maxWidth: "400px" }}
           label="Description"
-          onChange={(e) => setDescription(e.target.value)}
-        ></TextField>
+          {...register("description", { required: "Description is required" })}
+        />
+        <Box sx={{ height: "20px" }}>
+          {errors.description && (
+            <p className="error-message">{errors.description.message}</p>
+          )}
+        </Box>
+
+        {/* Location */}
         <TextField
-          sx={{ margin: "20px", width: "100%" }}
+          sx={{ width: "100%", maxWidth: "400px" }}
           label="Location"
-          onChange={(e) => setLocation(e.target.value)}
+          {...register("location", { required: "Location is required" })}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -95,34 +123,51 @@ const NewPost: React.FC = () => {
               </InputAdornment>
             ),
           }}
-        ></TextField>
+        />
+        <Box sx={{ height: "20px" }}>
+          {errors.location && (
+            <p className="error-message">{errors.location.message}</p>
+          )}
+        </Box>
 
+        {/* Price */}
         <TextField
-          sx={{ margin: "20px", width: "100%" }}
+          sx={{ width: "100%", maxWidth: "400px" }}
           label="Price"
-          onChange={(e) =>
-            setPrice(e.target.value === "" ? "" : Number(e.target.value))
-          }
+          type="number"
+          {...register("price", {
+            required: "Price is required",
+            valueAsNumber: true,
+          })}
           InputProps={{
             startAdornment: <InputAdornment position="start">₪</InputAdornment>,
           }}
         />
+        <Box sx={{ height: "20px" }}>
+          {errors.price && (
+            <p className="error-message">{errors.price.message}</p>
+          )}
+        </Box>
+
+        {/* Submit Button - Always Visible */}
+        <Button
+          sx={{
+            mt: "20px",
+            width: "100%",
+            maxWidth: "400px",
+            backgroundColor: "#1976d2",
+            color: "white",
+            "&:hover": { backgroundColor: "#1565c0" },
+            position: "sticky",
+            bottom: "20px",
+          }}
+          type="submit"
+          className="post-button"
+        >
+          Post
+        </Button>
       </Box>
-      <Button
-        sx={{
-          mt: "30px",
-          width: "450px",
-          backgroundColor: "#ebe2e2",
-          color: "black",
-          "&:hover": {
-            backgroundColor: "rgb(229, 212, 212)",
-          },
-        }}
-        onClick={handleSubmit}
-      >
-        Post
-      </Button>
-    </>
+    </form>
   );
 };
 
