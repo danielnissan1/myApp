@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IPost } from "../../types/types";
 import "./post.css";
 import { UserContext } from "../../context";
@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Comments } from "./comments";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { IconButton, Typography } from "@mui/material";
+import axios from "axios";
 
 interface Props {
   post: IPost;
@@ -15,9 +18,23 @@ const Post = ({ post }: Props) => {
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
   const [openComments, setOpenComments] = useState<boolean>(false);
+  const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState<number>(0);
 
-  const postClick = () => navigate("/post", { state: { post } });
+  useEffect(() => {
+    const getPosts = () => {
+      axios
+        .get(`http://localhost:3001/likes/${post._id}`)
+        .then((res) => setLikes(res.data.length))
+        .catch((err) => console.error("CORS Error:", err));
+    };
+    getPosts();
+  }, []);
 
+  const handleLikeToggle = () => {
+    setLikes(liked ? likes - 1 : likes + 1);
+    setLiked(!liked);
+  };
   console.log(post);
 
   return (
@@ -49,6 +66,14 @@ const Post = ({ post }: Props) => {
             setOpenComments((prev) => !prev);
           }}
         />
+
+        <div style={{ minWidth: "fit-content" }}>
+          <IconButton onClick={handleLikeToggle} color="error">
+            {liked ? <Favorite /> : <FavoriteBorder />}
+          </IconButton>
+
+          <Typography variant="caption">{likes}</Typography>
+        </div>
       </div>
       {openComments && (
         <Comments
