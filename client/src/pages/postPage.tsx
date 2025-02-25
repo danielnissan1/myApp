@@ -23,11 +23,13 @@ const PostPage = () => {
       {post && (
         <div>
           <Post post={post} />
-          <Comments
-            postId={post._id.toString()}
-            opened={openComments}
-            setOpened={setOpenComments}
-          />
+          {post._id && (
+            <Comments
+              postId={post._id.toString()}
+              opened={openComments}
+              setOpened={setOpenComments}
+            />
+          )}
         </div>
       )}
     </div>

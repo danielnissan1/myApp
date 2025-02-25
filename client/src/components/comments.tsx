@@ -14,7 +14,7 @@ interface Comment {
 }
 
 interface CommentsDialogProps {
-  postId: string;
+  postId?: string;
   opened: boolean;
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -61,7 +61,7 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
           id: 12345,
         },
         comment: newComment,
-        postId: postId,
+        postId: postId || "",
       };
       setComments([...comments, newCommentObj]);
       setNewComment("");
