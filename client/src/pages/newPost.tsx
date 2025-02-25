@@ -10,9 +10,9 @@ import { LocationOn } from "@mui/icons-material";
 import { RoutesValues } from "../consts/routes";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { IPost } from "../App";
+import { IPost } from "../types/types";
 import picturePlaceHolder from "../assets/pic_placeholder.jpg";
-import "./newPost.css";
+// import "./newPost.css";
 import { apiClient } from "../services/api-client";
 import { Field, FieldValues, useForm } from "react-hook-form";
 

@@ -11,6 +11,7 @@ import axios from "axios";
 import { RoutesValues } from "./consts/routes";
 import Layout from "./components/Layout/layout";
 
+//TODO: REMOVE TO ANOTHER FILE
 const baseURL = "http://localhost:3001";
 export const instance = axios.create({
   baseURL,
@@ -19,28 +20,6 @@ export const instance = axios.create({
   },
   withCredentials: true,
 });
-
-export interface IUser {
-  id: number;
-  username: string;
-  avatar: string;
-}
-export interface IPost {
-  _id?: string;
-  owner: IUser;
-  imgSrc: string;
-  date: Date;
-  isSold: boolean;
-  content: string;
-  location: string;
-  price: number;
-}
-const user: IUser = {
-  id: 1,
-  username: "Kermit",
-  avatar:
-    "https://i.pinimg.com/474x/db/08/0f/db080fceb9fa616315bd6f9c3b8a9632.jpg",
-};
 
 function App() {
   return (
