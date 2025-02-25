@@ -18,9 +18,9 @@ import axios from "axios";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 
 const schema = z.object({
-  // username: z.string().refine((value) => /^[A-Z]/.test(value), {
-  //   message: "Username must start with a capital letter",
-  // }),
+  username: z.string().refine((value) => /^[A-Z]/.test(value), {
+    message: "Username must start with a capital letter",
+  }),
   password: z
     .string()
     .min(5, "Password has to be at least 5 characters")
@@ -55,7 +55,8 @@ const Register = () => {
 
   const onSignUp = (data: FieldValues) => {
     axios
-      .post("http://localhost:3001", {
+      .post("http://localhost:3001/auth/register", {
+        username: data.username,
         email: data.email,
         password: data.password,
       })
@@ -95,9 +96,9 @@ const Register = () => {
       >
         <img src={hangerImage} width={"150px"} />
         <form onSubmit={handleSubmit(onSignUp)}>
-          {/* <TextField
+          <TextField
             fullWidth
-            sx={{ margin: "20px", width: "400px"  }}
+            sx={{ margin: "20px", width: "400px" }}
             label="username"
             {...register("username", { required: true, minLength: 9 })}
             required={true}
@@ -111,7 +112,7 @@ const Register = () => {
               ),
             }}
             variant="standard"
-          ></TextField> */}
+          ></TextField>
           <TextField
             fullWidth
             sx={{ margin: "20px", width: "400px" }}
