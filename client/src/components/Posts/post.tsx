@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import { IPost } from "../App";
+import { IPost } from "../../types/types";
 import "./post.css";
-import { UserContext } from "../context";
+import { UserContext } from "../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";

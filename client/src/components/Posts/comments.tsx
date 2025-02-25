@@ -4,7 +4,8 @@ import "./comments.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { IUser } from "../App";
+import { IUser } from "../../types/types";
+// import { IUser } from "..../App";
 
 interface Comment {
   id: string;

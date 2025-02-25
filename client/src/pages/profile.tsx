@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { IPost, instance } from "../App";
+import { IPost } from "../types/types";
 import { UserContext } from "../context";
-import Post from "../components/post";
+import Post from "../components/Posts/post";
 import { Avatar, Button, IconButton, TextField } from "@mui/material";
 import EditIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import CameraIcon from "@mui/icons-material/CameraAltOutlined";

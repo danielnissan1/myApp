@@ -1,6 +1,6 @@
 // import { createContext } from "react";
 import React, { PropsWithChildren, useEffect } from "react";
-import { IPost, IUser } from "./App";
+import { IPost, IUser } from "./types/types";
 
 interface contextProps {
   // children: React.ReactNode;

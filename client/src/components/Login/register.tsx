@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Avatar,
   Box,
   Button,
   FormControl,
@@ -94,7 +95,16 @@ const Register = () => {
           alignItems: "center",
         }}
       >
-        <img src={hangerImage} width={"150px"} />
+        {/* <img src={hangerImage} width={"150px"} /> */}
+        <Avatar
+          // alt={userContext.user.username}
+          // src={userContext.user.avatar}
+          sx={{
+            width: 200,
+            height: 200,
+            marginTop: "1rem",
+          }}
+        ></Avatar>
         <form onSubmit={handleSubmit(onSignUp)}>
           <TextField
             fullWidth

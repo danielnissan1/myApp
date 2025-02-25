@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
-import Post from "../components/post";
-import { IPost, IUser } from "../App";
+import Post from "../components/Posts/post";
+import { IPost, IUser } from "../types/types";
 import Box from "@mui/material/Box";
 import axios from "axios";
 
