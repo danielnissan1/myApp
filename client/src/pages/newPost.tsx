@@ -128,24 +128,27 @@ const NewPost: React.FC = () => {
         }}
       >
         {/* Image Upload */}
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          ref={inputFileRef}
-          className="inputfile"
-          style={{ visibility: "hidden" }}
-        />
-        <img
-          src={previewImage || picturePlaceHolder}
-          alt="Uploaded"
-          className="uploaded-image"
-          style={{ width: "auto", height: "200px", cursor: "pointer" }}
-          onClick={() => inputFileRef.current && inputFileRef.current.click()}
-        />
-        {formState.errors.img && formState.errors.img.type === "required" && (
-          <p className="text-danger">Image is required</p>
-        )}
+        <div>
+          <input
+            {...register("img", { required: true })}
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            ref={inputFileRef}
+            className="inputfile"
+            style={{ display: "none" }}
+          />
+          <img
+            src={previewImage || picturePlaceHolder}
+            alt="Uploaded"
+            className="uploaded-image"
+            style={{ height: "45vh", width: "22vw", cursor: "pointer" }}
+            onClick={() => inputFileRef.current && inputFileRef.current.click()}
+          />
+          {formState.errors.img && formState.errors.img.type === "required" && (
+            <p className="text-danger">Image is required</p>
+          )}
+        </div>
         <div>
           {/* Description */}
           <TextField
@@ -213,7 +216,7 @@ const NewPost: React.FC = () => {
             width: "100%",
             maxWidth: "400px",
             backgroundColor: "rgb(235, 226, 226)",
-            color: "white",
+            color: "black",
             position: "sticky",
             bottom: "20px",
           }}
