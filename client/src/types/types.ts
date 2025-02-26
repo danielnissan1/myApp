@@ -15,6 +15,13 @@ export interface IPost {
   price: number;
 }
 
+export interface IComment {
+  id: string;
+  owner: IUser;
+  comment: string;
+  postId: string;
+}
+
 // const user: IUser = {
 //   id: 1,
 //   username: "Kermit",
