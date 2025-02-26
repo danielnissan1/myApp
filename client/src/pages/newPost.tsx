@@ -146,140 +146,150 @@ const NewPost: React.FC = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           alignItems: "stretch",
           minHeight: "100vh",
-          gap: "25px",
           paddingBottom: "60px", // Add padding to the bottom
+          width: "80vw",
+          textAlign: "center",
+          mt: "20px",
+          justifyContent: "space-between",
         }}
       >
-        {/* Image Upload */}
-        <div>
-          <input
-            {...register("img", { required: true })}
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            ref={inputFileRef}
-            className="inputfile"
-            style={{ display: "none" }}
-          />
-          <img
-            src={previewImage || picturePlaceHolder}
-            alt="Uploaded"
-            className="uploaded-image"
-            style={{ height: "45vh", cursor: "pointer" }}
-            onClick={() => inputFileRef.current && inputFileRef.current.click()}
-          />
-          {formState.errors.img && formState.errors.img.type === "required" && (
-            <p className="text-danger">Image is required</p>
-          )}
-        </div>
-        <div>
-          {/* Description */}
-          <TextField
-            className="input-field"
-            {...register("description", { required: true })}
-            sx={{ width: "100%", maxWidth: "400px" }}
-            label="Description"
-            onChange={(e) => {
-              setPost({ ...post, content: e.target.value });
-              setDescription(e.target.value);
-            }}
-            // ref={descriptionRef}
-          />
-          {formState.errors.description &&
-            formState.errors.description.type === "required" && (
-              <p className="text-danger">Description is required</p>
-            )}
-        </div>
-        {/* Location */}
-        <div>
-          <TextField
-            className="input-field"
-            {...register("location", { required: true })}
-            sx={{ width: "100%", maxWidth: "400px" }}
-            label="Location"
-            onChange={(e) => setPost({ ...post, location: e.target.value })}
-            // ref={locationRef}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LocationOn />
-                </InputAdornment>
-              ),
-            }}
-          />
-          {formState.errors.location &&
-            formState.errors.location.type === "required" && (
-              <p className="text-danger">Location is required</p>
-            )}
-        </div>
-        <div>
-          <div className="price-recommendation">
-            {description && (
-              <>
-                <Button
-                  sx={{
-                    // backgroundColor: "rgb(235, 226, 226)",
-                    position: "sticky",
-                    textDecoration: "underline",
-                    color: "#a87a7a",
-                    marginBottom: "8px",
-                    fontSize: "12px",
-                  }}
-                  onClick={async () => {
-                    const recommendedPrice = await getPriceRecommendation(
-                      description
-                    );
-                    setRecommendation(recommendedPrice);
-                  }}
-                >
-                  Help me pick a price
-                </Button>
-
-                {recommendation && <p>{recommendation}</p>}
-              </>
-            )}
+        <div className="image-part">
+          {/* Image Upload */}
+          <div>
+            <input
+              {...register("img", { required: true })}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              ref={inputFileRef}
+              className="inputfile"
+              style={{ display: "none" }}
+            />
+            <img
+              src={previewImage || picturePlaceHolder}
+              alt="Uploaded"
+              className="uploaded-image"
+              style={{ height: "45vh", cursor: "pointer" }}
+              onClick={() =>
+                inputFileRef.current && inputFileRef.current.click()
+              }
+            />
+            {formState.errors.img &&
+              formState.errors.img.type === "required" && (
+                <p className="text-danger">Image is required</p>
+              )}
           </div>
-          {/* Price */}
-          <TextField
-            className="input-field"
-            {...register("price", { required: true })}
-            sx={{ width: "100%", maxWidth: "400px" }}
-            label="Price"
-            type="number"
-            onChange={(e) =>
-              setPost({ ...post, price: Number(e.target.value) })
-            }
-            // ref={priceRef}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">₪</InputAdornment>
-              ),
-            }}
-          />
-          {formState.errors.price &&
-            formState.errors.price.type === "required" && (
-              <p className="text-danger">Price is required</p>
-            )}
         </div>
-        {/* Submit Button - Always Visible */}
-        <Button
-          sx={{
-            mt: "20px",
-            width: "100%",
-            maxWidth: "400px",
-            backgroundColor: "rgb(235, 226, 226)",
-            color: "black",
-            position: "sticky",
-            bottom: "20px",
-          }}
-          type="submit"
-          className="post-button"
-        >
-          Post
-        </Button>
+        <div className="details-part">
+          <div className="input-area">
+            {/* Description */}
+            <TextField
+              className="input-field"
+              {...register("description", { required: true })}
+              sx={{ width: "100%", maxWidth: "400px" }}
+              label="Description"
+              onChange={(e) => {
+                setPost({ ...post, content: e.target.value });
+                setDescription(e.target.value);
+              }}
+              // ref={descriptionRef}
+            />
+            {formState.errors.description &&
+              formState.errors.description.type === "required" && (
+                <p className="text-danger">Description is required</p>
+              )}
+          </div>
+          {/* Location */}
+          <div className="input-area">
+            <TextField
+              className="input-field"
+              {...register("location", { required: true })}
+              sx={{ width: "100%", maxWidth: "400px" }}
+              label="Location"
+              onChange={(e) => setPost({ ...post, location: e.target.value })}
+              // ref={locationRef}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LocationOn />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            {formState.errors.location &&
+              formState.errors.location.type === "required" && (
+                <p className="text-danger">Location is required</p>
+              )}
+          </div>
+          <div className="input-area">
+            <div className="price-recommendation">
+              {description && (
+                <>
+                  <Button
+                    sx={{
+                      // backgroundColor: "rgb(235, 226, 226)",
+                      position: "sticky",
+                      textDecoration: "underline",
+                      color: "#a87a7a",
+                      marginBottom: "8px",
+                      fontSize: "12px",
+                    }}
+                    onClick={async () => {
+                      const recommendedPrice = await getPriceRecommendation(
+                        description
+                      );
+                      setRecommendation(recommendedPrice);
+                    }}
+                  >
+                    Help me pick a price
+                  </Button>
+
+                  {recommendation && <p>{recommendation}</p>}
+                </>
+              )}
+            </div>
+            {/* Price */}
+            <TextField
+              className="input-field"
+              {...register("price", { required: true })}
+              sx={{ width: "100%", maxWidth: "400px" }}
+              label="Price"
+              type="number"
+              onChange={(e) =>
+                setPost({ ...post, price: Number(e.target.value) })
+              }
+              // ref={priceRef}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">₪</InputAdornment>
+                ),
+              }}
+            />
+            {formState.errors.price &&
+              formState.errors.price.type === "required" && (
+                <p className="text-danger">Price is required</p>
+              )}
+          </div>
+          {/* Submit Button - Always Visible */}
+          <Button
+            sx={{
+              mt: "20px",
+              width: "100%",
+              maxWidth: "400px",
+              backgroundColor: "rgb(235, 226, 226)",
+              color: "black",
+              position: "sticky",
+              bottom: "20px",
+            }}
+            type="submit"
+            className="post-button"
+          >
+            Post
+          </Button>
+        </div>
       </Box>
     </form>
   );
