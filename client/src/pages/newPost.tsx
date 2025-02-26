@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   TextField,
   Button,
@@ -12,9 +12,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { IPost } from "../types/types";
 import picturePlaceHolder from "../assets/pic_placeholder.jpg";
-// import "./newPost.css";
+import "./newpost.css";
 import { apiClient } from "../services/api-client";
-import { Field, FieldValues, useForm } from "react-hook-form";
+import { Field, FieldValues, set, useForm } from "react-hook-form";
 
 interface FormData {
   img: FileList;
@@ -27,10 +27,11 @@ const NewPost: React.FC = () => {
   const navigate = useNavigate();
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
-  const [imgSrc, setImgSrc] = useState<string | null>(null);
-  const [description, setDescription] = useState<string | null>(null);
-  const [location, setLocation] = useState<string | null>(null);
+  const [imgSrc, setImgSrc] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
   const [price, setPrice] = useState<number | null>(null);
+  const [recommendation, setRecommendation] = useState<string | null>(null);
 
   // const imgRef = useRef<HTMLImageElement>(null);
   // const descriptionRef = useRef<HTMLInputElement>(null);
@@ -38,6 +39,12 @@ const NewPost: React.FC = () => {
   // const priceRef = useRef<HTMLInputElement>(null);
 
   const { register, handleSubmit, formState } = useForm<FormData>();
+
+  useEffect(() => {
+    if (description === "") {
+      setRecommendation(null);
+    }
+  }, [description]);
 
   const [post, setPost] = useState<IPost>({
     _id: "",
@@ -77,6 +84,25 @@ const NewPost: React.FC = () => {
         .catch((err) => {
           console.log(err);
         });
+    }
+  };
+
+  const getPriceRecommendation = async (itemDescription: string) => {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/priceRec/getPriceRecommendation",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ itemDescription }),
+        }
+      );
+      const data = await response.json();
+      console.log(response);
+      return data.recommendedPrice;
+    } catch (error) {
+      console.error("Error getting price:", error);
+      return null;
     }
   };
 
@@ -142,7 +168,7 @@ const NewPost: React.FC = () => {
             src={previewImage || picturePlaceHolder}
             alt="Uploaded"
             className="uploaded-image"
-            style={{ height: "45vh", width: "22vw", cursor: "pointer" }}
+            style={{ height: "45vh", cursor: "pointer" }}
             onClick={() => inputFileRef.current && inputFileRef.current.click()}
           />
           {formState.errors.img && formState.errors.img.type === "required" && (
@@ -156,7 +182,10 @@ const NewPost: React.FC = () => {
             {...register("description", { required: true })}
             sx={{ width: "100%", maxWidth: "400px" }}
             label="Description"
-            onChange={(e) => setPost({ ...post, content: e.target.value })}
+            onChange={(e) => {
+              setPost({ ...post, content: e.target.value });
+              setDescription(e.target.value);
+            }}
             // ref={descriptionRef}
           />
           {formState.errors.description &&
@@ -187,6 +216,32 @@ const NewPost: React.FC = () => {
             )}
         </div>
         <div>
+          <div className="price-recommendation">
+            {description && (
+              <>
+                <Button
+                  sx={{
+                    // backgroundColor: "rgb(235, 226, 226)",
+                    position: "sticky",
+                    textDecoration: "underline",
+                    color: "#a87a7a",
+                    marginBottom: "8px",
+                    fontSize: "12px",
+                  }}
+                  onClick={async () => {
+                    const recommendedPrice = await getPriceRecommendation(
+                      description
+                    );
+                    setRecommendation(recommendedPrice);
+                  }}
+                >
+                  Help me pick a price
+                </Button>
+
+                {recommendation && <p>{recommendation}</p>}
+              </>
+            )}
+          </div>
           {/* Price */}
           <TextField
             className="input-field"
