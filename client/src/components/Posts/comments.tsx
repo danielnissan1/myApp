@@ -4,57 +4,39 @@ import "./comments.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { IUser } from "../../types/types";
+import { IUser, IComment } from "../../types/types";
 // import { IUser } from "..../App";
 
-interface Comment {
-  id: string;
-  owner: IUser;
-  comment: string;
-  postId: string;
-}
-
 interface CommentsDialogProps {
+  comments: IComment[];
   postId?: string;
   opened: boolean;
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
-  const [comments, setComments] = useState<Comment[]>([]);
+export function Comments({
+  comments,
+  postId,
+  opened,
+  setOpened,
+}: CommentsDialogProps) {
+  const [currComments, setCurrComments] = useState<IComment[]>(comments);
   const [newComment, setNewComment] = useState("");
 
-  useEffect(() => {
-    const getComments = () => {
-      axios
-        .get("http://localhost:3001/comments/" + postId)
-        .then((res) => setComments(res.data))
-        .catch((err) => console.error("CORS Error:", err));
-
-      // instance
-      //   .get("/posts")
-      //   .then((res: any) => {
-      //     // handle success
-      //     // console.log(res.data);
-      // setPosts(res.data);
-      //     // setPosts(res);
-      //   })
-      //   .catch((error: any) => {
-      //     // handle error
-      //     console.log(error);
-      //   })
-      //   .finally(() => {
-      //     // always executed
-      //   });
-      // // console.log(posts);
-    };
-    getComments();
-  }, []);
+  // useEffect(() => {
+  //   const getComments = () => {
+  //     axios
+  //       .get("http://localhost:3001/comments/" + postId)
+  //       .then((res) => setComments(res.data))
+  //       .catch((err) => console.error("CORS Error:", err));
+  //   };
+  //   getComments();
+  // }, []);
 
   const handleSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (newComment.trim()) {
-      const newCommentObj: Comment = {
+      const newCommentObj: IComment = {
         id: String(comments.length + 1),
         owner: {
           username: "Anonymous",
@@ -64,7 +46,7 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
         comment: newComment,
         postId: postId || "",
       };
-      setComments([...comments, newCommentObj]);
+      setCurrComments([...comments, newCommentObj]);
       setNewComment("");
     }
   };
@@ -94,7 +76,7 @@ export function Comments({ postId, opened, setOpened }: CommentsDialogProps) {
       <div className="comments-content">
         {/* <h2 className="title">Comments</h2> */}
         <div className="comments-list">
-          {comments.map((comment) => (
+          {currComments.map((comment) => (
             <div key={comment.id} className="comment-card">
               <div className="comment-header">
                 <img

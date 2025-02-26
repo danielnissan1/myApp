@@ -25,6 +25,7 @@ const PostPage = () => {
           <Post post={post} />
           {post._id && (
             <Comments
+              comments={[]}
               postId={post._id.toString()}
               opened={openComments}
               setOpened={setOpenComments}

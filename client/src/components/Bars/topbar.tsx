@@ -25,7 +25,6 @@ const TopBar = () => {
         alignItems: "center",
         backgroundColor: " #ebe2e2",
         padding: "10px 20px",
-        width: "100%",
         direction: "rtl",
       }}
     >

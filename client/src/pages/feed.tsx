@@ -22,23 +22,6 @@ const Feed = ({}: Props) => {
         .get("http://localhost:3001/posts")
         .then((res) => setPosts(res.data))
         .catch((err) => console.error("CORS Error:", err));
-
-      // instance
-      //   .get("/posts")
-      //   .then((res: any) => {
-      //     // handle success
-      //     // console.log(res.data);
-      // setPosts(res.data);
-      //     // setPosts(res);
-      //   })
-      //   .catch((error: any) => {
-      //     // handle error
-      //     console.log(error);
-      //   })
-      //   .finally(() => {
-      //     // always executed
-      //   });
-      // // console.log(posts);
     };
     getPosts();
   }, []);
