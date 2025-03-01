@@ -1,75 +1,43 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Avatar,
   Box,
   Button,
   FormControl,
+  IconButton,
   InputAdornment,
   TextField,
-  Typography,
 } from "@mui/material";
 import { FieldValues, useForm } from "react-hook-form";
 import { AccountCircle, Email, Home, Lock, Phone } from "@mui/icons-material";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useNavigate } from "react-router-dom";
-import { RoutesValues } from "../../consts/routes";
-import hangerImage from "../../assets/hanger.jpg";
 import axios from "axios";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
-
-const schema = z.object({
-  username: z.string().refine((value) => /^[A-Z]/.test(value), {
-    message: "Username must start with a capital letter",
-  }),
-  password: z
-    .string()
-    .min(5, "Password has to be at least 5 characters")
-    .regex(
-      /[A-Z]/,
-      "Password must contain at least one capital letter, one andlowcase letter and numbers"
-    )
-    .regex(
-      /[a-z]/,
-      "Password must contain at least one capital letter, one andlowcase letter and numbers"
-    )
-    .regex(
-      /[0-9]/,
-      "Password must contain at least one capital letter, one andlowcase letter and numbers"
-    ),
-  email: z.string().email("Please enter a valid email address"),
-  // phoneNumber: z
-  //   .string()
-  //   .length(10, "Please enter a valid phone number")
-  //   .startsWith("05", "Please enter a valid phone number"),
-  // address: z.string(),
-});
-type formData = z.infer<typeof schema>;
+import AddPhotoIcon from "@mui/icons-material/AddPhotoAlternate";
+import { schema, formData } from "./formData";
+import { onSignUp } from "./register.module";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<formData>({ resolver: zodResolver(schema) });
-  const navigate = useNavigate();
 
-  const onSignUp = (data: FieldValues) => {
-    axios
-      .post("http://localhost:3001/auth/register", {
-        username: data.username,
-        email: data.email,
-        password: data.password,
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const [profileImage] = watch(["profileImage"]);
+  const [profileImageSource, setProfileImageSource] = useState<string>();
+  const photoRef: { current: HTMLInputElement | null } = { current: null };
+  const { ref, ...rest } = register("profileImage", { required: true });
 
-    navigate(RoutesValues.HOME);
-  };
+  useEffect(() => {
+    if (profileImage && profileImage[0]) {
+      const newUrl = URL.createObjectURL(profileImage[0]);
+      if (newUrl != profileImageSource) {
+        setProfileImageSource(newUrl);
+      }
+    }
+  }, [profileImage]);
 
   const onGoogleLoginSuccess = (credentialResponse: CredentialResponse) => {
     console.log(credentialResponse);
@@ -95,17 +63,46 @@ const Register = () => {
           alignItems: "center",
         }}
       >
-        {/* <img src={hangerImage} width={"150px"} /> */}
-        <Avatar
-          // alt={userContext.user.username}
-          // src={userContext.user.avatar}
-          sx={{
-            width: 200,
-            height: 200,
-            marginTop: "1rem",
-          }}
-        ></Avatar>
         <form onSubmit={handleSubmit(onSignUp)}>
+          <IconButton
+            onClick={() => photoRef.current && photoRef.current.click()}
+            sx={{
+              position: "absolute",
+              top: 170,
+              left: 810,
+            }}
+          >
+            <AddPhotoIcon />
+          </IconButton>
+          {profileImageSource ? (
+            <img
+              src={profileImageSource}
+              style={{
+                height: "200px",
+                width: "200px",
+                marginTop: "1rem",
+                borderRadius: "10rem",
+              }}
+            ></img>
+          ) : (
+            <Avatar
+              sx={{
+                width: 200,
+                height: 200,
+                marginTop: "1rem",
+              }}
+              src={profileImageSource}
+            ></Avatar>
+          )}
+          <input
+            {...rest}
+            type="file"
+            style={{ display: "none" }}
+            ref={(e) => {
+              ref(e);
+              photoRef.current = e;
+            }}
+          />
           <TextField
             fullWidth
             sx={{ margin: "20px", width: "400px" }}

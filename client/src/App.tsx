@@ -5,7 +5,7 @@ import Profile from "./pages/profile";
 import NewPost from "./pages/newPost";
 import PostPage from "./pages/postPage";
 import Login from "./components/Login/login";
-import Register from "./components/Login/register";
+import Register from "./components/Login/Register/register";
 import "./App.css";
 import axios from "axios";
 import { RoutesValues } from "./consts/routes";
