@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
   Box,
@@ -8,14 +8,13 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { AccountCircle, Email, Home, Lock, Phone } from "@mui/icons-material";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import AddPhotoIcon from "@mui/icons-material/AddPhotoAlternate";
-import { schema, formData } from "./formData";
-import { onSignUp } from "./register.module";
+import { formSchema, formData } from "./formData";
+import { useRegister } from "../../../hooks/useRegister";
 
 const Register = () => {
   const {
@@ -23,7 +22,8 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<formData>({ resolver: zodResolver(schema) });
+  } = useForm<formData>({ resolver: zodResolver(formSchema) });
+  const { onSignUp } = useRegister();
 
   const [profileImage] = watch(["profileImage"]);
   const [profileImageSource, setProfileImageSource] = useState<string>();
@@ -64,36 +64,38 @@ const Register = () => {
         }}
       >
         <form onSubmit={handleSubmit(onSignUp)}>
-          <IconButton
-            onClick={() => photoRef.current && photoRef.current.click()}
-            sx={{
-              position: "absolute",
-              top: 170,
-              left: 810,
-            }}
-          >
-            <AddPhotoIcon />
-          </IconButton>
-          {profileImageSource ? (
-            <img
-              src={profileImageSource}
-              style={{
-                height: "200px",
-                width: "200px",
-                marginTop: "1rem",
-                borderRadius: "10rem",
-              }}
-            ></img>
-          ) : (
-            <Avatar
+          <Box display={"flex"} justifyContent="center" alignItems={"center"}>
+            <IconButton
+              onClick={() => photoRef.current && photoRef.current.click()}
               sx={{
-                width: 200,
-                height: 200,
-                marginTop: "1rem",
+                position: "absolute",
+                top: 170,
+                left: 270,
               }}
-              src={profileImageSource}
-            ></Avatar>
-          )}
+            >
+              <AddPhotoIcon />
+            </IconButton>
+            {profileImageSource ? (
+              <img
+                src={profileImageSource}
+                style={{
+                  height: "200px",
+                  width: "200px",
+                  marginTop: "1rem",
+                  borderRadius: "10rem",
+                }}
+              ></img>
+            ) : (
+              <Avatar
+                sx={{
+                  width: 200,
+                  height: 200,
+                  marginTop: "1rem",
+                }}
+                src={profileImageSource}
+              ></Avatar>
+            )}
+          </Box>
           <input
             {...rest}
             type="file"

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const schema = z.object({
+export const formSchema = z.object({
   username: z.string().refine((value) => /^[A-Z]/.test(value), {
     message: "Username must start with a capital letter",
   }),
@@ -28,4 +28,4 @@ export const schema = z.object({
   // address: z.string(),
 });
 
-export type formData = z.infer<typeof schema>;
+export type formData = z.infer<typeof formSchema>;
