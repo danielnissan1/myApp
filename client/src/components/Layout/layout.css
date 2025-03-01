@@ -1,4 +1,5 @@
 .main-box {
   max-width: fit-content !important;
   justify-self: center;
+  margin-bottom: 50px;
 }
