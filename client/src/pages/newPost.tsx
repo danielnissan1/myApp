@@ -15,6 +15,7 @@ import picturePlaceHolder from "../assets/pic_placeholder.jpg";
 import "./newpost.css";
 import { apiClient } from "../services/api-client";
 import { Field, FieldValues, set, useForm } from "react-hook-form";
+import { useAxiosPostRequests } from "../hooks/useAxiosPostRequests";
 
 interface FormData {
   img: FileList;
@@ -39,6 +40,7 @@ const NewPost: React.FC = () => {
   // const priceRef = useRef<HTMLInputElement>(null);
 
   const { register, handleSubmit, formState } = useForm<FormData>();
+  const { uploadImage } = useAxiosPostRequests();
 
   useEffect(() => {
     if (description === "") {
@@ -62,29 +64,6 @@ const NewPost: React.FC = () => {
 
     const file = event.target.files[0];
     setPreviewImage(URL.createObjectURL(file));
-  };
-
-  const uploadImg = (file: File) => {
-    console.log("uploadImg");
-    console.log(file);
-    const formData = new FormData();
-    if (file) {
-      formData.append("file", file);
-      apiClient
-        .post("file/file?file=123.jpeg", formData, {
-          headers: {
-            "Content-Type": "image/jpeg",
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          const url = res.data.url;
-          setImgSrc(url);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
   };
 
   const getPriceRecommendation = async (itemDescription: string) => {

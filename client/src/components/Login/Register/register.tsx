@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import AddPhotoIcon from "@mui/icons-material/AddPhotoAlternate";
 import { formSchema, formData } from "./formData";
-import { useRegister } from "../../../hooks/useRegister";
+import { useAxiosPostRequests } from "../../../hooks/useAxiosPostRequests";
 
 const Register = () => {
   const {
@@ -23,7 +23,7 @@ const Register = () => {
     formState: { errors },
     watch,
   } = useForm<formData>({ resolver: zodResolver(formSchema) });
-  const { onSignUp } = useRegister();
+  const { onSignUp } = useAxiosPostRequests();
 
   const [profileImage] = watch(["profileImage"]);
   const [profileImageSource, setProfileImageSource] = useState<string>();
