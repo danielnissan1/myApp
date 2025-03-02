@@ -7,7 +7,7 @@ import { formData } from "../components/Login/Register/formData";
 export const useRegister = () => {
   const navigate = useNavigate();
 
-  const uploadImage = (file: File) => {
+  const uploadImage = (file: File, url: string) => {
     console.log("file:", file);
     return new Promise<string>((resolve, reject) => {
       const formData = new FormData();
@@ -16,7 +16,7 @@ export const useRegister = () => {
       if (file) {
         formData.append("file", file);
         axios
-          .post("http://localhost:3001/file", formData, {
+          .post(url, formData, {
             headers: {
               "Content-Type": "image/jpeg",
             },
@@ -35,7 +35,10 @@ export const useRegister = () => {
   };
 
   const onSignUp = async (data: FieldValues) => {
-    const imgUrl = await uploadImage(data.profileImage[0]);
+    const imgUrl = await uploadImage(
+      data.profileImage[0],
+      "http//localhost/3001"
+    );
     console.log("image url:", imgUrl);
 
     axios
@@ -55,5 +58,5 @@ export const useRegister = () => {
     navigate(RoutesValues.HOME);
   };
 
-  return { onSignUp };
+  return { onSignUp, uploadImage };
 };
