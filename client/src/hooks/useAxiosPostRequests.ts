@@ -4,7 +4,7 @@ import { RoutesValues } from "../consts/routes";
 import { useNavigate } from "react-router-dom";
 import { formData } from "../components/Login/Register/formData";
 
-export const useRegister = () => {
+export const useAxiosPostRequests = () => {
   const navigate = useNavigate();
 
   const uploadImage = (file: File, url: string) => {
