@@ -16,6 +16,7 @@ import "./newpost.css";
 import { apiClient } from "../services/api-client";
 import { Field, FieldValues, set, useForm } from "react-hook-form";
 import { useAxiosPostRequests } from "../hooks/useAxiosPostRequests";
+import { userAtom } from "../atoms/userAtom";
 
 interface FormData {
   img: FileList;
@@ -26,6 +27,8 @@ interface FormData {
 
 const NewPost: React.FC = () => {
   const navigate = useNavigate();
+  const user = useRecoilValue(userAtom);
+
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [imgSrc, setImgSrc] = useState<string>("");
@@ -41,6 +44,8 @@ const NewPost: React.FC = () => {
 
   const { register, handleSubmit, formState } = useForm<FormData>();
   const { uploadImage } = useAxiosPostRequests();
+
+  console.log(user);
 
   useEffect(() => {
     if (description === "") {
@@ -275,3 +280,6 @@ const NewPost: React.FC = () => {
 };
 
 export default NewPost;
+function useRecoilValue(userAtom: any) {
+  throw new Error("Function not implemented.");
+}

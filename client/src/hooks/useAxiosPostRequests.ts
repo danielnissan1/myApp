@@ -2,9 +2,12 @@ import axios from "axios";
 import { FieldValues } from "react-hook-form";
 import { RoutesValues } from "../consts/routes";
 import { useNavigate } from "react-router-dom";
+import { userAtom } from "../atoms/userAtom";
+import { useSetRecoilState } from "recoil";
 
 export const useAxiosPostRequests = () => {
   const navigate = useNavigate();
+  const setUser = useSetRecoilState(userAtom);
 
   const uploadImage = (file: File, url: string) => {
     return new Promise<string>((resolve, reject) => {
@@ -44,6 +47,8 @@ export const useAxiosPostRequests = () => {
         avatar: imgUrl,
       })
       .then((response) => {
+        setUser(response.data);
+
         console.log("res: ", response.data);
       })
       .catch((err) => {
@@ -54,4 +59,5 @@ export const useAxiosPostRequests = () => {
   };
 
   return { onSignUp, uploadImage };
+  // Removed the incorrect implementation of useSetRecoilState
 };
