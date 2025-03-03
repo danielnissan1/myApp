@@ -59,5 +59,4 @@ export const useAxiosPostRequests = () => {
   };
 
   return { onSignUp, uploadImage };
-  // Removed the incorrect implementation of useSetRecoilState
 };
