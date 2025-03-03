@@ -1,6 +1,5 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
   Button,
   FormControl,
@@ -15,14 +14,28 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../../consts/routes";
 import hangerImage from "../../assets/hanger.jpg";
+import axios from "axios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  const login = () => {
-    //TODO auth
-    navigate(RoutesValues.HOME);
+  const onLogin = () => {
+    axios
+      .post("http://localhost:3001/auth/login", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        //TODO: save the details
+        navigate(RoutesValues.HOME);
+      })
+      .catch((err) => {
+        //TODO: error modal + type with different errors english: hebrew label
+        console.log("err", err);
+      });
   };
 
   return (
@@ -42,13 +55,21 @@ const Login = () => {
         <img src={hangerImage} width={"300rem"} />
         <TextField
           sx={{ margin: "20px", width: "100%" }}
-          label="username"
+          label="Email"
+          value={email}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(event.target.value)
+          }
         ></TextField>
         <FormControl sx={{ m: 1, width: "100%" }} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">
             Password
           </InputLabel>
           <OutlinedInput
+            value={password}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(event.target.value)
+            }
             type={showPassword ? "text" : "password"}
             endAdornment={
               <InputAdornment position="end">
@@ -65,6 +86,7 @@ const Login = () => {
         </FormControl>
       </Box>
       <Button
+        type="submit"
         sx={{
           mt: "30px",
           width: "450px",
@@ -74,7 +96,7 @@ const Login = () => {
             backgroundColor: "rgb(229, 212, 212)",
           },
         }}
-        onClick={login}
+        onClick={onLogin}
       >
         Login
       </Button>
