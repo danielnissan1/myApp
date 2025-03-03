@@ -8,6 +8,7 @@ import { Avatar, Button, IconButton, TextField } from "@mui/material";
 import EditIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import CameraIcon from "@mui/icons-material/CameraAltOutlined";
 import { colors } from "../consts/colors";
+import EditableText from "../components/Inputs/editableText";
 
 interface Props {}
 
@@ -19,31 +20,6 @@ const Profile = ({}: Props) => {
   const editProfileImage = () => {
     //TODO
   };
-
-  // useEffect(() => {
-  //   // const getUserPosts = () => {
-  //   //   instance
-  //   //     .get(`/posts/userid`)
-  //   //     .then((res: any) => {
-  //   //       // handle success
-  //   //       // console.log(res.data);
-  //   //       setUserPosts(res.data);
-  //   //     })
-  //   //     .catch((error: any) => {
-  //   //       // handle error
-  //   //       console.log(error);
-  //   //     })
-  //   //     .finally(() => {
-  //   //       // always executed
-  //   //     });
-  //   //   // console.log(posts);
-  //   // };
-
-  //   const getUserPostApp = () => {
-  //     getUserPostApp();
-  //   };
-  //   getUserPostApp();
-  // }, []);
 
   return (
     <Box>
@@ -92,29 +68,12 @@ const Profile = ({}: Props) => {
       </Box>
       <Box
         display={"flex"}
+        flexDirection={"column"}
         justifyContent="center"
         alignItems={"center"}
         marginTop={"1rem"}
       >
-        <TextField
-          hiddenLabel
-          defaultValue={"UserName"}
-          disabled={!editMode}
-          variant="standard"
-          sx={{
-            "& .MuiInputBase-input.Mui-disabled": {
-              color: "black",
-              "-webkit-text-fill-color": "black",
-              textAlign: "center",
-            },
-            "& .MuiInput-underline:after": {
-              borderBottom: "2px solid black", // Custom color for the bottom line (before focus)
-            },
-          }}
-          InputProps={{
-            disableUnderline: !editMode,
-          }}
-        />
+        <EditableText defaultText="username" editMode={editMode}></EditableText>
       </Box>
       <Box
         display={"flex"}
