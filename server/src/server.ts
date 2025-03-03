@@ -25,7 +25,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, OPTIONS"
@@ -40,6 +40,7 @@ app.use("/auth", authRoutes);
 app.use("/likes", likesRoute);
 app.use("/priceRec", priceRec);
 app.use("/file", fileRoutes);
+app.options("*", cors());
 
 const options = {
   definition: {
