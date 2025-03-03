@@ -3,20 +3,26 @@ import Post from "../components/Posts/post";
 import { IPost, IUser } from "../types/types";
 import Box from "@mui/material/Box";
 import axios from "axios";
+import { userAtom } from "../atoms/userAtom";
+import { useRecoilValue } from "recoil";
 
 interface Props {}
 
-const user: IUser = {
-  id: 1,
-  username: "Kermit",
-  avatar:
-    "https://i.pinimg.com/474x/db/08/0f/db080fceb9fa616315bd6f9c3b8a9632.jpg",
-};
+// const user: IUser = {
+//   id: 1,
+//   username: "Kermit",
+//   avatar:
+//     "https://i.pinimg.com/474x/db/08/0f/db080fceb9fa616315bd6f9c3b8a9632.jpg",
+// };
 
 const Feed = ({}: Props) => {
+  const user = useRecoilValue(userAtom);
+
   const [allposts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
+    console.log("connected user:", user);
+
     const getPosts = () => {
       axios
         .get("http://localhost:3001/posts")
