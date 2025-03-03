@@ -15,28 +15,15 @@ import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../../consts/routes";
 import hangerImage from "../../assets/hanger.jpg";
 import axios from "axios";
+import { useAuth } from "../../hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
 
-  const onLogin = () => {
-    axios
-      .post("http://localhost:3001/auth/login", {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        //TODO: save the details
-        navigate(RoutesValues.HOME);
-      })
-      .catch((err) => {
-        //TODO: error modal + type with different errors english: hebrew label
-        console.log("err", err);
-      });
-  };
+  const navigate = useNavigate();
+  const { onLogin } = useAuth(email, password);
 
   return (
     <Box
