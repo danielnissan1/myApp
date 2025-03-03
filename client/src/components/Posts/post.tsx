@@ -60,12 +60,12 @@ const Post = ({ post }: Props) => {
         <div className="circle">
           <img
             className="owner-img"
-            src={post.owner.avatar || "../assets/default-avatar.png"}
+            // src={post.owner.avatar || "../assets/default-avatar.png"}
             alt="Owner avatar"
           />
         </div>
         <div className="text">
-          <p className="owner-name">{post.owner.username}</p>
+          {/* <p className="owner-name">{post.owner.username}</p> */}
           <p className="post-text">{post.content}</p>
         </div>
         <p className="price">{post.price}₪</p>
