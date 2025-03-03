@@ -20,6 +20,7 @@ export const useAxiosPostRequests = () => {
             headers: {
               "Content-Type": "image/jpeg",
             },
+            withCredentials: true,
           })
           .then((res) => {
             console.log(res);
@@ -37,7 +38,7 @@ export const useAxiosPostRequests = () => {
   const onSignUp = async (data: FieldValues) => {
     const imgUrl = await uploadImage(
       data.profileImage[0],
-      "http//localhost/3001"
+      "http://localhost:3001/file"
     );
     console.log("image url:", imgUrl);
 
