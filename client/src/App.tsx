@@ -11,7 +11,6 @@ import axios from "axios";
 import { RoutesValues } from "./consts/routes";
 import Layout from "./components/Layout/layout";
 import { RecoilRoot } from "recoil";
-import ProfilePost from "./components/Posts/profilePost";
 
 //TODO: REMOVE TO ANOTHER FILE
 const baseURL = "http://localhost:3001";
