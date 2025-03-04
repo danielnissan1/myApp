@@ -9,6 +9,7 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import axios from "axios";
 import { Comments } from "./comments";
+import { getComments } from "../../services/commentsService";
 
 interface Props {
   post: IPost;
@@ -33,13 +34,12 @@ const Post = ({ post }: Props) => {
   }, []);
 
   useEffect(() => {
-    const getComments = () => {
-      axios
-        .get(`http://localhost:3001/comments/${post._id}`)
-        .then((res) => setComments(res.data))
-        .catch((err) => console.error("CORS Error:", err));
+    const fetchComments = async () => {
+      if (post._id) {
+        setComments(await getComments(post._id));
+      }
     };
-    getComments();
+    fetchComments();
   }, []);
 
   const handleLikeToggle = () => {

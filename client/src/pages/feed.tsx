@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import axios from "axios";
 import { userAtom } from "../atoms/userAtom";
 import { useRecoilValue } from "recoil";
+import { getPosts } from "../services/postsService";
 
 interface Props {}
 
@@ -23,13 +24,10 @@ const Feed = ({}: Props) => {
   useEffect(() => {
     console.log("connected user:", user);
 
-    const getPosts = () => {
-      axios
-        .get("http://localhost:3001/posts")
-        .then((res) => setPosts(res.data))
-        .catch((err) => console.error("CORS Error:", err));
+    const fetchPosts = async () => {
+      setPosts(await getPosts());
     };
-    getPosts();
+    fetchPosts();
   }, []);
 
   return (
