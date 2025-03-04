@@ -4,6 +4,7 @@ import { RoutesValues } from "../consts/routes";
 import { useNavigate } from "react-router-dom";
 import { userAtom } from "../atoms/userAtom";
 import { useSetRecoilState } from "recoil";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const useAxiosPostRequests = () => {
   const navigate = useNavigate();
@@ -47,6 +48,11 @@ export const useAxiosPostRequests = () => {
         avatar: imgUrl,
       })
       .then((response) => {
+        const { accessToken, refreshToken } = response.data;
+
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+
         setUser(response.data);
 
         console.log("res: ", response.data);
