@@ -16,9 +16,12 @@ import "./newpost.css";
 import { apiClient } from "../services/api-client";
 import { Field, FieldValues, set, useForm } from "react-hook-form";
 import { useAxiosPostRequests } from "../hooks/useAxiosPostRequests";
+import { createPost } from "../services/postsService";
+import { useRecoilValue } from "recoil";
+import { userAtom } from "../atoms/userAtom";
 
 interface FormData {
-  img: FileList;
+  img: File;
   description: string;
   location: string;
   price: number;
@@ -26,6 +29,8 @@ interface FormData {
 
 const NewPost: React.FC = () => {
   const navigate = useNavigate();
+  const curruser = useRecoilValue(userAtom);
+
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [imgSrc, setImgSrc] = useState<string>("");
@@ -39,7 +44,7 @@ const NewPost: React.FC = () => {
   // const locationRef = useRef<HTMLInputElement>(null);
   // const priceRef = useRef<HTMLInputElement>(null);
 
-  const { register, handleSubmit, formState } = useForm<FormData>();
+  const { register, handleSubmit, formState, setValue } = useForm<FormData>();
   const { uploadImage } = useAxiosPostRequests();
 
   useEffect(() => {
@@ -56,14 +61,15 @@ const NewPost: React.FC = () => {
     price: 0,
     isSold: false,
     date: new Date(),
-    owner: { avatar: "", id: 1, username: "" },
+    owner: curruser,
   });
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files || event.target.files.length === 0) return;
-
-    const file = event.target.files[0];
-    setPreviewImage(URL.createObjectURL(file));
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      setPreviewImage(URL.createObjectURL(file));
+      setValue("img", file); // Manually update react-hook-form with the selected file
+    }
   };
 
   const getPriceRecommendation = async (itemDescription: string) => {
@@ -85,39 +91,22 @@ const NewPost: React.FC = () => {
     }
   };
 
-  // const newPost: IPost;
-
   const onSubmit = async (data: FieldValues) => {
-    // const data = {
-    //   description: "test",
-    //   location: "test",
-    //   price: 100,
-    // };
-
     console.log(data);
 
-    // if (imgRef.current) {
-    //   newPost.imgSrc = imgRef.current.src;
-    // }
-    // if (descriptionRef.current) {
-    //   newPost.content = descriptionRef.current.value;
-    // }
-    // if (locationRef.current) {
-    //   newPost.location = locationRef.current.value;
-    // }
-    // if (priceRef.current) {
-    //   newPost.price = Number(priceRef.current.value);
-    // }
+    const newPost: IPost = {
+      imgSrc: previewImage || "",
+      content: data.description,
+      location: data.location,
+      price: Number(data.price),
+      isSold: false,
+      date: new Date(),
+      owner: curruser,
+    };
 
-    // const newPost: IPost = {
-    //   imgSrc: previewImage || "",
-    //   content: data.description,
-    //   location: data.location,
-    //   price: Number(data.price),
-    //   isSold: false,
-    //   date: new Date(),
-    //   owner: { avatar: "", id: 123456, username: "ppp" },
-    // };
+    createPost(newPost);
+
+    navigate(RoutesValues.HOME);
   };
 
   return (

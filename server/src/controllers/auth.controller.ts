@@ -15,7 +15,20 @@ const register = async (req: Request, res: Response) => {
       password: hashedPassword,
       username: req.body.username,
     });
-    res.status(200).send(user);
+    const tokens = generateToken(user._id);
+    if (!tokens) {
+      return res.status(500).send("Server Error");
+    }
+
+    // Store the refresh token
+    user.refreshToken = [tokens.refreshToken];
+    await user.save();
+
+    res.status(200).send({
+      // accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      _id: user._id,
+    });
   } catch (error) {
     res.status(400).send(error);
   }

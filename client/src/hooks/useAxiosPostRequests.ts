@@ -4,10 +4,15 @@ import { RoutesValues } from "../consts/routes";
 import { useNavigate } from "react-router-dom";
 import { userAtom } from "../atoms/userAtom";
 import { useSetRecoilState } from "recoil";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const useAxiosPostRequests = () => {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userAtom);
+  const [getRefreshToken, setRefreshToken] = useLocalStorage(
+    "refreshToken",
+    ""
+  );
 
   const uploadImage = (file: File, url: string) => {
     return new Promise<string>((resolve, reject) => {
@@ -49,6 +54,12 @@ export const useAxiosPostRequests = () => {
         avatar: imgUrl,
       })
       .then((response) => {
+        const { refreshToken } = response.data;
+
+        setRefreshToken(refreshToken);
+
+        console.log("refreshToken: ", getRefreshToken());
+
         setUser(response.data);
 
         console.log("res: ", response.data);
