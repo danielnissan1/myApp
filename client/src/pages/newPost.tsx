@@ -105,6 +105,8 @@ const NewPost: React.FC = () => {
     };
 
     createPost(newPost);
+
+    navigate(RoutesValues.HOME);
   };
 
   return (

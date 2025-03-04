@@ -26,8 +26,6 @@ export const getPost = async (id: string): Promise<IPost | undefined> => {
 
 const storedRefreshToken = getRefreshToken();
 
-// const refreshToken = localStorage.getItem("refreshToken");
-
 export const createPost = (post: IPost) => {
   axios
     .post("http://localhost:3001/posts", post, {
