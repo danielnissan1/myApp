@@ -102,13 +102,13 @@ const Profile = ({}: Props) => {
         <Typography>userEmail@gmail.com</Typography>
       </Box>
       {chunkPosts(
-        Array(6)
+        Array(15)
           .fill(posts)
           .flat()
       ).map((chunk, index) => (
         <div
           key={index}
-          style={{ display: "flex", justifyContent: "space-between" }}
+          style={{ display: "flex", justifyContent: "flex-start" }}
         >
           {chunk.map((post) => {
             return (
