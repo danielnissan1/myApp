@@ -39,7 +39,7 @@ const profilePost = ({
   const deletePost = () => {};
 
   return (
-    <Card sx={{ height: "20rem", width: "30rem" }}>
+    <Card sx={{ height: "18rem", width: "27rem", margin: "1rem" }}>
       <CardActions
         sx={{
           direction: "rtl",

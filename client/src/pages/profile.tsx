@@ -29,7 +29,15 @@ const Profile = ({}: Props) => {
     getUsersPosts();
   }, [userId]);
 
-  console.log(posts);
+  //Gets an array and slice it to an array of arrays that each sub-array contains 3 posts
+  const chunkPosts = (posts: IPost[]) => {
+    const result = [];
+    for (let i = 0; i < posts.length; i += 3) {
+      result.push(posts.slice(i, i + 3));
+    }
+    return result;
+  };
+
   return (
     <Box>
       <Box sx={{ direction: "rtl", marginTop: "1.2rem", marginRight: "1rem" }}>
@@ -89,22 +97,34 @@ const Profile = ({}: Props) => {
         justifyContent="center"
         alignItems={"center"}
         marginTop={"0.3rem"}
+        mb={"0.5rem"}
       >
         <Typography>userEmail@gmail.com</Typography>
       </Box>
-      {posts.map((post) => {
-        return (
-          <ProfilePost
-            key={post._id}
-            price={post.price}
-            location={post.location}
-            content={post.content}
-            date={post.date}
-            imgSrc={post.imgSrc}
-            isSold={post.isSold}
-          ></ProfilePost>
-        );
-      })}
+      {chunkPosts(
+        Array(6)
+          .fill(posts)
+          .flat()
+      ).map((chunk, index) => (
+        <div
+          key={index}
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          {chunk.map((post) => {
+            return (
+              <ProfilePost
+                key={post._id}
+                price={post.price}
+                location={post.location}
+                content={post.content}
+                date={post.date}
+                imgSrc={post.imgSrc}
+                isSold={post.isSold}
+              ></ProfilePost>
+            );
+          })}
+        </div>
+      ))}
     </Box>
   );
 };
