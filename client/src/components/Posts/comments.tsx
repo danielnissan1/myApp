@@ -5,6 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { IUser, IComment } from "../../types/types";
+import { create } from "domain";
+import { createComment } from "../../services/commentsService";
+import { useRecoilValue } from "recoil";
+import { userAtom } from "../../atoms/userAtom";
 // import { IUser } from "..../App";
 
 interface CommentsDialogProps {
@@ -20,6 +24,8 @@ export function Comments({
   opened,
   setOpened,
 }: CommentsDialogProps) {
+  const curruser = useRecoilValue(userAtom);
+
   const [currComments, setCurrComments] = useState<IComment[]>(comments);
   const [newComment, setNewComment] = useState("");
 
@@ -38,15 +44,12 @@ export function Comments({
     if (newComment.trim()) {
       const newCommentObj: IComment = {
         id: String(comments.length + 1),
-        owner: {
-          username: "Anonymous",
-          avatar: "/placeholder.svg",
-          id: 12345,
-        },
+        owner: curruser,
         comment: newComment,
         postId: postId || "",
       };
       setCurrComments([...comments, newCommentObj]);
+      createComment(newCommentObj);
       setNewComment("");
     }
   };
