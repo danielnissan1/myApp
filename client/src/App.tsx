@@ -25,22 +25,19 @@ export const instance = axios.create({
 
 function App() {
   return (
-    <div>
-      <ProfilePost></ProfilePost>
-    </div>
-    // <RecoilRoot>
-    //   <Routes>
-    //     <Route path={RoutesValues.LOGIN} element={<Login />}></Route>
-    //     <Route path={RoutesValues.REGISTER} element={<Register />}></Route>
+    <RecoilRoot>
+      <Routes>
+        <Route path={RoutesValues.LOGIN} element={<Login />}></Route>
+        <Route path={RoutesValues.REGISTER} element={<Register />}></Route>
 
-    //     <Route element={<Layout />}>
-    //       <Route path={RoutesValues.HOME} element={<Feed />}></Route>
-    //       <Route path={RoutesValues.POSTS} element={<PostPage />}></Route>
-    //       <Route path={RoutesValues.PROFILE} element={<Profile />}></Route>
-    //       <Route path={RoutesValues.NEW_POST} element={<NewPost />}></Route>
-    //     </Route>
-    //   </Routes>
-    // </RecoilRoot>
+        <Route element={<Layout />}>
+          <Route path={RoutesValues.HOME} element={<Feed />}></Route>
+          <Route path={RoutesValues.POSTS} element={<PostPage />}></Route>
+          <Route path={RoutesValues.PROFILE} element={<Profile />}></Route>
+          <Route path={RoutesValues.NEW_POST} element={<NewPost />}></Route>
+        </Route>
+      </Routes>
+    </RecoilRoot>
   );
 }
 

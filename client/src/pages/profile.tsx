@@ -1,14 +1,15 @@
-import React, { FC, useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { IPost } from "../types/types";
 import { UserContext } from "../context";
-import Post from "../components/Posts/post";
-import { Avatar, Button, IconButton, TextField } from "@mui/material";
+import { Avatar, Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import CameraIcon from "@mui/icons-material/CameraAltOutlined";
 import { colors } from "../consts/colors";
 import EditableText from "../components/Inputs/editableText";
+import { useProfile } from "../hooks/useProfile";
+import ProfilePost from "../components/Posts/profilePost";
 
 interface Props {}
 
@@ -16,11 +17,19 @@ const Profile = ({}: Props) => {
   const [userPosts, setUserPosts] = useState<IPost[]>([]);
   const userContext = useContext(UserContext);
   const [editMode, setEditMode] = useState(false);
+  const userId = "678812d5fe88031918cfc5fc";
+
+  const { getUsersPosts, posts } = useProfile(userId);
 
   const editProfileImage = () => {
     //TODO
   };
 
+  useEffect(() => {
+    getUsersPosts();
+  }, [userId]);
+
+  console.log(posts);
   return (
     <Box>
       <Box sx={{ direction: "rtl", marginTop: "1.2rem", marginRight: "1rem" }}>
@@ -83,11 +92,19 @@ const Profile = ({}: Props) => {
       >
         <Typography>userEmail@gmail.com</Typography>
       </Box>
-      {/* <div className="posts">
-          {userPosts.map((currPost) => (
-            <Post key={currPost._id} post={currPost} />
-          ))}
-        </div> */}
+      {posts.map((post) => {
+        return (
+          <ProfilePost
+            key={post._id}
+            price={post.price}
+            location={post.location}
+            content={post.content}
+            date={post.date}
+            imgSrc={post.imgSrc}
+            isSold={post.isSold}
+          ></ProfilePost>
+        );
+      })}
     </Box>
   );
 };
