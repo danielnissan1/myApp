@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import hangerImage from "../../assets/hanger.jpg";
 import { Box, IconButton } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import LogoutDialog from "../Bars/logoutDialog";
+import LogoutDialog from "../Modals/logoutDialog";
 
 const TopBar = () => {
   const [alertDialogOpen, setAlertDialogOpen] = useState(false);

@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../consts/routes";
+import ErrorModal from "../components/Modals/errorModal";
+import { useState } from "react";
 
 export const useAuth = (email: string, password: string) => {
   const navigate = useNavigate();
+  const [error, setError] = useState();
 
   const onLogin = () => {
     axios
@@ -16,8 +19,7 @@ export const useAuth = (email: string, password: string) => {
         navigate(RoutesValues.HOME);
       })
       .catch((err) => {
-        //TODO: error modal + type with different errors english: hebrew label
-        console.log("err", err);
+        setError(err.response.data);
       });
   };
 
@@ -37,5 +39,5 @@ export const useAuth = (email: string, password: string) => {
     //   });
   };
 
-  return { onLogin };
+  return { onLogin, error };
 };

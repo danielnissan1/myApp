@@ -29,6 +29,8 @@ export const useAxiosPostRequests = () => {
           .catch((err) => {
             reject(err);
           });
+      } else {
+        console.log("must to be a photo");
       }
     });
   };
