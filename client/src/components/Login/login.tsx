@@ -16,14 +16,17 @@ import { RoutesValues } from "../../consts/routes";
 import hangerImage from "../../assets/hanger.jpg";
 import axios from "axios";
 import { useAuth } from "../../hooks/useAuth";
+import ErrorModal from "../Modals/errorModal";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
-  const { onLogin } = useAuth(email, password);
+  const { onLogin, error } = useAuth(email, password);
+  console.log(error);
 
   return (
     <Box
@@ -104,6 +107,7 @@ const Login = () => {
           Sign up
         </Button>
       </Box>
+      {error && <ErrorModal text={error} open={true}></ErrorModal>}
     </Box>
   );
 };

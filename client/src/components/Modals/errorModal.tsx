@@ -11,11 +11,18 @@ import React from "react";
 
 interface modalProps {
   text: string;
+  open: boolean;
 }
 
-const ErrorModal = ({ text }: modalProps) => {
+const ErrorModal = ({ text, open }: modalProps) => {
   return (
-    <Dialog open={true} sx={{ height: "20rem", width: "30rem" }}>
+    <Dialog
+      open={open}
+      sx={{
+        height: "20rem",
+        width: "30rem",
+      }}
+    >
       <DialogTitle
         color={"#E95567"}
         sx={{ display: "flex", justifyContent: "center", pb: "0px" }}
@@ -30,7 +37,9 @@ const ErrorModal = ({ text }: modalProps) => {
           alignItems: "center",
         }}
       >
-        <Typography color={"#E95567"}>ERROR</Typography>
+        <Typography color={"#E95567"} fontSize={"h3"}>
+          ERROR
+        </Typography>
         <Typography mt={"1rem"} color={"#3B3A3A"}>
           {text}
         </Typography>
