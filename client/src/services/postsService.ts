@@ -21,13 +21,13 @@ export const getPost = async (id: string): Promise<IPost | undefined> => {
   }
 };
 
-const accessToken = localStorage.getItem("accessToken");
+const refreshToken = localStorage.getItem("refreshToken");
 
 export const createPost = (post: IPost) => {
   axios
     .post("http://localhost:3001/posts", post, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${refreshToken}`,
       },
     })
     .then((res) => console.log(res.data))

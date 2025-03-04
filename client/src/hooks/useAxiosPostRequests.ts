@@ -50,7 +50,7 @@ export const useAxiosPostRequests = () => {
       .then((response) => {
         const { accessToken, refreshToken } = response.data;
 
-        localStorage.setItem("accessToken", accessToken);
+        // localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
 
         setUser(response.data);

@@ -103,7 +103,6 @@ const NewPost: React.FC = () => {
     console.log(data);
 
     const newPost: IPost = {
-      _id: "",
       imgSrc: previewImage || "",
       content: data.description,
       location: data.location,
