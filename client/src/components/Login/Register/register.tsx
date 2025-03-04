@@ -15,6 +15,7 @@ import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import AddPhotoIcon from "@mui/icons-material/AddPhotoAlternate";
 import { formSchema, formData } from "./formData";
 import { useAxiosPostRequests } from "../../../hooks/useAxiosPostRequests";
+import { colors } from "../../../consts/colors";
 
 const Register = () => {
   const {
@@ -194,7 +195,7 @@ const Register = () => {
               sx={{
                 width: "400px",
                 mt: "10px",
-                backgroundColor: "#ebe2e2",
+                backgroundColor: colors.BABY_PINK,
                 color: "black",
                 margin: "0 auto",
                 "&:hover": {

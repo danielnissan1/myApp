@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import CancelIcon from "@mui/icons-material/HighlightOffSharp";
 import React from "react";
+import { colors } from "../../consts/colors";
 
 interface modalProps {
   text: string;
@@ -24,7 +25,7 @@ const ErrorModal = ({ text, open }: modalProps) => {
       }}
     >
       <DialogTitle
-        color={"#E95567"}
+        color={colors.ERROR_RED}
         sx={{ display: "flex", justifyContent: "center", pb: "0px" }}
       >
         <CancelIcon sx={{ fontSize: "4rem" }} />
@@ -37,10 +38,10 @@ const ErrorModal = ({ text, open }: modalProps) => {
           alignItems: "center",
         }}
       >
-        <Typography color={"#E95567"} fontSize={"h3"}>
+        <Typography color={colors.ERROR_RED} fontSize={"h3"}>
           ERROR
         </Typography>
-        <Typography mt={"1rem"} color={"#3B3A3A"}>
+        <Typography mt={"1rem"} color={colors.DARK_TEXT}>
           {text}
         </Typography>
       </DialogContent>
@@ -52,7 +53,7 @@ const ErrorModal = ({ text, open }: modalProps) => {
       >
         <Button
           sx={{
-            backgroundColor: "#E95567",
+            backgroundColor: colors.ERROR_RED,
             color: "white",
             borderRadius: "1rem",
             width: "5rem",

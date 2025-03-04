@@ -43,7 +43,7 @@ const Profile = ({}: Props) => {
       <Box sx={{ direction: "rtl", marginTop: "1.2rem", marginRight: "1rem" }}>
         <Button
           sx={{
-            backgroundColor: "#ebe2e2",
+            backgroundColor: colors.BABY_PINK,
             color: "black",
             width: "10rem",
             borderRadius: "10rem",

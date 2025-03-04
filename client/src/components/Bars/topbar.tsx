@@ -3,6 +3,7 @@ import hangerImage from "../../assets/hanger.jpg";
 import { Box, IconButton } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LogoutDialog from "../Modals/logoutDialog";
+import { colors } from "../../consts/colors";
 
 const TopBar = () => {
   const [alertDialogOpen, setAlertDialogOpen] = useState(false);
@@ -23,7 +24,7 @@ const TopBar = () => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: " #ebe2e2",
+        backgroundColor: colors.BABY_PINK,
         padding: "10px 20px",
         direction: "rtl",
       }}
