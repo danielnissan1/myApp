@@ -91,15 +91,7 @@ const NewPost: React.FC = () => {
     }
   };
 
-  // const newPost: IPost;
-
   const onSubmit = async (data: FieldValues) => {
-    // const data = {
-    //   description: "test",
-    //   location: "test",
-    //   price: 100,
-    // };
-
     console.log(data);
 
     const newPost: IPost = {
@@ -113,29 +105,6 @@ const NewPost: React.FC = () => {
     };
 
     createPost(newPost);
-
-    // if (imgRef.current) {
-    //   newPost.imgSrc = imgRef.current.src;
-    // }
-    // if (descriptionRef.current) {
-    //   newPost.content = descriptionRef.current.value;
-    // }
-    // if (locationRef.current) {
-    //   newPost.location = locationRef.current.value;
-    // }
-    // if (priceRef.current) {
-    //   newPost.price = Number(priceRef.current.value);
-    // }
-
-    // const newPost: IPost = {
-    //   imgSrc: previewImage || "",
-    //   content: data.description,
-    //   location: data.location,
-    //   price: Number(data.price),
-    //   isSold: false,
-    //   date: new Date(),
-    //   owner: { avatar: "", id: 123456, username: "ppp" },
-    // };
   };
 
   return (

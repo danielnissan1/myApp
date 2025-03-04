@@ -9,6 +9,10 @@ import { useLocalStorage } from "./useLocalStorage";
 export const useAxiosPostRequests = () => {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userAtom);
+  const [getRefreshToken, setRefreshToken] = useLocalStorage(
+    "refreshToken",
+    ""
+  );
 
   const uploadImage = (file: File, url: string) => {
     return new Promise<string>((resolve, reject) => {
@@ -48,10 +52,10 @@ export const useAxiosPostRequests = () => {
         avatar: imgUrl,
       })
       .then((response) => {
-        const { accessToken, refreshToken } = response.data;
+        const { refreshToken } = response.data;
 
-        // localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
+        // localStorage.setItem("refreshToken", refreshToken);
+        setRefreshToken(refreshToken);
 
         setUser(response.data);
 
