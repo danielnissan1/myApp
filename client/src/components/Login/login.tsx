@@ -14,9 +14,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../../consts/routes";
 import hangerImage from "../../assets/hanger.jpg";
-import axios from "axios";
 import { useAuth } from "../../hooks/useAuth";
 import ErrorModal from "../Modals/errorModal";
+import { colors } from "../../consts/colors";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -80,10 +80,10 @@ const Login = () => {
         sx={{
           mt: "30px",
           width: "450px",
-          backgroundColor: "#ebe2e2",
+          backgroundColor: colors.BABY_PINK,
           color: "black",
           "&:hover": {
-            backgroundColor: "rgb(229, 212, 212)",
+            backgroundColor: colors.LIGHT_BABY_PINK,
           },
         }}
         onClick={onLogin}
@@ -94,7 +94,7 @@ const Login = () => {
         <Typography>Don't have an account?</Typography>
         <Button
           sx={{
-            color: "rgb(192, 160, 160)",
+            color: colors.DARK_BABY_PINK,
             borderColor: "black",
             fontWeight: "bold",
             "&:hover": {
