@@ -1,5 +1,8 @@
 import axios from "axios";
 import { IPost } from "../types/types";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+
+const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
 
 export const getPosts = () => {
   let allPosts: IPost[] = [];
@@ -21,13 +24,15 @@ export const getPost = async (id: string): Promise<IPost | undefined> => {
   }
 };
 
-const refreshToken = localStorage.getItem("refreshToken");
+const storedRefreshToken = getRefreshToken();
+
+// const refreshToken = localStorage.getItem("refreshToken");
 
 export const createPost = (post: IPost) => {
   axios
     .post("http://localhost:3001/posts", post, {
       headers: {
-        Authorization: `Bearer ${refreshToken}`,
+        Authorization: `Bearer ${storedRefreshToken}`,
       },
     })
     .then((res) => console.log(res.data))
