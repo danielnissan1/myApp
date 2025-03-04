@@ -34,6 +34,8 @@ export const useAxiosPostRequests = () => {
           .catch((err) => {
             reject(err);
           });
+      } else {
+        console.log("must to be a photo");
       }
     });
   };
@@ -70,5 +72,4 @@ export const useAxiosPostRequests = () => {
   };
 
   return { onSignUp, uploadImage };
-  // Removed the incorrect implementation of useSetRecoilState
 };

@@ -15,28 +15,18 @@ import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../../consts/routes";
 import hangerImage from "../../assets/hanger.jpg";
 import axios from "axios";
+import { useAuth } from "../../hooks/useAuth";
+import ErrorModal from "../Modals/errorModal";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
-  const onLogin = () => {
-    axios
-      .post("http://localhost:3001/auth/login", {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        //TODO: save the details
-        navigate(RoutesValues.HOME);
-      })
-      .catch((err) => {
-        //TODO: error modal + type with different errors english: hebrew label
-        console.log("err", err);
-      });
-  };
+  const navigate = useNavigate();
+  const { onLogin, error } = useAuth(email, password);
+  console.log(error);
 
   return (
     <Box
@@ -117,6 +107,7 @@ const Login = () => {
           Sign up
         </Button>
       </Box>
+      {error && <ErrorModal text={error} open={true}></ErrorModal>}
     </Box>
   );
 };
