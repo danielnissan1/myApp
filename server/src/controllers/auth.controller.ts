@@ -6,6 +6,11 @@ import { Document, ObjectId, Types } from "mongoose";
 
 const register = async (req: Request, res: Response) => {
   try {
+    const userByEmail = await userModel.findOne({ email: req.body.email });
+    if (userByEmail) {
+      return res.status(500).send("Email already exist");
+    }
+
     const password = req.body.password;
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
