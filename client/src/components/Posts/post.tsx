@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { IComment, IPost } from "../../types/types";
+import { IComment, IPost, IUser } from "../../types/types";
 import "./post.css";
 import { UserContext } from "../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +22,8 @@ const Post = ({ post }: Props) => {
   const [openComments, setOpenComments] = useState<boolean>(false);
   const [comments, setComments] = useState<IComment[]>([]);
   const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState<number>(0);
+  const [likes, setLikes] = useState<IUser[]>(post.likes ?? []);
+  const [likesNum, setLikesNum] = useState<number>(likes.length ?? 0);
 
   useEffect(() => {}, []);
 
@@ -32,17 +33,11 @@ const Post = ({ post }: Props) => {
         setComments(await getComments(post._id));
       }
     };
-    const fetchLikes = async () => {
-      if (post._id) {
-        setLikes(await getLikesNum(post._id));
-      }
-    };
     fetchComments();
-    fetchLikes();
   }, []);
 
   const handleLikeToggle = () => {
-    setLikes(liked ? likes - 1 : likes + 1);
+    setLikesNum(liked ? likesNum - 1 : likesNum + 1);
     setLiked(!liked);
   };
   console.log(post);
@@ -86,7 +81,7 @@ const Post = ({ post }: Props) => {
             {liked ? <Favorite /> : <FavoriteBorder />}
           </IconButton>
 
-          <Typography variant="caption">{likes}</Typography>
+          <Typography variant="caption">{likesNum}</Typography>
         </div>
       </div>
       <div style={{ minWidth: "fit-content" }}>

@@ -8,6 +8,7 @@ export interface IPost {
   isSold: boolean;
   date: Date;
   price: number;
+  likes?: Types.ObjectId[];
 }
 
 const postSchema = new Schema<IPost>({
@@ -39,6 +40,13 @@ const postSchema = new Schema<IPost>({
     type: Number,
     required: true,
   },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Users",
+      default: [],
+    },
+  ],
 });
 
 const postModel = mongoose.model<IPost>("Posts", postSchema);

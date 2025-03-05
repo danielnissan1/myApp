@@ -11,3 +11,20 @@ export const getLikesNum = async (postId: string): Promise<number> => {
     return 0;
   }
 };
+
+export const getLikes = async (postId: string): Promise<string[]> => {
+  try {
+    const res = await axios.get(`http://localhost:3001/likes/${postId}`);
+    return res.data;
+  } catch (err) {
+    console.error("CORS Error:", err);
+    return [];
+  }
+};
+
+export const createLike = (postId: string, userId: string) => {
+  axios
+    .post("http://localhost:3001/likes", { postId, userId })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.error("CORS Error:", err));
+};
