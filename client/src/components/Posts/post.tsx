@@ -25,7 +25,7 @@ const Post = ({ post }: Props) => {
   const [openComments, setOpenComments] = useState<boolean>(false);
   const [comments, setComments] = useState<IComment[]>([]);
   const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState<IUser[]>([]);
+  const [likes, setLikes] = useState<string[]>([]);
   const [likesNum, setLikesNum] = useState<number>(0);
 
   useEffect(() => {
@@ -34,6 +34,16 @@ const Post = ({ post }: Props) => {
       setLikesNum(post.likes.length);
     }
   }, [post]);
+
+  useEffect(() => {
+    if (post && post.likes) {
+      setLikes(post.likes);
+      setLikesNum(post.likes.length);
+
+      const isLiked = post.likes.includes(curruser._id.toString());
+      setLiked(isLiked);
+    }
+  }, [post, curruser]);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -45,9 +55,6 @@ const Post = ({ post }: Props) => {
   }, []);
 
   const handleLikeToggle = () => {
-    console.log("post._id", post._id);
-    console.log("curruser.id", curruser._id);
-
     if (post._id) {
       if (curruser._id) {
         const userId = curruser._id.toString();

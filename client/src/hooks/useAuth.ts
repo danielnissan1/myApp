@@ -3,10 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../consts/routes";
 import ErrorModal from "../components/Modals/errorModal";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { userAtom } from "../atoms/userAtom";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const useAuth = (email: string, password: string) => {
   const navigate = useNavigate();
   const [error, setError] = useState();
+  const setUser = useSetRecoilState(userAtom);
+  const [getRefreshToken, setRefreshToken] = useLocalStorage(
+    "refreshToken",
+    ""
+  );
 
   const onLogin = () => {
     axios
@@ -16,6 +24,13 @@ export const useAuth = (email: string, password: string) => {
       })
       .then((response) => {
         //TODO: save the details
+        const { refreshToken } = response.data;
+
+        setRefreshToken(refreshToken);
+
+        console.log("refreshToken: ", getRefreshToken());
+
+        setUser(response.data);
         navigate(RoutesValues.HOME);
       })
       .catch((err) => {

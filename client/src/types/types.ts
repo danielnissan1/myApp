@@ -13,7 +13,7 @@ export interface IPost {
   content: string;
   location: string;
   price: number;
-  likes: IUser[];
+  likes: string[];
 }
 
 export interface IComment {
