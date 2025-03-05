@@ -1,17 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import { IComment, IPost, IUser } from "../../types/types";
+import React, { useEffect, useState } from "react";
+import { IComment, IPost } from "../../types/types";
 import "./post.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
-import axios from "axios";
 import { Comments } from "./comments";
 import { getComments } from "../../services/commentsService";
-import { getLikesNum } from "../../services/likesService";
 import { likePost, unlikePost } from "../../services/postsService";
-import { log } from "console";
 import { userAtom } from "../../atoms/userAtom";
 import { useRecoilValue } from "recoil";
 
