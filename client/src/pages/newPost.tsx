@@ -62,6 +62,7 @@ const NewPost: React.FC = () => {
     isSold: false,
     date: new Date(),
     owner: curruser,
+    likes: [],
   });
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,6 +103,7 @@ const NewPost: React.FC = () => {
       isSold: false,
       date: new Date(),
       owner: curruser,
+      likes: [],
     };
 
     createPost(newPost);

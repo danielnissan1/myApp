@@ -1,5 +1,5 @@
 export interface IUser {
-  id: number;
+  _id: number;
   username: string;
   avatar: string;
 }
@@ -13,6 +13,7 @@ export interface IPost {
   content: string;
   location: string;
   price: number;
+  likes: string[];
 }
 
 export interface IComment {
