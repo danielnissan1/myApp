@@ -3,10 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../consts/routes";
 import ErrorModal from "../components/Modals/errorModal";
 import { useState } from "react";
+import { error } from "console";
 
-export const useAuth = (email: string, password: string) => {
+export const useAuth = (
+  email: string,
+  password: string,
+  setError: React.Dispatch<React.SetStateAction<undefined>>
+) => {
   const navigate = useNavigate();
-  const [error, setError] = useState();
 
   const onLogin = () => {
     axios
@@ -39,5 +43,5 @@ export const useAuth = (email: string, password: string) => {
     //   });
   };
 
-  return { onLogin, error };
+  return { onLogin };
 };

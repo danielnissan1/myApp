@@ -22,11 +22,10 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [open, setOpen] = useState(false);
+  const [error, setError] = useState();
 
   const navigate = useNavigate();
-  const { onLogin, error } = useAuth(email, password);
-  console.log(error);
+  const { onLogin } = useAuth(email, password, setError);
 
   return (
     <Box
@@ -107,7 +106,7 @@ const Login = () => {
           Sign up
         </Button>
       </Box>
-      {error && <ErrorModal text={error} open={true}></ErrorModal>}
+      {error && <ErrorModal text={error} setError={setError}></ErrorModal>}
     </Box>
   );
 };

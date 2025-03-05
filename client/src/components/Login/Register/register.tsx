@@ -16,15 +16,16 @@ import AddPhotoIcon from "@mui/icons-material/AddPhotoAlternate";
 import { formSchema, formData } from "./formData";
 import { useAxiosPostRequests } from "../../../hooks/useAxiosPostRequests";
 import { colors } from "../../../consts/colors";
+import ErrorModal from "../../Modals/errorModal";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     watch,
   } = useForm<formData>({ resolver: zodResolver(formSchema) });
-  const { onSignUp } = useAxiosPostRequests();
+  const { onSignUp, error, setError } = useAxiosPostRequests();
 
   const [profileImage] = watch(["profileImage"]);
   const [profileImageSource, setProfileImageSource] = useState<string>();
@@ -191,6 +192,7 @@ const Register = () => {
           ></TextField> */}
           <Box display="flex" justifyContent="center" mt="10px">
             <Button
+              // disabled={!profileImage}
               type="submit"
               sx={{
                 width: "400px",
@@ -214,6 +216,7 @@ const Register = () => {
             ></GoogleLogin>
           </Box>
         </form>
+        {error && <ErrorModal text={error} setError={setError}></ErrorModal>}
       </FormControl>
     </Box>
   );
