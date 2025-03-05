@@ -22,10 +22,15 @@ const Post = ({ post }: Props) => {
   const [openComments, setOpenComments] = useState<boolean>(false);
   const [comments, setComments] = useState<IComment[]>([]);
   const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState<IUser[]>(post.likes ?? []);
-  const [likesNum, setLikesNum] = useState<number>(likes.length ?? 0);
+  const [likes, setLikes] = useState<IUser[]>([]);
+  const [likesNum, setLikesNum] = useState<number>(0);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (post && post.likes) {
+      setLikes(post.likes);
+      setLikesNum(post.likes.length);
+    }
+  }, [post]);
 
   useEffect(() => {
     const fetchComments = async () => {
