@@ -214,5 +214,84 @@ router.delete(
  *       500:
  *         description: Server error
  */
-router.put("/", authMiddleware, postsController.addLike.bind(postsController));
+// router.put("/:id", authMiddleware, postsController.update.bind(postsController));
+
+/**
+ * @swagger
+ * /posts/addlike:
+ *   post:
+ *     summary: Add like to a post
+ *     tags:
+ *       - Posts
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               postId:
+ *                 type: string
+ *                 description: The ID of the post
+ *               userId:
+ *                 type: string
+ *                 description: The ID of the user
+ *             required:
+ *               - postId
+ *               - userId
+ *     responses:
+ *       200:
+ *         description: Like added successfully
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
+router.post(
+  "/addlike",
+  authMiddleware,
+  postsController.addLike.bind(postsController)
+);
+
+/**
+ * @swagger
+ * /posts/removelike:
+ *   post:
+ *     summary: Remove like from a post
+ *     tags:
+ *       - Posts
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               postId:
+ *                 type: string
+ *                 description: The ID of the post
+ *               userId:
+ *                 type: string
+ *                 description: The ID of the user
+ *             required:
+ *               - postId
+ *               - userId
+ *     responses:
+ *       200:
+ *         description: Like removed successfully
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
+
+router.post(
+  "/removelike",
+  authMiddleware,
+  postsController.removeLike.bind(postsController)
+);
 export default router;

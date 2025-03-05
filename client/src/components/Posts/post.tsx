@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { IComment, IPost, IUser } from "../../types/types";
 import "./post.css";
-import { UserContext } from "../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
@@ -11,14 +10,18 @@ import axios from "axios";
 import { Comments } from "./comments";
 import { getComments } from "../../services/commentsService";
 import { getLikesNum } from "../../services/likesService";
+import { likePost, unlikePost } from "../../services/postsService";
+import { log } from "console";
+import { userAtom } from "../../atoms/userAtom";
+import { useRecoilValue } from "recoil";
 
 interface Props {
   post: IPost;
 }
 
 const Post = ({ post }: Props) => {
-  const userContext = useContext(UserContext);
   const navigate = useNavigate();
+  const curruser = useRecoilValue(userAtom);
   const [openComments, setOpenComments] = useState<boolean>(false);
   const [comments, setComments] = useState<IComment[]>([]);
   const [liked, setLiked] = useState(false);
@@ -42,6 +45,21 @@ const Post = ({ post }: Props) => {
   }, []);
 
   const handleLikeToggle = () => {
+    console.log("post._id", post._id);
+    console.log("curruser.id", curruser._id);
+
+    if (post._id) {
+      if (curruser._id) {
+        const userId = curruser._id.toString();
+        if (!liked) {
+          likePost(post._id, userId);
+        } else {
+          unlikePost(post._id, userId);
+        }
+      } else {
+        console.log("User is not logged in");
+      }
+    }
     setLikesNum(liked ? likesNum - 1 : likesNum + 1);
     setLiked(!liked);
   };

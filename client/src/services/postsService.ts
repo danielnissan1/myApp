@@ -64,7 +64,14 @@ export const updatePost = (postId: string, post: IPost) => {
 
 export const likePost = (postId: string, userId: string) => {
   axios
-    .post("http://localhost:3001/likes", { postId, userId })
+    .post("http://localhost:3001/posts/addlike", { postId, userId })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.error("CORS Error:", err));
+};
+
+export const unlikePost = (postId: string, userId: string) => {
+  axios
+    .post(`http://localhost:3001/posts/removelike`, { postId, userId })
     .then((res) => console.log(res.data))
     .catch((err) => console.error("CORS Error:", err));
 };

@@ -8,7 +8,7 @@ export interface IPost {
   isSold: boolean;
   date: Date;
   price: number;
-  likes?: Types.ObjectId[];
+  likes: Types.ObjectId[];
 }
 
 const postSchema = new Schema<IPost>({
