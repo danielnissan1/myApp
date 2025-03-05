@@ -10,6 +10,7 @@ import { IconButton, Typography } from "@mui/material";
 import axios from "axios";
 import { Comments } from "./comments";
 import { getComments } from "../../services/commentsService";
+import { getLikesNum } from "../../services/likesService";
 
 interface Props {
   post: IPost;
@@ -23,15 +24,7 @@ const Post = ({ post }: Props) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState<number>(0);
 
-  useEffect(() => {
-    const getPosts = () => {
-      axios
-        .get(`http://localhost:3001/likes/${post._id}`)
-        .then((res) => setLikes(res.data.length))
-        .catch((err) => console.error("CORS Error:", err));
-    };
-    getPosts();
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -39,7 +32,13 @@ const Post = ({ post }: Props) => {
         setComments(await getComments(post._id));
       }
     };
+    const fetchLikes = async () => {
+      if (post._id) {
+        setLikes(await getLikesNum(post._id));
+      }
+    };
     fetchComments();
+    fetchLikes();
   }, []);
 
   const handleLikeToggle = () => {
