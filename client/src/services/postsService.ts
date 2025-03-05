@@ -4,14 +4,16 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
 
-export const getPosts = () => {
-  let allPosts: IPost[] = [];
-  axios
-    .get("http://localhost:3001/posts")
-    .then((res) => (allPosts = res.data))
-    .catch((err) => console.error("CORS Error:", err));
+export const getPosts = async (): Promise<IPost[]> => {
+  // let allPosts: IPost[] = [];
+  try {
+    const res = await axios.get("http://localhost:3001/posts");
 
-  return allPosts;
+    return res.data;
+  } catch (err) {
+    console.error("CORS Error:", err);
+    return [];
+  }
 };
 
 export const getPost = async (id: string): Promise<IPost | undefined> => {
