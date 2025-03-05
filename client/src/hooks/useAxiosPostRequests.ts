@@ -48,7 +48,6 @@ export const useAxiosPostRequests = () => {
       data.profileImage[0],
       "http://localhost:3001/file"
     );
-    console.log("img", imgUrl);
 
     axios
       .post("http://localhost:3001/auth/register", {
@@ -67,12 +66,12 @@ export const useAxiosPostRequests = () => {
         setUser(response.data);
 
         console.log("res: ", response.data);
+        navigate(RoutesValues.HOME);
       })
       .catch((err) => {
+        console.log(err.response.data);
         setError(err.response.data);
       });
-
-    navigate(RoutesValues.HOME);
   };
 
   return { onSignUp, uploadImage, error, setError };
