@@ -14,7 +14,6 @@ export const useAuth = (
   setError: React.Dispatch<React.SetStateAction<undefined>>
 ) => {
   const navigate = useNavigate();
-  const [error, setError] = useState();
   const setUser = useSetRecoilState(userAtom);
   const [getRefreshToken, setRefreshToken] = useLocalStorage(
     "refreshToken",
