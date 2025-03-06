@@ -7,21 +7,23 @@ import {
   Typography,
 } from "@mui/material";
 import CancelIcon from "@mui/icons-material/HighlightOffSharp";
-import React from "react";
+import React, { useState } from "react";
 import { colors } from "../../consts/colors";
 
 interface modalProps {
-  text: string;
-  open: boolean;
+  text: string | undefined;
+  setError: React.Dispatch<React.SetStateAction<undefined>>;
 }
 
-const ErrorModal = ({ text, open }: modalProps) => {
+const ErrorModal = ({ text, setError }: modalProps) => {
   return (
     <Dialog
-      open={open}
+      open={true}
       sx={{
         height: "20rem",
         width: "30rem",
+        margin: "15%",
+        pl: "20%",
       }}
     >
       <DialogTitle
@@ -58,6 +60,7 @@ const ErrorModal = ({ text, open }: modalProps) => {
             borderRadius: "1rem",
             width: "5rem",
           }}
+          onClick={() => setError(undefined)}
         >
           close
         </Button>

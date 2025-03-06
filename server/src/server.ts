@@ -6,7 +6,6 @@ import express, { Express } from "express";
 import postsRoute from "./routes/posts.route";
 import commentsRoute from "./routes/comments.route";
 import authRoutes from "./routes/auth_routes";
-import likesRoute from "./routes/likes.route";
 import priceRec from "./routes/priceRec.routes";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
@@ -37,7 +36,6 @@ app.use((req, res, next) => {
 app.use("/posts", postsRoute);
 app.use("/comments", commentsRoute);
 app.use("/auth", authRoutes);
-app.use("/likes", likesRoute);
 app.use("/priceRec", priceRec);
 app.use("/file", fileRoutes);
 app.options("*", cors());

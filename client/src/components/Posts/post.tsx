@@ -1,37 +1,46 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IComment, IPost } from "../../types/types";
 import "./post.css";
-import { UserContext } from "../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
-import axios from "axios";
 import { Comments } from "./comments";
 import { getComments } from "../../services/commentsService";
+import { likePost, unlikePost } from "../../services/postsService";
+import { userAtom } from "../../atoms/userAtom";
+import { useRecoilValue } from "recoil";
 
 interface Props {
   post: IPost;
 }
 
 const Post = ({ post }: Props) => {
-  const userContext = useContext(UserContext);
   const navigate = useNavigate();
+  const curruser = useRecoilValue(userAtom);
   const [openComments, setOpenComments] = useState<boolean>(false);
   const [comments, setComments] = useState<IComment[]>([]);
   const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState<number>(0);
+  const [likes, setLikes] = useState<string[]>([]);
+  const [likesNum, setLikesNum] = useState<number>(0);
 
   useEffect(() => {
-    const getPosts = () => {
-      axios
-        .get(`http://localhost:3001/likes/${post._id}`)
-        .then((res) => setLikes(res.data.length))
-        .catch((err) => console.error("CORS Error:", err));
-    };
-    getPosts();
-  }, []);
+    if (post && post.likes) {
+      setLikes(post.likes);
+      setLikesNum(post.likes.length);
+    }
+  }, [post]);
+
+  useEffect(() => {
+    if (post && post.likes) {
+      setLikes(post.likes);
+      setLikesNum(post.likes.length);
+
+      const isLiked = post.likes.includes(curruser._id.toString());
+      setLiked(isLiked);
+    }
+  }, [post, curruser]);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -43,7 +52,19 @@ const Post = ({ post }: Props) => {
   }, []);
 
   const handleLikeToggle = () => {
-    setLikes(liked ? likes - 1 : likes + 1);
+    if (post._id) {
+      if (curruser._id) {
+        const userId = curruser._id.toString();
+        if (!liked) {
+          likePost(post._id, userId);
+        } else {
+          unlikePost(post._id, userId);
+        }
+      } else {
+        console.log("User is not logged in");
+      }
+    }
+    setLikesNum(liked ? likesNum - 1 : likesNum + 1);
     setLiked(!liked);
   };
   console.log(post);
@@ -87,7 +108,7 @@ const Post = ({ post }: Props) => {
             {liked ? <Favorite /> : <FavoriteBorder />}
           </IconButton>
 
-          <Typography variant="caption">{likes}</Typography>
+          <Typography variant="caption">{likesNum}</Typography>
         </div>
       </div>
       <div style={{ minWidth: "fit-content" }}>

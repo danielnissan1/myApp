@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { userAtom } from "../atoms/userAtom";
 import { useSetRecoilState } from "recoil";
 import { useLocalStorage } from "./useLocalStorage";
+import { useState } from "react";
 
 export const useAxiosPostRequests = () => {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userAtom);
+  const [error, setError] = useState<any>();
   const [getRefreshToken, setRefreshToken] = useLocalStorage(
     "refreshToken",
     ""
@@ -32,10 +34,11 @@ export const useAxiosPostRequests = () => {
             resolve(url);
           })
           .catch((err) => {
+            setError("Upload Image Failed");
             reject(err);
           });
       } else {
-        console.log("must to be a photo");
+        setError("Image profile is missing");
       }
     });
   };
@@ -63,13 +66,13 @@ export const useAxiosPostRequests = () => {
         setUser(response.data);
 
         console.log("res: ", response.data);
+        navigate(RoutesValues.HOME);
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log(err.response.data);
+        setError(err.response.data);
       });
-
-    navigate(RoutesValues.HOME);
   };
 
-  return { onSignUp, uploadImage };
+  return { onSignUp, uploadImage, error, setError };
 };
