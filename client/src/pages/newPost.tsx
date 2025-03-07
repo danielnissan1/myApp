@@ -33,16 +33,9 @@ const NewPost: React.FC = () => {
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
-  const [imgSrc, setImgSrc] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
-  const [price, setPrice] = useState<number | null>(null);
   const [recommendation, setRecommendation] = useState<string | null>(null);
-
-  // const imgRef = useRef<HTMLImageElement>(null);
-  // const descriptionRef = useRef<HTMLInputElement>(null);
-  // const locationRef = useRef<HTMLInputElement>(null);
-  // const priceRef = useRef<HTMLInputElement>(null);
+  const [imgUrl, setImgUrl] = useState<string>("");
 
   const { register, handleSubmit, formState, setValue } = useForm<FormData>();
   const { uploadImage } = useAxiosPostRequests();
@@ -66,6 +59,13 @@ const NewPost: React.FC = () => {
   });
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // if (event.target.files && event.target.files[0]) {
+    //   const newUrl = URL.createObjectURL(event.target.files[0]);
+    //   setValue("img", event.target.files[0]);
+    //   newUrl;
+    //   setImgUrl(newUrl);
+    // }
+
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setPreviewImage(URL.createObjectURL(file));
@@ -96,7 +96,8 @@ const NewPost: React.FC = () => {
     console.log(data);
 
     const newPost: IPost = {
-      imgSrc: previewImage || "",
+      // imgSrc: previewImage || "",
+      imgSrc: imgUrl,
       content: data.description,
       location: data.location,
       price: Number(data.price),
@@ -105,8 +106,7 @@ const NewPost: React.FC = () => {
       owner: curruser,
       likes: [],
     };
-
-    createPost(newPost);
+    await createPost(newPost, data.img, uploadImage);
 
     navigate(RoutesValues.HOME);
   };
