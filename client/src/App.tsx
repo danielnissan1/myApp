@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Feed from "./pages/feed";
 import Profile from "./pages/profile";
 import NewPost from "./pages/newPost";
@@ -10,7 +10,7 @@ import "./App.css";
 import axios from "axios";
 import { RoutesValues } from "./consts/routes";
 import Layout from "./components/Layout/layout";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useRecoilValue } from "recoil";
 
 //TODO: REMOVE TO ANOTHER FILE
 const baseURL = "http://localhost:3001";
