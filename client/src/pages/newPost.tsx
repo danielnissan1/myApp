@@ -18,7 +18,7 @@ import { Field, FieldValues, set, useForm } from "react-hook-form";
 import { useAxiosPostRequests } from "../hooks/useAxiosPostRequests";
 import { createPost } from "../services/postsService";
 import { useRecoilValue } from "recoil";
-import { userAtom } from "../atoms/userAtom";
+import { defaultUser, userAtom } from "../atoms/userAtom";
 
 interface FormData {
   img: File;
@@ -39,6 +39,11 @@ const NewPost: React.FC = () => {
 
   const { register, handleSubmit, formState, setValue } = useForm<FormData>();
   const { uploadImage } = useAxiosPostRequests();
+  useEffect(() => {
+    if (curruser === defaultUser) {
+      navigate("/"); // Redirect to login page if user is not set
+    }
+  }, [curruser, navigate]);
 
   useEffect(() => {
     if (description === "") {
