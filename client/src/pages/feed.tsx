@@ -7,6 +7,7 @@ import { defaultUser, userAtom } from "../atoms/userAtom";
 import { useRecoilValue } from "recoil";
 import { getPosts } from "../services/postsService";
 import { useNavigate } from "react-router-dom";
+import { RoutesValues } from "../consts/routes";
 
 interface Props {}
 
@@ -24,11 +25,11 @@ const Feed = ({}: Props) => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user === defaultUser) {
-      navigate("/"); // Redirect to login page if user is not set
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (user === defaultUser) {
+  //     navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
+  //   }
+  // }, [user, navigate]);
 
   useEffect(() => {
     console.log("connected user:", user);

@@ -13,6 +13,7 @@ import ProfilePost from "../components/Posts/profilePost";
 import { defaultUser, userAtom } from "../atoms/userAtom";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import { RoutesValues } from "../consts/routes";
 
 interface Props {}
 
@@ -24,13 +25,15 @@ const Profile = ({}: Props) => {
   const user = useRecoilValue(userAtom);
   const navigate = useNavigate();
 
+  const [newUsername, setNewUsername] = useState();
   const { getUsersPosts, posts } = useProfile(userId);
+  const [countPosts, setCountPosts] = useState(posts.length);
 
-  useEffect(() => {
-    if (user === defaultUser) {
-      navigate("/"); // Redirect to login page if user is not set
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (user === defaultUser) {
+  //     navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
+  //   }
+  // }, [user, navigate]);
 
   const editProfileImage = () => {
     //TODO
@@ -38,7 +41,7 @@ const Profile = ({}: Props) => {
 
   useEffect(() => {
     getUsersPosts();
-  }, [userId]);
+  }, [userId, countPosts]);
 
   //Gets an array and slice it to an array of arrays that each sub-array contains 3 posts
   const chunkPosts = (posts: IPost[]) => {
@@ -101,7 +104,11 @@ const Profile = ({}: Props) => {
         alignItems={"center"}
         marginTop={"1rem"}
       >
-        <EditableText defaultText="username" editMode={editMode}></EditableText>
+        <EditableText
+          defaultText="username"
+          editMode={editMode}
+          setValue={setNewUsername}
+        ></EditableText>
       </Box>
       <Box
         display={"flex"}
@@ -112,7 +119,7 @@ const Profile = ({}: Props) => {
       >
         <Typography>userEmail@gmail.com</Typography>
       </Box>
-      {chunkPosts(Array(15).fill(posts).flat()).map((chunk, index) => (
+      {chunkPosts(posts).map((chunk, index) => (
         <div
           key={index}
           style={{ display: "flex", justifyContent: "flex-start" }}
@@ -127,6 +134,10 @@ const Profile = ({}: Props) => {
                 date={post.date}
                 imgSrc={post.imgSrc}
                 isSold={post.isSold}
+                id={post._id}
+                post={post}
+                countPosts={countPosts}
+                setCountPosts={setCountPosts}
               ></ProfilePost>
             );
           })}
