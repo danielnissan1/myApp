@@ -118,6 +118,7 @@ const Post = ({ post }: Props) => {
             postId={post._id}
             opened={openComments}
             setOpened={setOpenComments}
+            setComments={setComments}
           />
         )}
       </div>

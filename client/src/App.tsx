@@ -3,7 +3,6 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Feed from "./pages/feed";
 import Profile from "./pages/profile";
 import NewPost from "./pages/newPost";
-import PostPage from "./pages/postPage";
 import Login from "./components/Login/login";
 import Register from "./components/Login/Register/register";
 import "./App.css";
@@ -31,7 +30,6 @@ function App() {
 
         <Route element={<Layout />}>
           <Route path={RoutesValues.HOME} element={<Feed />}></Route>
-          <Route path={RoutesValues.POSTS} element={<PostPage />}></Route>
           <Route path={RoutesValues.PROFILE} element={<Profile />}></Route>
           <Route path={RoutesValues.NEW_POST} element={<NewPost />}></Route>
         </Route>

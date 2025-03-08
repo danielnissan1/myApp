@@ -16,6 +16,7 @@ interface CommentsDialogProps {
   postId?: string;
   opened: boolean;
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  setComments: React.Dispatch<React.SetStateAction<IComment[]>>;
 }
 
 export function Comments({
@@ -23,21 +24,12 @@ export function Comments({
   postId,
   opened,
   setOpened,
+  setComments,
 }: CommentsDialogProps) {
   const curruser = useRecoilValue(userAtom);
 
-  const [currComments, setCurrComments] = useState<IComment[]>(comments);
+  // const [currComments, setCurrComments] = useState<IComment[]>(comments);
   const [newComment, setNewComment] = useState("");
-
-  // useEffect(() => {
-  //   const getComments = () => {
-  //     axios
-  //       .get("http://localhost:3001/comments/" + postId)
-  //       .then((res) => setComments(res.data))
-  //       .catch((err) => console.error("CORS Error:", err));
-  //   };
-  //   getComments();
-  // }, []);
 
   const handleSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,7 +40,7 @@ export function Comments({
         comment: newComment,
         postId: postId || "",
       };
-      setCurrComments([...comments, newCommentObj]);
+      setComments([...comments, newCommentObj]);
       createComment(newCommentObj);
       setNewComment("");
     }
@@ -79,7 +71,7 @@ export function Comments({
       <div className="comments-content">
         {/* <h2 className="title">Comments</h2> */}
         <div className="comments-list">
-          {currComments.map((comment) => (
+          {comments.map((comment) => (
             <div key={comment.id} className="comment-card">
               <div className="comment-header">
                 <img
