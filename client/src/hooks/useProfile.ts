@@ -3,7 +3,7 @@ import { useState } from "react";
 import { IPost } from "../types/types";
 
 export const useProfile = (userId: string) => {
-  const [posts, setPosts] = useState<IPost[]>([]);
+  const [posts, setPosts] = useState({ posts: [] } as { posts: IPost[] });
 
   const getUsersPosts = async () => {
     axios

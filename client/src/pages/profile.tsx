@@ -27,7 +27,7 @@ const Profile = ({}: Props) => {
 
   const [newUsername, setNewUsername] = useState();
   const { getUsersPosts, posts } = useProfile(userId);
-  const [countPosts, setCountPosts] = useState(posts.length);
+  const [countPosts, setCountPosts] = useState(0);
 
   // useEffect(() => {
   //   if (user === defaultUser) {
@@ -45,14 +45,18 @@ const Profile = ({}: Props) => {
 
   // Gets an array and slice it to an array of arrays that each sub-array contains 3 posts
   const chunkPosts = (posts: IPost[]) => {
+    console.log("posts in chunkPosts:", posts);
+
     const result = [];
     for (let i = 0; i < posts.length; i += 3) {
       result.push(posts.slice(i, i + 3));
     }
+    console.log("chunked posts:", result);
+
     return result;
   };
 
-  console.log("posts", posts[0]);
+  console.log("posts", posts);
 
   return (
     <Box>
@@ -121,30 +125,32 @@ const Profile = ({}: Props) => {
       >
         <Typography>userEmail@gmail.com</Typography>
       </Box>
-      {chunkPosts(posts).map((chunk, index) => (
+      {/* {posts.map((chunk) => (
         <div
           key={index}
           style={{ display: "flex", justifyContent: "flex-start" }}
-        >
-          {chunk.map((post) => {
-            return (
-              <ProfilePost
-                key={post._id}
-                price={post.price}
-                location={post.location}
-                content={post.content}
-                date={post.date}
-                imgSrc={post.imgSrc}
-                isSold={post.isSold}
-                id={post._id}
-                post={post}
-                countPosts={countPosts}
-                setCountPosts={setCountPosts}
-              ></ProfilePost>
-            );
-          })}
-        </div>
-      ))}
+        > */}
+      {posts.posts.map((post) => {
+        console.log("currpost:", post);
+
+        return (
+          <ProfilePost
+            key={post._id}
+            price={post.price}
+            location={post.location}
+            content={post.content}
+            date={post.date}
+            imgSrc={post.imgSrc}
+            isSold={post.isSold}
+            id={post._id}
+            post={post}
+            countPosts={countPosts}
+            setCountPosts={setCountPosts}
+          ></ProfilePost>
+        );
+      })}
+      {/* </div> */}
+      {/* ))} */}
     </Box>
   );
 };
