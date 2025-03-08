@@ -75,9 +75,9 @@ const Feed = ({}: Props) => {
         flexDirection: "column",
       }}
     >
-      {allposts.map((currPost) => (
+      {/* {allposts.map((currPost) => (
         <Post key={currPost._id} post={currPost} />
-      ))}
+      ))} */}
       <PaginationControls
         page={page}
         totalPages={totalPages}

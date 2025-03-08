@@ -43,7 +43,7 @@ const Profile = ({}: Props) => {
     getUsersPosts();
   }, [userId, countPosts]);
 
-  //Gets an array and slice it to an array of arrays that each sub-array contains 3 posts
+  // Gets an array and slice it to an array of arrays that each sub-array contains 3 posts
   const chunkPosts = (posts: IPost[]) => {
     const result = [];
     for (let i = 0; i < posts.length; i += 3) {
@@ -51,6 +51,8 @@ const Profile = ({}: Props) => {
     }
     return result;
   };
+
+  console.log("posts", posts[0]);
 
   return (
     <Box>

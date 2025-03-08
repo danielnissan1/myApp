@@ -58,7 +58,6 @@ const profilePost = ({
     newContent && (post.content = newContent);
     post.isSold = sold;
     console.log("post", post);
-    console.log("sold?", sold);
     id && updatePost(id, post);
   };
 
