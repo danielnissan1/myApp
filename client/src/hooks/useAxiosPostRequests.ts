@@ -44,6 +44,7 @@ export const useAxiosPostRequests = () => {
   };
 
   const onSignUp = async (data: FieldValues) => {
+    console.log(data);
     const imgUrl = await uploadImage(
       data.profileImage[0],
       "http://localhost:3001/file"
@@ -53,6 +54,7 @@ export const useAxiosPostRequests = () => {
       .post("http://localhost:3001/auth/register", {
         username: data.username,
         email: data.email,
+        phoneNumber: data.phoneNumber,
         password: data.password,
         avatar: imgUrl,
       })

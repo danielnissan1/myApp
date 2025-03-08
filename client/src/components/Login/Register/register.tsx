@@ -17,6 +17,7 @@ import { formSchema, formData } from "./formData";
 import { useAxiosPostRequests } from "../../../hooks/useAxiosPostRequests";
 import { colors } from "../../../consts/colors";
 import ErrorModal from "../../Modals/errorModal";
+import { on } from "events";
 
 const Register = () => {
   const {
@@ -65,7 +66,12 @@ const Register = () => {
           alignItems: "center",
         }}
       >
-        <form onSubmit={handleSubmit(onSignUp)}>
+        <form
+          onSubmit={handleSubmit((data) => {
+            console.log("Validation Passed:", data);
+            onSignUp(data);
+          })}
+        >
           <Box display={"flex"} justifyContent="center" alignItems={"center"}>
             <IconButton
               onClick={() => photoRef.current && photoRef.current.click()}
@@ -158,9 +164,9 @@ const Register = () => {
             }}
             variant="standard"
           ></TextField>
-          {/* <TextField
+          <TextField
             fullWidth
-            sx={{ margin: "20px", width: "400px"  }}
+            sx={{ margin: "20px", width: "400px" }}
             label="phone number"
             {...register("phoneNumber")}
             required={true}
@@ -174,7 +180,7 @@ const Register = () => {
               ),
             }}
             variant="standard"
-          ></TextField> */}
+          ></TextField>
           {/* <TextField
             fullWidth
             sx={{ margin: "20px", width: "400px"  }}
