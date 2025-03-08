@@ -214,7 +214,11 @@ router.delete(
  *       500:
  *         description: Server error
  */
-// router.put("/:id", authMiddleware, postsController.update.bind(postsController));
+router.put(
+  "/:id",
+  authMiddleware,
+  postsController.updateItem.bind(postsController)
+);
 
 /**
  * @swagger
