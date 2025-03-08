@@ -81,13 +81,16 @@ const Post = ({ post }: Props) => {
         <div className="circle">
           <img
             className="owner-img"
-            // src={post.owner.avatar || "../assets/default-avatar.png"}
+            src={post.owner.avatar || "../assets/default-avatar.png"}
             alt="Owner avatar"
           />
         </div>
         <div className="text">
           {/* <p className="owner-name">{post.owner.username}</p> */}
           <p className="post-text">{post.content}</p>
+          {post.owner.phoneNumber && (
+            <p className="post-text">{`Phone: ${post.owner.phoneNumber}`}</p>
+          )}
         </div>
         <p className="price">{post.price}₪</p>
         <div style={{ minWidth: "fit-content" }}>
@@ -118,6 +121,7 @@ const Post = ({ post }: Props) => {
             postId={post._id}
             opened={openComments}
             setOpened={setOpenComments}
+            setComments={setComments}
           />
         )}
       </div>
