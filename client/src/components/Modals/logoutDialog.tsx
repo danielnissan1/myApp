@@ -6,6 +6,7 @@ import {
   DialogContentText,
 } from "@mui/material";
 import React from "react";
+import { useLogout } from "../../hooks/useLogout";
 import { colors } from "../../consts/colors";
 
 interface IdialogProps {
@@ -14,9 +15,7 @@ interface IdialogProps {
 }
 
 const LogoutDialog: React.FC<IdialogProps> = ({ onClose, isDialogOpen }) => {
-  const handleLogout = () => {
-    //TODO logout in server
-  };
+  const { onLogout } = useLogout();
 
   return (
     <React.Fragment>
@@ -42,7 +41,7 @@ const LogoutDialog: React.FC<IdialogProps> = ({ onClose, isDialogOpen }) => {
             Cancel
           </Button>
           <Button
-            onClick={handleLogout}
+            onClick={onLogout}
             autoFocus
             sx={{
               color: colors.BABY_PINK,
