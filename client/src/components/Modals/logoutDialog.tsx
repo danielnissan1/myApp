@@ -6,8 +6,7 @@ import {
   DialogContentText,
 } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { RoutesValues } from "../../consts/routes";
+import { useLogout } from "../../hooks/useLogout";
 
 interface IdialogProps {
   onClose: React.MouseEventHandler<HTMLButtonElement> | undefined;
@@ -15,12 +14,7 @@ interface IdialogProps {
 }
 
 const LogoutDialog: React.FC<IdialogProps> = ({ onClose, isDialogOpen }) => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    //TODO logout axios req
-    navigate(RoutesValues.LOGIN);
-  };
+  const { onLogout } = useLogout();
 
   return (
     <React.Fragment>
@@ -46,7 +40,7 @@ const LogoutDialog: React.FC<IdialogProps> = ({ onClose, isDialogOpen }) => {
             Cancel
           </Button>
           <Button
-            onClick={handleLogout}
+            onClick={onLogout}
             autoFocus
             sx={{
               color: "rgb(192, 160, 160)",

@@ -14,7 +14,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../../consts/routes";
 import hangerImage from "../../assets/hanger.jpg";
-import { useAuth } from "../../hooks/useAuth";
+import { useLogin } from "../../hooks/useLogin";
 import ErrorModal from "../Modals/errorModal";
 import { colors } from "../../consts/colors";
 
@@ -25,7 +25,7 @@ const Login = () => {
   const [error, setError] = useState();
 
   const navigate = useNavigate();
-  const { onLogin } = useAuth(email, password, setError);
+  const { onLogin } = useLogin(email, password, setError);
 
   return (
     <Box
