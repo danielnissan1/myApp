@@ -7,22 +7,30 @@ import { defaultUser, userAtom } from "../atoms/userAtom";
 import { useRecoilValue } from "recoil";
 import { getPosts } from "../services/postsService";
 import { useNavigate } from "react-router-dom";
+import PaginationControls from "../components/paginationControls";
+import useGetPostsPagination from "../hooks/useGetPostPagination";
+import { CircularProgress } from "@mui/material";
+import { log } from "console";
 
 interface Props {}
-
-// const user: IUser = {
-//   id: 1,
-//   username: "Kermit",
-//   avatar:
-//     "https://i.pinimg.com/474x/db/08/0f/db080fceb9fa616315bd6f9c3b8a9632.jpg",
-// };
 
 const Feed = ({}: Props) => {
   const user = useRecoilValue(userAtom);
 
   const [allposts, setPosts] = useState<IPost[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [pageCount, setPageCount] = useState<number>(0);
 
   const navigate = useNavigate();
+
+  const { data, isLoading } = useGetPostsPagination(page);
+  const totalPages = data ? data.totalPages : 1;
+  useEffect(() => {
+    console.log("data:", data);
+    if (data) {
+      setPosts(data.posts);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (user === defaultUser) {
@@ -34,10 +42,28 @@ const Feed = ({}: Props) => {
     console.log("connected user:", user);
 
     const fetchPosts = async () => {
-      setPosts(await getPosts());
+      // setPosts(await getPosts());
     };
     fetchPosts();
   }, []);
+
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      const newPage = page + 1;
+      setPage(newPage);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      const newPage = page - 1;
+      setPage(newPage);
+    }
+  };
+
+  if (isLoading) {
+    return <CircularProgress />;
+  }
 
   return (
     <Box
@@ -48,6 +74,13 @@ const Feed = ({}: Props) => {
         flexDirection: "column",
       }}
     >
+      <PaginationControls
+        page={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        handleNextPage={handleNextPage}
+        handlePreviousPage={handlePreviousPage}
+      />
       {allposts.map((currPost) => (
         <Post key={currPost._id} post={currPost} />
       ))}
