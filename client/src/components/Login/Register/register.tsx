@@ -201,7 +201,7 @@ const Register = () => {
                 color: "black",
                 margin: "0 auto",
                 "&:hover": {
-                  backgroundColor: "rgb(229, 212, 212)",
+                  backgroundColor: colors.LIGHT_BABY_PINK,
                 },
               }}
             >
