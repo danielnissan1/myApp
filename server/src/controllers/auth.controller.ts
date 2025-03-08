@@ -107,6 +107,8 @@ const login = async (req: Request, res: Response) => {
     user.refreshToken.push(tokens.refreshToken);
     await user.save();
     res.status(200).send({
+      username: user.username,
+      avatar: user.avatar,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
       _id: user._id,
