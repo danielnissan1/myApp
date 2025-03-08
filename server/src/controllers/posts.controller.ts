@@ -20,20 +20,47 @@ class PostsController extends BaseController<IPost> {
 
   async getAllPosts(req: Request, res: Response) {
     const filter = req.query.owner;
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = 10; // Number of posts per page
     try {
-      if (filter) {
-        const posts = await postModel
-          .find()
-          .populate("owner", "username avatar")
-          .populate("likes");
-        res.send(posts);
-      } else {
-        const items = await this.model
-          .find()
-          .populate("owner", "avatar")
-          .lean();
-        res.send(items);
-      }
+      const totalPosts = await postModel.countDocuments();
+      const totalPages = Math.ceil(totalPosts / limit);
+      const posts = await postModel
+        .find({})
+        .populate("owner", "avatar username phoneNumber")
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .lean();
+
+      const postIds = posts.map((post) => post._id);
+
+      const postsWithLikes = await postModel.aggregate([
+        { $match: { _id: { $in: postIds } } },
+        {
+          $lookup: {
+            from: "users",
+            localField: "likes",
+            foreignField: "_id",
+            as: "likes",
+          },
+        },
+      ]);
+
+      const postsWithCounts = posts.map((post) => {
+        const postWithLikes = postsWithLikes.find(
+          (p) => p._id.toString() === post._id.toString()
+        );
+        return {
+          ...post,
+          likes: postWithLikes?.likes || [],
+        };
+      });
+
+      // const items = await this.model
+      //   .find()
+      //   .populate("owner", "avatar username phoneNumber")
+      //   .lean();
+      res.send({ posts: postsWithCounts, totalPages });
     } catch (error) {
       res.status(400).send(error);
     }
