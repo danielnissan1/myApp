@@ -3,13 +3,10 @@ import { SwipeableDrawer } from "@mui/material";
 import "./comments.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-import { IUser, IComment } from "../../types/types";
-import { create } from "domain";
+import { IComment } from "../../types/types";
 import { createComment } from "../../services/commentsService";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../../atoms/userAtom";
-// import { IUser } from "..../App";
 
 interface CommentsDialogProps {
   comments: IComment[];
