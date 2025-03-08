@@ -8,6 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import { RoutesValues } from "../../consts/routes";
 import { useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
+import { colors } from "../../consts/colors";
 
 const NavBar = ({}) => {
   const [value, setValue] = React.useState(0);
@@ -34,7 +35,7 @@ const NavBar = ({}) => {
           onClick={() => navigate(RoutesValues.HOME)}
           sx={{
             "&.Mui-selected": {
-              color: "rgb(192, 160, 160)",
+              color: colors.BABY_PINK,
             },
           }}
         />
@@ -44,7 +45,7 @@ const NavBar = ({}) => {
           onClick={() => navigate(RoutesValues.NEW_POST)}
           sx={{
             "&.Mui-selected": {
-              color: "rgb(192, 160, 160)",
+              color: colors.BABY_PINK,
             },
           }}
         />
@@ -61,7 +62,7 @@ const NavBar = ({}) => {
           onClick={() => navigate(RoutesValues.PROFILE)}
           sx={{
             "&.Mui-selected": {
-              color: "rgb(192, 160, 160)",
+              color: colors.BABY_PINK,
             },
           }}
         />

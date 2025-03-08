@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useLogout } from "../../hooks/useLogout";
+import { colors } from "../../consts/colors";
 
 interface IdialogProps {
   onClose: React.MouseEventHandler<HTMLButtonElement> | undefined;
@@ -28,7 +29,7 @@ const LogoutDialog: React.FC<IdialogProps> = ({ onClose, isDialogOpen }) => {
           <Button
             onClick={onClose}
             sx={{
-              color: "rgb(192, 160, 160)",
+              color: colors.BABY_PINK,
               borderColor: "black",
               fontWeight: "bold",
               "&:hover": {
@@ -43,7 +44,7 @@ const LogoutDialog: React.FC<IdialogProps> = ({ onClose, isDialogOpen }) => {
             onClick={onLogout}
             autoFocus
             sx={{
-              color: "rgb(192, 160, 160)",
+              color: colors.BABY_PINK,
               borderColor: "black",
               fontWeight: "bold",
               "&:hover": {

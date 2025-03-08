@@ -3,9 +3,10 @@ import Post from "../components/Posts/post";
 import { IPost, IUser } from "../types/types";
 import Box from "@mui/material/Box";
 import axios from "axios";
-import { userAtom } from "../atoms/userAtom";
+import { defaultUser, userAtom } from "../atoms/userAtom";
 import { useRecoilValue } from "recoil";
 import { getPosts } from "../services/postsService";
+import { useNavigate } from "react-router-dom";
 
 interface Props {}
 
@@ -20,6 +21,14 @@ const Feed = ({}: Props) => {
   const user = useRecoilValue(userAtom);
 
   const [allposts, setPosts] = useState<IPost[]>([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user === defaultUser) {
+      navigate("/"); // Redirect to login page if user is not set
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     console.log("connected user:", user);

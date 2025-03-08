@@ -10,6 +10,9 @@ import { colors } from "../consts/colors";
 import EditableText from "../components/Inputs/editableText";
 import { useProfile } from "../hooks/useProfile";
 import ProfilePost from "../components/Posts/profilePost";
+import { defaultUser, userAtom } from "../atoms/userAtom";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 interface Props {}
 
@@ -18,8 +21,16 @@ const Profile = ({}: Props) => {
   const userContext = useContext(UserContext);
   const [editMode, setEditMode] = useState(false);
   const userId = "678812d5fe88031918cfc5fc";
+  const user = useRecoilValue(userAtom);
+  const navigate = useNavigate();
 
   const { getUsersPosts, posts } = useProfile(userId);
+
+  useEffect(() => {
+    if (user === defaultUser) {
+      navigate("/"); // Redirect to login page if user is not set
+    }
+  }, [user, navigate]);
 
   const editProfileImage = () => {
     //TODO
@@ -101,11 +112,7 @@ const Profile = ({}: Props) => {
       >
         <Typography>userEmail@gmail.com</Typography>
       </Box>
-      {chunkPosts(
-        Array(15)
-          .fill(posts)
-          .flat()
-      ).map((chunk, index) => (
+      {chunkPosts(Array(15).fill(posts).flat()).map((chunk, index) => (
         <div
           key={index}
           style={{ display: "flex", justifyContent: "flex-start" }}

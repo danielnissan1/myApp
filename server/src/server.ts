@@ -40,6 +40,8 @@ app.use("/priceRec", priceRec);
 app.use("/file", fileRoutes);
 app.options("*", cors());
 
+app.use("/public", express.static("public"));
+
 const options = {
   definition: {
     openapi: "3.0.0",
