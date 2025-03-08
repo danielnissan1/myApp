@@ -24,13 +24,14 @@ class PostsController extends BaseController<IPost> {
       if (filter) {
         const posts = await postModel
           .find()
-          .populate("owner", "username avatar")
+          .populate("owner", "username avatar phoneNumber")
           .populate("likes");
         res.send(posts);
       } else {
         const items = await this.model
           .find()
-          .populate("owner", "avatar")
+          .populate("owner", "avatar username phoneNumber")
+          .populate("likes")
           .lean();
         res.send(items);
       }

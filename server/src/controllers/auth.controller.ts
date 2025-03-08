@@ -31,6 +31,9 @@ const register = async (req: Request, res: Response) => {
     await user.save();
 
     res.status(200).send({
+      username: user.username,
+      avatar: user.avatar,
+      phoneNumber: user.phoneNumber,
       // accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
       _id: user._id,
