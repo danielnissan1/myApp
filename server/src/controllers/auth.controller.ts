@@ -9,38 +9,36 @@ const client = new OAuth2Client();
 const googleSignIn = async (req: Request, res: Response) => {
   try {
     const ticket = await client.verifyIdToken({
-      idToken: req.body.cardentials,
+      idToken: req.body.credential,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload();
     const email = payload?.email;
-    if (!email) {
+    if (email) {
       let user = await userModel.findOne({ email: email });
       if (!user) {
         user = await userModel.create({
           email: email,
           username: payload?.name,
           avatar: payload?.picture,
+          phoneNumber: "05278422424",
+          password: "google-login",
         });
       }
       const tokens = generateToken(user._id);
-      res
-        .status(200)
-        .send({
-          email: user.email,
-          _id: user._id,
-          avatar: user.avatar,
-          ...tokens,
-        });
       if (!tokens) {
         return res.status(500).send("Server Error");
       }
+      return res.status(200).send({
+        email: user.email,
+        _id: user._id,
+        avatar: user.avatar,
+        ...tokens,
+      });
     }
   } catch (err) {
     res.status(400).send(err);
   }
-
-  // const userId = payload?.sub;
 };
 
 const register = async (req: Request, res: Response) => {
