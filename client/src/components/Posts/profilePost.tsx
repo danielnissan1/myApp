@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -14,6 +14,7 @@ import PriceIcon from "@mui/icons-material/AttachMoney";
 import EditableText from "../Inputs/editableText";
 import { deletePost, updatePost } from "../../services/postsService";
 import { IPost } from "../../types/types";
+import { useAxiosPostRequests } from "../../hooks/useAxiosPostRequests";
 
 interface postProps {
   price: number;
@@ -41,24 +42,42 @@ const profilePost = ({
   setCountPosts,
 }: postProps) => {
   const [editMode, setEditMode] = useState(false);
-
-  const [sold, setIsSold] = useState(isSold);
+  const [newSoldStatus, setIsSoldStatus] = useState(isSold);
   const [newLocation, setNewLocation] = useState();
   const [newPrice, setNewPrice] = useState();
   const [newContent, setNewContent] = useState();
+  const [newImage, setNewImage] = useState<File | undefined>(undefined);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
+  const { uploadImage } = useAxiosPostRequests();
 
   const deleteById = () => {
     id && deletePost(id);
     setCountPosts(countPosts - 1);
   };
 
-  const updateById = () => {
+  const updateById = async () => {
     newLocation && (post.location = newLocation);
     newPrice && (post.price = Number(newPrice));
     newContent && (post.content = newContent);
-    post.isSold = sold;
-    console.log("post", post);
+    post.isSold = newSoldStatus;
+    if (newImage) {
+      const newImgUrl = await uploadImage(
+        newImage,
+        "http://localhost:3001/file"
+      );
+      post.imgSrc = newImgUrl;
+    }
+
     id && updatePost(id, post);
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      setPreviewImage(URL.createObjectURL(file));
+      setNewImage(file);
+    }
   };
 
   return (
@@ -89,15 +108,15 @@ const profilePost = ({
           <Button
             sx={{
               borderRadius: "1rem",
-              border: sold ? "" : "1px solid black",
-              backgroundColor: sold ? "red" : "",
-              color: sold ? "white" : "black",
+              border: newSoldStatus ? "" : "1px solid black",
+              backgroundColor: newSoldStatus ? "red" : "",
+              color: newSoldStatus ? "white" : "black",
             }}
             onClick={() => {
-              setIsSold(!sold);
+              setIsSoldStatus(!newSoldStatus);
             }}
           >
-            {sold ? "SOLD" : "Mark as sold"}
+            {newSoldStatus ? "SOLD" : "Mark as sold"}
           </Button>
         )}
       </CardActions>
@@ -118,7 +137,26 @@ const profilePost = ({
               setValue={setNewLocation}
             ></EditableText>
           </Box>
-          <img src={imgSrc} style={{ height: "12rem" }}></img>
+          {editMode ? (
+            <div>
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleImageUpload}
+                ref={inputFileRef}
+              ></input>
+              <img
+                src={previewImage || imgSrc}
+                style={{ height: "12rem", cursor: "pointer" }}
+                onClick={() =>
+                  inputFileRef.current && inputFileRef.current.click()
+                }
+              />
+            </div>
+          ) : (
+            <img src={previewImage || imgSrc} style={{ height: "12rem" }}></img>
+          )}
           <Box pt={"0.5rem"}>
             <PriceIcon />
             <EditableText

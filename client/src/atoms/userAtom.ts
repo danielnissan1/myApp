@@ -6,6 +6,7 @@ export const defaultUser: IUser = {
   username: "",
   phoneNumber: "",
   avatar: "",
+  email: "",
 };
 
 export const userAtom: RecoilState<IUser> = atom({

@@ -3,6 +3,7 @@ export interface IUser {
   username: string;
   phoneNumber: string;
   avatar: string;
+  email: string;
 }
 
 export interface IPost {

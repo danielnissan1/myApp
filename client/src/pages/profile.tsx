@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { IPost } from "../types/types";
-import { UserContext } from "../context";
 import { Avatar, Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import CameraIcon from "@mui/icons-material/CameraAltOutlined";
@@ -12,22 +11,24 @@ import { useProfile } from "../hooks/useProfile";
 import ProfilePost from "../components/Posts/profilePost";
 import { defaultUser, userAtom } from "../atoms/userAtom";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { RoutesValues } from "../consts/routes";
+import { useAxiosPostRequests } from "../hooks/useAxiosPostRequests";
+import picturePlaceHolder from "../assets/pic_placeholder.jpg";
 
-interface Props {}
-
-const Profile = ({}: Props) => {
+const Profile = () => {
   const [userPosts, setUserPosts] = useState<IPost[]>([]);
-  const userContext = useContext(UserContext);
   const [editMode, setEditMode] = useState(false);
-  const userId = "678812d5fe88031918cfc5fc";
   const user = useRecoilValue(userAtom);
   const navigate = useNavigate();
-
+  const setUser = useSetRecoilState(userAtom);
   const [newUsername, setNewUsername] = useState();
-  const { getUsersPosts, posts } = useProfile(userId);
+  const { getUsersPosts, posts, updateUser } = useProfile(String(user._id));
   const [countPosts, setCountPosts] = useState(posts.length);
+  const [newImage, setNewImage] = useState<File | undefined>(undefined);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
+  const { uploadImage } = useAxiosPostRequests();
 
   // useEffect(() => {
   //   if (user === defaultUser) {
@@ -35,13 +36,36 @@ const Profile = ({}: Props) => {
   //   }
   // }, [user, navigate]);
 
-  const editProfileImage = () => {
-    //TODO
-  };
+  useEffect(() => {
+    const fetchUpload = async () => {
+      if (newImage) {
+        const newImgUrl = await uploadImage(
+          newImage,
+          "http://localhost:3001/file"
+        );
+        setUser({ ...user, avatar: newImgUrl });
+      }
+    };
+
+    fetchUpload();
+    newUsername && setUser({ ...user, username: newUsername });
+  }, [newUsername, newImage]);
 
   useEffect(() => {
     getUsersPosts();
-  }, [userId, countPosts]);
+  }, [String(user._id), countPosts]);
+
+  const handleUpdateProfile = () => {
+    updateUser(String(user._id), user);
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      setPreviewImage(URL.createObjectURL(file));
+      setNewImage(file);
+    }
+  };
 
   // Gets an array and slice it to an array of arrays that each sub-array contains 3 posts
   const chunkPosts = (posts: IPost[]) => {
@@ -51,8 +75,6 @@ const Profile = ({}: Props) => {
     }
     return result;
   };
-
-  console.log("posts", posts[0]);
 
   return (
     <Box>
@@ -64,7 +86,10 @@ const Profile = ({}: Props) => {
             width: "10rem",
             borderRadius: "10rem",
           }}
-          onClick={() => setEditMode(!editMode)}
+          onClick={() => {
+            editMode && handleUpdateProfile();
+            setEditMode(!editMode);
+          }}
         >
           {!editMode && <EditIcon sx={{ fontSize: "1rem", ml: "0.3rem" }} />}
           {editMode ? "Finsh edit" : "Edit profile"}
@@ -76,27 +101,39 @@ const Profile = ({}: Props) => {
         alignItems={"center"}
         position={"relative"}
       >
-        <Avatar
-          alt={userContext.user.username}
-          src={userContext.user.avatar}
-          sx={{
-            width: 200,
-            height: 200,
-            marginTop: "1rem",
-          }}
-        ></Avatar>
-        {editMode && (
-          <IconButton
-            onClick={editProfileImage}
+        {editMode ? (
+          <div>
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageUpload}
+              ref={inputFileRef}
+            ></input>
+            <img
+              src={previewImage || picturePlaceHolder}
+              style={{
+                width: 200,
+                height: 200,
+                cursor: "pointer",
+                borderRadius: "10rem",
+                marginTop: "1rem",
+              }}
+              onClick={() =>
+                inputFileRef.current && inputFileRef.current.click()
+              }
+            />
+          </div>
+        ) : (
+          <Avatar
+            alt={user.username}
+            src={user.avatar}
             sx={{
-              backgroundColor: colors.BABY_PINK,
-              position: "absolute",
-              top: 170,
-              left: 810,
+              width: 200,
+              height: 200,
+              marginTop: "1rem",
             }}
-          >
-            <CameraIcon />
-          </IconButton>
+          ></Avatar>
         )}
       </Box>
       <Box
@@ -107,7 +144,7 @@ const Profile = ({}: Props) => {
         marginTop={"1rem"}
       >
         <EditableText
-          defaultText="username"
+          defaultText={user.username}
           editMode={editMode}
           setValue={setNewUsername}
         ></EditableText>
@@ -119,7 +156,10 @@ const Profile = ({}: Props) => {
         marginTop={"0.3rem"}
         mb={"0.5rem"}
       >
-        <Typography>userEmail@gmail.com</Typography>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography>{user.email}</Typography>
+          <Typography>Phone number- {user.phoneNumber}</Typography>
+        </Box>
       </Box>
       {chunkPosts(posts).map((chunk, index) => (
         <div
