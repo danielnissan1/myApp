@@ -24,10 +24,10 @@ export const formSchema = z.object({
   //   message: "Please enter a valid phone number",
   // }),
   profileImage: z.instanceof(FileList),
-  phoneNumber: z
-    .string()
-    .length(10, "Please enter a valid phone number")
-    .startsWith("05", "Please enter a valid phone number"),
+  // phoneNumber: z
+  //   .string()
+  //   .length(10, "Please enter a valid phone number")
+  //   .startsWith("05", "Please enter a valid phone number"),
   // address: z.string(),
 });
 

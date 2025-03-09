@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { AccountCircle, Email, Home, Lock, Phone } from "@mui/icons-material";
+import { AccountCircle, Email, Lock } from "@mui/icons-material";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import AddPhotoIcon from "@mui/icons-material/AddPhotoAlternate";
@@ -169,23 +169,6 @@ const Register = () => {
               startAdornment: (
                 <InputAdornment position="start">
                   <Email />
-                </InputAdornment>
-              ),
-            }}
-            variant="standard"
-          ></TextField>
-          <TextField
-            fullWidth
-            sx={{ margin: "20px", width: "400px" }}
-            label="phone number"
-            {...register("phoneNumber")}
-            required={true}
-            error={!!errors.phoneNumber}
-            helperText={errors.phoneNumber ? errors.phoneNumber.message : ""}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Phone />
                 </InputAdornment>
               ),
             }}

@@ -27,7 +27,7 @@ class PostsController extends BaseController<IPost> {
       const totalPages = Math.ceil(totalPosts / limit);
       const posts = await postModel
         .find({})
-        .populate("owner", "avatar username phoneNumber")
+        .populate("owner", "avatar username")
         .skip((page - 1) * limit)
         .limit(limit)
         .lean();
@@ -58,7 +58,7 @@ class PostsController extends BaseController<IPost> {
 
       // const items = await this.model
       //   .find()
-      //   .populate("owner", "avatar username phoneNumber")
+      //   .populate("owner", "avatar username")
       //   .lean();
       res.send({ posts: postsWithCounts, totalPages });
     } catch (error) {
