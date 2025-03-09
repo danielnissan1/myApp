@@ -17,6 +17,8 @@ import hangerImage from "../../assets/hanger.jpg";
 import { useLogin } from "../../hooks/useLogin";
 import ErrorModal from "../Modals/errorModal";
 import { colors } from "../../consts/colors";
+import { GoogleLogin } from "@react-oauth/google";
+import { useAuth } from "../../services/userService";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,6 +28,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const { onLogin } = useLogin(email, password, setError);
+  const { onGoogleLoginSuccess, onGoogleLoginError } = useAuth();
 
   return (
     <Box
@@ -89,6 +92,7 @@ const Login = () => {
       >
         Login
       </Button>
+
       <Box display="flex" justifyContent="center" alignItems="center" mt="5px">
         <Typography>Don't have an account?</Typography>
         <Button
@@ -105,6 +109,13 @@ const Login = () => {
         >
           Sign up
         </Button>
+      </Box>
+      <Box display="flex" justifyContent="center" mt="10px">
+        <GoogleLogin
+          width="450px"
+          onSuccess={onGoogleLoginSuccess}
+          onError={onGoogleLoginError}
+        ></GoogleLogin>
       </Box>
       {error && <ErrorModal text={error} setError={setError}></ErrorModal>}
     </Box>

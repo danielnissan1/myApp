@@ -3,6 +3,8 @@ export interface IUser {
   username: string;
   phoneNumber: string;
   avatar: string;
+  accessToken?: string;
+  refreshToken?: string;
   email: string;
 }
 
