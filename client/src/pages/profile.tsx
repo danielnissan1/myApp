@@ -30,11 +30,11 @@ const Profile = () => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const { uploadImage } = useAxiosPostRequests();
 
-  // useEffect(() => {
-  //   if (user === defaultUser) {
-  //     navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
-  //   }
-  // }, [user, navigate]);
+  useEffect(() => {
+    if (user === defaultUser) {
+      navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     const fetchUpload = async () => {

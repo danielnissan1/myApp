@@ -33,11 +33,11 @@ const Feed = ({}: Props) => {
     }
   }, [data]);
 
-  // useEffect(() => {
-  //   if (user === defaultUser) {
-  //     navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
-  //   }
-  // }, [user, navigate]);
+  useEffect(() => {
+    if (user === defaultUser) {
+      navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     console.log("connected user:", user);
