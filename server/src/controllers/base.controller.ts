@@ -56,26 +56,6 @@ class BaseController<T> {
       res.status(400).send(error);
     }
   }
-
-  async updateItem(req: Request, res: Response) {
-    const id = req.params.id;
-    const newContent = req.body.content;
-    const newLocation = req.body.location;
-    const newPrice = req.body.price;
-    const newSoldStatus = req.body.isSold;
-
-    try {
-      const rs = await this.model.findByIdAndUpdate(id, {
-        content: newContent,
-        location: newLocation,
-        price: newPrice,
-        isSold: newSoldStatus,
-      });
-      res.status(200).send("deleted");
-    } catch (error) {
-      res.status(400).send(error);
-    }
-  }
 }
 
 export default BaseController;
