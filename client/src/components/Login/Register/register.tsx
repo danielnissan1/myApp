@@ -18,7 +18,11 @@ import { useAxiosPostRequests } from "../../../hooks/useAxiosPostRequests";
 import { colors } from "../../../consts/colors";
 import ErrorModal from "../../Modals/errorModal";
 import { on } from "events";
-import { googleSignIn } from "../../../services/userService";
+import {
+  googleSignIn,
+  onGoogleLoginError,
+  onGoogleLoginSuccess,
+} from "../../../services/userService";
 
 const Register = () => {
   const {
@@ -43,21 +47,21 @@ const Register = () => {
     }
   }, [profileImage]);
 
-  const onGoogleLoginSuccess = async (
-    credentialResponse: CredentialResponse
-  ) => {
-    console.log("ppppppp", credentialResponse);
-    try {
-      const res = await googleSignIn(credentialResponse);
-      console.log("res", res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const onGoogleLoginSuccess = async (
+  //   credentialResponse: CredentialResponse
+  // ) => {
+  //   console.log("ppppppp", credentialResponse);
+  //   try {
+  //     const res = await googleSignIn(credentialResponse);
+  //     console.log("res", res);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const onGoogleLoginError = () => {
-    console.log("Error");
-  };
+  // const onGoogleLoginError = () => {
+  //   console.log("Error");
+  // };
 
   return (
     <Box
