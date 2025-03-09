@@ -18,6 +18,55 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+/**
+ * @swagger
+ * tags:
+ *   name: Files
+ *   description: The Files API
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     File:
+ *       type: object
+ *       properties:
+ *         url:
+ *           type: string
+ *           description: The URL of the uploaded file
+ *       example:
+ *         url: "http://example.com/public/1616161616161.txt"
+ */
+
+/**
+ * @swagger
+ * /files:
+ *   post:
+ *     summary: Upload a file
+ *     tags: [Files]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: The file to upload
+ *     responses:
+ *       200:
+ *         description: File uploaded successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/File'
+ *       400:
+ *         description: File upload failed
+ */
+
 router.post("/", upload.single("file"), function (req, res) {
   if (req.file) {
     console.log("router.post(/file: " + base + req.file.path);
