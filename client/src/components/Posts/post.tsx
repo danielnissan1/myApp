@@ -86,7 +86,7 @@ const Post = ({ post }: Props) => {
           />
         </div>
         <div className="text">
-          {/* <p className="owner-name">{post.owner.username}</p> */}
+          <p className="owner-name">{post.owner.username}</p>
           <p className="post-text">{post.content}</p>
         </div>
         <p className="price">{post.price}₪</p>
