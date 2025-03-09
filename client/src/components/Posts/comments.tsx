@@ -63,7 +63,9 @@ export function Comments({
       open={opened}
       onOpen={toggleDrawer}
       onClose={toggleDrawer}
-      PaperProps={{ style: { borderRadius: "12px 12px 0 0" } }}
+      PaperProps={{
+        style: { borderRadius: "12px 12px 0 0", maxHeight: "75vh" },
+      }}
     >
       <div className="comments-content">
         {/* <h2 className="title">Comments</h2> */}
@@ -72,13 +74,25 @@ export function Comments({
             <div key={comment.id} className="comment-card">
               <div className="comment-header">
                 <img
-                  src={comment.owner.avatar || "/placeholder.svg"}
-                  alt={comment.owner.username}
+                  src={
+                    comment.owner && comment.owner.avatar
+                      ? comment.owner.avatar
+                      : "/placeholder.svg"
+                  }
+                  alt={
+                    comment.owner && comment.owner.username
+                      ? comment.owner.username
+                      : "Unknown user"
+                  }
                   width={40}
                   height={40}
                   className="comment-avatar"
                 />
-                <div className="comment-username">{comment.owner.username}</div>
+                <div className="comment-username">
+                  {comment.owner && comment.owner.username
+                    ? comment.owner.username
+                    : "Unknown user"}
+                </div>
               </div>
               <p className="comment-content">{comment.comment}</p>
             </div>
