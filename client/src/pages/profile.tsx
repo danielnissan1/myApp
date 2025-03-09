@@ -32,7 +32,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (user === defaultUser) {
-      navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
+      navigate(RoutesValues.LOGIN);
     }
   }, [user, navigate]);
 

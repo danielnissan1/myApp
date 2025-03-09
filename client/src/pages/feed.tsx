@@ -35,18 +35,9 @@ const Feed = ({}: Props) => {
 
   useEffect(() => {
     if (user === defaultUser) {
-      navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
+      navigate(RoutesValues.LOGIN);
     }
   }, [user, navigate]);
-
-  useEffect(() => {
-    console.log("connected user:", user);
-
-    const fetchPosts = async () => {
-      // setPosts(await getPosts());
-    };
-    fetchPosts();
-  }, []);
 
   const handleNextPage = () => {
     if (page < totalPages) {

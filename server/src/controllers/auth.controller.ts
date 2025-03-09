@@ -62,7 +62,6 @@ const register = async (req: Request, res: Response) => {
       return res.status(500).send("Server Error");
     }
 
-    // Store the refresh token
     user.refreshToken = [tokens.refreshToken];
     await user.save();
 
@@ -70,7 +69,6 @@ const register = async (req: Request, res: Response) => {
       username: user.username,
       avatar: user.avatar,
       email: user.email,
-      // accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
       _id: user._id,
     });
@@ -135,7 +133,6 @@ const login = async (req: Request, res: Response) => {
       return;
     }
 
-    // generate token
     const tokens = generateToken(user._id);
     if (!tokens) {
       res.status(500).send("Server Error");

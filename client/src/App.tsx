@@ -11,7 +11,6 @@ import { RoutesValues } from "./consts/routes";
 import Layout from "./components/Layout/layout";
 import { RecoilRoot, useRecoilValue } from "recoil";
 
-//TODO: REMOVE TO ANOTHER FILE
 const baseURL = "http://localhost:3001";
 export const instance = axios.create({
   baseURL,

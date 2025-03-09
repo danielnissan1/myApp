@@ -25,7 +25,6 @@ export function Comments({
 }: CommentsDialogProps) {
   const curruser = useRecoilValue(userAtom);
 
-  // const [currComments, setCurrComments] = useState<IComment[]>(comments);
   const [newComment, setNewComment] = useState("");
 
   const handleSubmitComment = (e: React.FormEvent) => {
