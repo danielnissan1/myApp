@@ -18,11 +18,7 @@ import { useAxiosPostRequests } from "../../../hooks/useAxiosPostRequests";
 import { colors } from "../../../consts/colors";
 import ErrorModal from "../../Modals/errorModal";
 import { on } from "events";
-import {
-  googleSignIn,
-  onGoogleLoginError,
-  onGoogleLoginSuccess,
-} from "../../../services/userService";
+import { useAuth } from "../../../services/userService";
 
 const Register = () => {
   const {
@@ -32,6 +28,7 @@ const Register = () => {
     watch,
   } = useForm<formData>({ resolver: zodResolver(formSchema) });
   const { onSignUp, error, setError } = useAxiosPostRequests();
+  const { onGoogleLoginSuccess, onGoogleLoginError } = useAuth();
 
   const [profileImage] = watch(["profileImage"]);
   const [profileImageSource, setProfileImageSource] = useState<string>();

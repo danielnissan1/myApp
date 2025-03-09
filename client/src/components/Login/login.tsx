@@ -18,10 +18,7 @@ import { useLogin } from "../../hooks/useLogin";
 import ErrorModal from "../Modals/errorModal";
 import { colors } from "../../consts/colors";
 import { GoogleLogin } from "@react-oauth/google";
-import {
-  onGoogleLoginError,
-  onGoogleLoginSuccess,
-} from "../../services/userService";
+import { useAuth } from "../../services/userService";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +28,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const { onLogin } = useLogin(email, password, setError);
+  const { onGoogleLoginSuccess, onGoogleLoginError } = useAuth();
 
   return (
     <Box

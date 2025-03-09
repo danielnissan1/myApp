@@ -2,30 +2,45 @@ import axios from "axios";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { CredentialResponse } from "@react-oauth/google";
 import { IUser } from "../types/types";
-import { apiClient } from "./api-client";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "../atoms/userAtom";
 import { RoutesValues } from "../consts/routes";
 
-const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
-// const navigate = useNavigate();
-// const setUser = useSetRecoilState(userAtom);
+export const useAuth = () => {
+  const setUser = useSetRecoilState(userAtom);
+  const [getRefreshToken, setRefreshToken] = useLocalStorage(
+    "refreshToken",
+    "accessToken"
+  );
+  const navigate = useNavigate();
 
-export const onGoogleLoginSuccess = async (
-  credentialResponse: CredentialResponse
-) => {
-  console.log("ppppppp", credentialResponse);
-  try {
-    const res = await googleSignIn(credentialResponse);
-    console.log("res", res);
-  } catch (err) {
-    console.log(err);
-  }
-};
+  const onGoogleLoginSuccess = async (
+    credentialResponse: CredentialResponse
+  ) => {
+    console.log("ppppppp", credentialResponse);
+    try {
+      const res = await googleSignIn(credentialResponse);
+      console.log("res", res);
 
-export const onGoogleLoginError = () => {
-  console.log("Error");
+      if (res.refreshToken) {
+        setRefreshToken(res.refreshToken);
+      } else {
+        console.error("Refresh token is undefined");
+      }
+
+      setUser(res); // ✅ Updates the user state
+      navigate(RoutesValues.HOME);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onGoogleLoginError = () => {
+    console.log("Error");
+  };
+
+  return { onGoogleLoginSuccess, onGoogleLoginError };
 };
 
 export const googleSignIn = async (credentialResponse: CredentialResponse) => {
@@ -36,8 +51,6 @@ export const googleSignIn = async (credentialResponse: CredentialResponse) => {
       .then((res) => {
         console.log("googleSignIn response:", res);
         resolve(res.data);
-        // setUser(res.data);
-        // navigate(RoutesValues.HOME);
       })
       .catch((err) => {
         console.error("googleSignIn error:", err);
