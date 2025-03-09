@@ -88,9 +88,6 @@ const Post = ({ post }: Props) => {
         <div className="text">
           {/* <p className="owner-name">{post.owner.username}</p> */}
           <p className="post-text">{post.content}</p>
-          {post.owner.phoneNumber && (
-            <p className="post-text">{`Phone: ${post.owner.phoneNumber}`}</p>
-          )}
         </div>
         <p className="price">{post.price}₪</p>
         <div style={{ minWidth: "fit-content" }}>

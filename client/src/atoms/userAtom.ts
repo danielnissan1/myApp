@@ -4,7 +4,6 @@ import { IUser } from "../types/types";
 export const defaultUser: IUser = {
   _id: 0,
   username: "",
-  phoneNumber: "",
   email: "",
   avatar: "",
 };

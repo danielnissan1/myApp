@@ -21,7 +21,6 @@ const googleSignIn = async (req: Request, res: Response) => {
           email: email,
           username: payload?.name,
           avatar: payload.picture,
-          phoneNumber: "05278422424",
           password: "google-login",
         });
       }
@@ -55,7 +54,6 @@ const register = async (req: Request, res: Response) => {
     const user = await userModel.create({
       avatar: req.body.avatar,
       email: req.body.email,
-      phoneNumber: req.body.phoneNumber,
       password: hashedPassword,
       username: req.body.username,
     });
@@ -71,7 +69,6 @@ const register = async (req: Request, res: Response) => {
     res.status(200).send({
       username: user.username,
       avatar: user.avatar,
-      phoneNumber: user.phoneNumber,
       // accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
       _id: user._id,
@@ -151,7 +148,6 @@ const login = async (req: Request, res: Response) => {
     res.status(200).send({
       username: user.username,
       avatar: user.avatar,
-      phoneNumber: user.phoneNumber,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
       _id: user._id,

@@ -54,7 +54,6 @@ export const useAxiosPostRequests = () => {
       .post("http://localhost:3001/auth/register", {
         username: data.username,
         email: data.email,
-        phoneNumber: data.phoneNumber,
         password: data.password,
         avatar: imgUrl,
       })
