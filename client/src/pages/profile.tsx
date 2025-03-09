@@ -158,7 +158,6 @@ const Profile = () => {
       >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography>{user.email}</Typography>
-          <Typography>Phone number- {user.phoneNumber}</Typography>
         </Box>
       </Box>
       {chunkPosts(posts).map((chunk, index) => (
