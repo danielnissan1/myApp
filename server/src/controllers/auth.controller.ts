@@ -3,6 +3,45 @@ import userModel, { IUser } from "../models/users.model";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Document, ObjectId, Types } from "mongoose";
+import { OAuth2Client } from "google-auth-library";
+
+const client = new OAuth2Client();
+const googleSignIn = async (req: Request, res: Response) => {
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: req.body.cardentials,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    const email = payload?.email;
+    if (!email) {
+      let user = await userModel.findOne({ email: email });
+      if (!user) {
+        user = await userModel.create({
+          email: email,
+          username: payload?.name,
+          avatar: payload?.picture,
+        });
+      }
+      const tokens = generateToken(user._id);
+      res
+        .status(200)
+        .send({
+          email: user.email,
+          _id: user._id,
+          avatar: user.avatar,
+          ...tokens,
+        });
+      if (!tokens) {
+        return res.status(500).send("Server Error");
+      }
+    }
+  } catch (err) {
+    res.status(400).send(err);
+  }
+
+  // const userId = payload?.sub;
+};
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -249,4 +288,4 @@ export const authMiddleware = (
   });
 };
 
-export default { register, login, refresh, logout };
+export default { googleSignIn, register, login, refresh, logout };
