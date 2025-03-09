@@ -2,7 +2,7 @@ export interface IUser {
   _id: number;
   username: string;
   phoneNumber: string;
-  avatar?: string;
+  avatar: string;
   accessToken?: string;
   refreshToken?: string;
   email: string;

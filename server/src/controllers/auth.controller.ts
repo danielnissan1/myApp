@@ -20,7 +20,7 @@ const googleSignIn = async (req: Request, res: Response) => {
         user = await userModel.create({
           email: email,
           username: payload?.name,
-          avatar: payload?.picture,
+          avatar: payload.picture,
           phoneNumber: "05278422424",
           password: "google-login",
         });
@@ -33,6 +33,7 @@ const googleSignIn = async (req: Request, res: Response) => {
         email: user.email,
         _id: user._id,
         avatar: user.avatar,
+        username: user.username,
         ...tokens,
       });
     }
