@@ -224,4 +224,8 @@ router.post("/logout", (req: Request, res: Response) => {
   authController.logout(req, res);
 });
 
+router.put("/:id", (req: Request, res: Response) => {
+  authController.updateUser(req, res);
+});
+
 export default router;

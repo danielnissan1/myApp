@@ -39,11 +39,12 @@ const NewPost: React.FC = () => {
 
   const { register, handleSubmit, formState, setValue } = useForm<FormData>();
   const { uploadImage } = useAxiosPostRequests();
-  useEffect(() => {
-    if (curruser === defaultUser) {
-      navigate("/"); // Redirect to login page if user is not set
-    }
-  }, [curruser, navigate]);
+
+  // useEffect(() => {
+  //   if (curruser === defaultUser) {
+  //     navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
+  //   }
+  // }, [curruser, navigate]);
 
   useEffect(() => {
     if (description === "") {

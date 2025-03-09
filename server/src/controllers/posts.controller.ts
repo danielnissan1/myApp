@@ -118,6 +118,28 @@ class PostsController extends BaseController<IPost> {
       res.status(500).send({ message: "Error unliking the post", error });
     }
   }
+
+  async updateItem(req: Request, res: Response) {
+    const id = req.params.id;
+    const newContent = req.body.content;
+    const newLocation = req.body.location;
+    const newPrice = req.body.price;
+    const newSoldStatus = req.body.isSold;
+    const newImg = req.body.imgSrc;
+
+    try {
+      const rs = await this.model.findByIdAndUpdate(id, {
+        content: newContent,
+        location: newLocation,
+        price: newPrice,
+        isSold: newSoldStatus,
+        imgSrc: newImg,
+      });
+      res.status(200).send("updated");
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
 }
 
 export default new PostsController();

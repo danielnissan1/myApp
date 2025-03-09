@@ -6,6 +6,7 @@ interface textProps {
   textAlignOnDisplay?: string;
   defaultText: string;
   editMode: boolean;
+  setValue: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const editableText = ({
@@ -13,6 +14,7 @@ const editableText = ({
   defaultText,
   width,
   textAlignOnDisplay,
+  setValue,
 }: textProps) => {
   return (
     <TextField
@@ -20,11 +22,13 @@ const editableText = ({
       defaultValue={defaultText}
       disabled={!editMode}
       variant="standard"
+      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+        setValue(event.target.value)
+      }
       sx={{
         "& .MuiInputBase-input.Mui-disabled": {
           color: "black",
           "-webkit-text-fill-color": "black",
-          // textAlign: "center",
           textAlign: editMode
             ? "center"
             : textAlignOnDisplay

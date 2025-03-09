@@ -1,18 +1,37 @@
 import axios from "axios";
 import { useState } from "react";
-import { IPost } from "../types/types";
+import { IPost, IUser } from "../types/types";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const useProfile = (userId: string) => {
   const [posts, setPosts] = useState<IPost[]>([]);
+  const [getRefreshToken, setRefreshToken] = useLocalStorage(
+    "refreshToken",
+    ""
+  );
 
   const getUsersPosts = async () => {
     axios
       .get(`http://localhost:3001/posts?owner=${userId}`)
       .then((res) => {
-        setPosts(res.data);
+        setPosts(res.data.posts);
       })
       .catch((err) => console.error("CORS Error:", err));
   };
 
-  return { getUsersPosts, posts };
+  const updateUser = (userId: string, user: IUser) => {
+    const storedRefreshToken = getRefreshToken();
+    console.log("user in req:", user);
+
+    axios
+      .put(`http://localhost:3001/auth/${userId}`, user, {
+        headers: {
+          Authorization: `Bearer ${storedRefreshToken}`,
+        },
+      })
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error("CORS Error:", err));
+  };
+
+  return { getUsersPosts, posts, updateUser };
 };

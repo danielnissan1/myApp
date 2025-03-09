@@ -69,6 +69,7 @@ const register = async (req: Request, res: Response) => {
     res.status(200).send({
       username: user.username,
       avatar: user.avatar,
+      email: user.email,
       // accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
       _id: user._id,
@@ -148,6 +149,7 @@ const login = async (req: Request, res: Response) => {
     res.status(200).send({
       username: user.username,
       avatar: user.avatar,
+      email: user.email,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
       _id: user._id,
@@ -283,4 +285,20 @@ export const authMiddleware = (
   });
 };
 
-export default { googleSignIn, register, login, refresh, logout };
+export const updateUser = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const newUsername = req.body.username;
+  const newAvatar = req.body.avatar;
+
+  try {
+    const rs = await userModel.findByIdAndUpdate(id, {
+      username: newUsername,
+      avatar: newAvatar,
+    });
+    res.status(200).send("updated");
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+export default { googleSignIn, register, login, refresh, logout, updateUser };

@@ -7,6 +7,7 @@ import { defaultUser, userAtom } from "../atoms/userAtom";
 import { useRecoilValue } from "recoil";
 import { getPosts } from "../services/postsService";
 import { useNavigate } from "react-router-dom";
+import { RoutesValues } from "../consts/routes";
 import PaginationControls from "../components/paginationControls";
 import useGetPostsPagination from "../hooks/useGetPostPagination";
 import { CircularProgress } from "@mui/material";
@@ -32,11 +33,11 @@ const Feed = ({}: Props) => {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (user === defaultUser) {
-      navigate("/"); // Redirect to login page if user is not set
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (user === defaultUser) {
+  //     navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
+  //   }
+  // }, [user, navigate]);
 
   useEffect(() => {
     console.log("connected user:", user);
@@ -74,9 +75,9 @@ const Feed = ({}: Props) => {
         flexDirection: "column",
       }}
     >
-      {allposts.map((currPost) => (
+      {/* {allposts.map((currPost) => (
         <Post key={currPost._id} post={currPost} />
-      ))}
+      ))} */}
       <PaginationControls
         page={page}
         totalPages={totalPages}
