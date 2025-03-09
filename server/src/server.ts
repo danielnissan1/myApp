@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import express, { Express } from "express";
 import postsRoute from "./routes/posts.route";
-// import uesrsRoutes from "./routes/users.route";
 import commentsRoute from "./routes/comments.route";
 import authRoutes from "./routes/auth_routes";
 import priceRec from "./routes/priceRec.routes";

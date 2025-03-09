@@ -20,15 +20,7 @@ export const formSchema = z.object({
       "Password must contain at least one capital letter, one andlowcase letter and numbers"
     ),
   email: z.string().email("Please enter a valid email address"),
-  // phoneNumber: z.string().refine((value) => /^[0-9]{10}$/.test(value), {
-  //   message: "Please enter a valid phone number",
-  // }),
   profileImage: z.instanceof(FileList),
-  // phoneNumber: z
-  //   .string()
-  //   .length(10, "Please enter a valid phone number")
-  //   .startsWith("05", "Please enter a valid phone number"),
-  // address: z.string(),
 });
 
 export type formData = z.infer<typeof formSchema>;

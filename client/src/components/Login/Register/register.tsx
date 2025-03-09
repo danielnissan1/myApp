@@ -44,22 +44,6 @@ const Register = () => {
     }
   }, [profileImage]);
 
-  // const onGoogleLoginSuccess = async (
-  //   credentialResponse: CredentialResponse
-  // ) => {
-  //   console.log("ppppppp", credentialResponse);
-  //   try {
-  //     const res = await googleSignIn(credentialResponse);
-  //     console.log("res", res);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // const onGoogleLoginError = () => {
-  //   console.log("Error");
-  // };
-
   return (
     <Box
       display="flex"
@@ -191,7 +175,6 @@ const Register = () => {
           ></TextField> */}
           <Box display="flex" justifyContent="center" mt="10px">
             <Button
-              // disabled={!profileImage}
               type="submit"
               sx={{
                 width: "400px",

@@ -24,7 +24,6 @@ export const useLogin = (
         password: password,
       })
       .then((response) => {
-        //TODO: save the details
         const { refreshToken } = response.data;
 
         setRefreshToken(refreshToken);

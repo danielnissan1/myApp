@@ -42,7 +42,7 @@ const NewPost: React.FC = () => {
 
   useEffect(() => {
     if (curruser === defaultUser) {
-      navigate(RoutesValues.LOGIN); // Redirect to login page if user is not set
+      navigate(RoutesValues.LOGIN);
     }
   }, [curruser, navigate]);
 
@@ -65,17 +65,10 @@ const NewPost: React.FC = () => {
   });
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // if (event.target.files && event.target.files[0]) {
-    //   const newUrl = URL.createObjectURL(event.target.files[0]);
-    //   setValue("img", event.target.files[0]);
-    //   newUrl;
-    //   setImgUrl(newUrl);
-    // }
-
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setPreviewImage(URL.createObjectURL(file));
-      setValue("img", file); // Manually update react-hook-form with the selected file
+      setValue("img", file);
     }
   };
 
@@ -102,7 +95,6 @@ const NewPost: React.FC = () => {
     console.log(data);
 
     const newPost: IPost = {
-      // imgSrc: previewImage || "",
       imgSrc: imgUrl,
       content: data.description,
       location: data.location,
@@ -125,7 +117,7 @@ const NewPost: React.FC = () => {
           flexDirection: "row",
           alignItems: "stretch",
           minHeight: "100vh",
-          paddingBottom: "60px", // Add padding to the bottom
+          paddingBottom: "60px",
           width: "80vw",
           textAlign: "center",
           mt: "20px",
@@ -133,7 +125,6 @@ const NewPost: React.FC = () => {
         }}
       >
         <div className="image-part">
-          {/* Image Upload */}
           <div>
             <input
               {...register("img", { required: true })}
@@ -171,7 +162,6 @@ const NewPost: React.FC = () => {
                 setPost({ ...post, content: e.target.value });
                 setDescription(e.target.value);
               }}
-              // ref={descriptionRef}
             />
             {formState.errors.description &&
               formState.errors.description.type === "required" && (
@@ -186,7 +176,6 @@ const NewPost: React.FC = () => {
               sx={{ width: "100%", maxWidth: "400px" }}
               label="Location"
               onChange={(e) => setPost({ ...post, location: e.target.value })}
-              // ref={locationRef}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -206,7 +195,6 @@ const NewPost: React.FC = () => {
                 <>
                   <Button
                     sx={{
-                      // backgroundColor: "rgb(235, 226, 226)",
                       position: "sticky",
                       textDecoration: "underline",
                       color: "#a87a7a",
@@ -237,7 +225,6 @@ const NewPost: React.FC = () => {
               onChange={(e) =>
                 setPost({ ...post, price: Number(e.target.value) })
               }
-              // ref={priceRef}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">₪</InputAdornment>

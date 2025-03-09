@@ -7,7 +7,6 @@ import { useAxiosPostRequests } from "../hooks/useAxiosPostRequests";
 const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
 
 export const getPosts = async (): Promise<IPost[]> => {
-  // let allPosts: IPost[] = [];
   try {
     const res = await axios.get("http://localhost:3001/posts");
 
@@ -36,7 +35,6 @@ export const createPost = async (
   uploadImage: (file: File, url: string) => Promise<string>
 ) => {
   const imgUrl = await uploadImage(img, "http://localhost:3001/file");
-  // post = { ...post, imgSrc: imgUrl };
 
   try {
     const response = await axios.post(
@@ -58,15 +56,6 @@ export const createPost = async (
     throw error;
   }
 };
-//   axios
-//     .post("http://localhost:3001/posts", post, {
-//       headers: {
-//         Authorization: `Bearer ${storedRefreshToken}`,
-//       },
-//     })
-//     .then((res) => console.log(res.data))
-//     .catch((err) => console.error("CORS Error:", err));
-// };
 
 export const deletePost = (postId: string) => {
   axios
