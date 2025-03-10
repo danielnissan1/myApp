@@ -213,12 +213,39 @@ const verifyRefreshToken = (refreshToken: string | undefined) => {
 };
 
 const logout = async (req: Request, res: Response) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
   try {
-    const user = await verifyRefreshToken(req.body.refreshToken);
-    await user.save();
-    res.status(200).send("success");
-  } catch (err) {
-    res.status(400).send("fail");
+    jwt.verify(
+      token,
+      process.env.TOKEN_SECRET as string,
+      async (err: jwt.VerifyErrors | null, userInfo: any) => {
+        if (err) {
+          return res.status(403).json({ message: "Forbidden" });
+        }
+
+        const userId = userInfo?._id;
+        if (!userId) {
+          return res.status(404).json({ message: "User not found" });
+        }
+
+        const user = await userModel.findById(userId);
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+
+        user.refreshToken = [];
+        await user.save();
+        return res.status(200).json({ message: "User logged out" });
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error logging out user" });
   }
 };
 
