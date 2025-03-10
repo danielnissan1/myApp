@@ -24,7 +24,7 @@ const Profile = () => {
   const setUser = useSetRecoilState(userAtom);
   const [newUsername, setNewUsername] = useState();
   const { getUsersPosts, posts, updateUser } = useProfile(String(user._id));
-  const [countPosts, setCountPosts] = useState(posts.length);
+  const [countPosts, setCountPosts] = useState(posts.length || 0);
   const [newImage, setNewImage] = useState<File | undefined>(undefined);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -69,6 +69,8 @@ const Profile = () => {
 
   // Gets an array and slice it to an array of arrays that each sub-array contains 3 posts
   const chunkPosts = (posts: IPost[]) => {
+    console.log("dchsdljkc", posts);
+
     const result = [];
     for (let i = 0; i < posts.length; i += 3) {
       result.push(posts.slice(i, i + 3));

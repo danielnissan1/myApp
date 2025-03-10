@@ -9,10 +9,15 @@ export const useProfile = (userId: string) => {
     "refreshToken",
     ""
   );
+  const storedRefreshToken = getRefreshToken();
 
   const getUsersPosts = async () => {
     axios
-      .get(`http://localhost:3001/posts?owner=${userId}`)
+      .get(`http://localhost:3001/posts/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${storedRefreshToken}`,
+        },
+      })
       .then((res) => {
         setPosts(res.data.posts);
       })
@@ -20,7 +25,6 @@ export const useProfile = (userId: string) => {
   };
 
   const updateUser = (userId: string, user: IUser) => {
-    const storedRefreshToken = getRefreshToken();
     console.log("user in req:", user);
 
     axios
