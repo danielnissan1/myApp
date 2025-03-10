@@ -136,6 +136,16 @@ class PostsController extends BaseController<IPost> {
       res.status(400).send(error);
     }
   }
-}
 
+  async getByUserId(req: Request, res: Response) {
+    const userId = req.params.id;
+    try {
+      const posts = await postModel.find({ owner: userId });
+      console.log("posts to send:", posts);
+      res.send(posts);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+}
 export default new PostsController();
