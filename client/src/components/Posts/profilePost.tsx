@@ -29,7 +29,7 @@ interface postProps {
   setCountPosts: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const profilePost = ({
+const ProfilePost = ({
   price,
   content,
   location,
@@ -182,4 +182,4 @@ const profilePost = ({
   );
 };
 
-export default profilePost;
+export default ProfilePost;

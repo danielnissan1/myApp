@@ -2,7 +2,7 @@ import axios from "axios";
 import { IPost } from "../types/types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
+// const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
 
 export const getPosts = async (): Promise<IPost[]> => {
   try {
@@ -25,7 +25,7 @@ export const getPost = async (id: string): Promise<IPost | undefined> => {
   }
 };
 
-const storedRefreshToken = getRefreshToken();
+// const storedRefreshToken = getRefreshToken();
 
 export const createPost = async (
   post: IPost,
@@ -43,7 +43,7 @@ export const createPost = async (
       },
       {
         headers: {
-          Authorization: `Bearer ${storedRefreshToken}`,
+          // Authorization: `Bearer ${storedRefreshToken}`,
         },
       }
     );
@@ -59,7 +59,7 @@ export const deletePost = (postId: string) => {
   axios
     .delete(`http://localhost:3001/posts/${postId}`, {
       headers: {
-        Authorization: `Bearer ${storedRefreshToken}`,
+        // Authorization: `Bearer ${storedRefreshToken}`,
       },
     })
     .then((res) => console.log(res.data))
@@ -70,7 +70,7 @@ export const updatePost = (postId: string, post: IPost) => {
   axios
     .put(`http://localhost:3001/posts/${postId}`, post, {
       headers: {
-        Authorization: `Bearer ${storedRefreshToken}`,
+        // Authorization: `Bearer ${storedRefreshToken}`,
       },
     })
     .then((res) => console.log(res.data))
@@ -84,7 +84,7 @@ export const likePost = (postId: string, userId: string) => {
       { postId, userId },
       {
         headers: {
-          Authorization: `Bearer ${storedRefreshToken}`,
+          // Authorization: `Bearer ${storedRefreshToken}`,
         },
       }
     )
@@ -99,7 +99,7 @@ export const unlikePost = (postId: string, userId: string) => {
       { postId, userId },
       {
         headers: {
-          Authorization: `Bearer ${storedRefreshToken}`,
+          // Authorization: `Bearer ${storedRefreshToken}`,
         },
       }
     )

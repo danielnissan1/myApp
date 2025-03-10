@@ -3,27 +3,80 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authMiddleware = void 0;
+exports.updateUser = exports.authMiddleware = void 0;
 const users_model_1 = __importDefault(require("../models/users.model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-//DONE
+const google_auth_library_1 = require("google-auth-library");
+const client = new google_auth_library_1.OAuth2Client();
+const googleSignIn = async (req, res) => {
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken: req.body.credential,
+            audience: process.env.GOOGLE_CLIENT_ID,
+        });
+        const payload = ticket.getPayload();
+        const email = payload?.email;
+        if (email) {
+            let user = await users_model_1.default.findOne({ email: email });
+            if (!user) {
+                user = await users_model_1.default.create({
+                    email: email,
+                    username: payload?.name,
+                    avatar: payload.picture,
+                    password: "google-login",
+                });
+            }
+            const tokens = generateToken(user._id);
+            if (!tokens) {
+                return res.status(500).send("Server Error");
+            }
+            return res.status(200).send({
+                email: user.email,
+                _id: user._id,
+                avatar: user.avatar,
+                username: user.username,
+                ...tokens,
+            });
+        }
+    }
+    catch (err) {
+        res.status(400).send(err);
+    }
+};
 const register = async (req, res) => {
     try {
+        const userByEmail = await users_model_1.default.findOne({ email: req.body.email });
+        if (userByEmail) {
+            return res.status(500).send("Email already exist");
+        }
         const password = req.body.password;
         const salt = await bcrypt_1.default.genSalt(10);
         const hashedPassword = await bcrypt_1.default.hash(password, salt);
         const user = await users_model_1.default.create({
+            avatar: req.body.avatar,
             email: req.body.email,
             password: hashedPassword,
+            username: req.body.username,
         });
-        res.status(200).send(user);
+        const tokens = generateToken(user._id);
+        if (!tokens) {
+            return res.status(500).send("Server Error");
+        }
+        user.refreshToken = [tokens.refreshToken];
+        await user.save();
+        res.status(200).send({
+            username: user.username,
+            avatar: user.avatar,
+            email: user.email,
+            refreshToken: tokens.refreshToken,
+            _id: user._id,
+        });
     }
     catch (error) {
         res.status(400).send(error);
     }
 };
-//DONE
 const generateToken = (userId) => {
     if (!process.env.TOKEN_SECRET) {
         return null;
@@ -42,7 +95,6 @@ const generateToken = (userId) => {
         refreshToken: refreshToken,
     };
 };
-//DONE... _id problem
 const login = async (req, res) => {
     try {
         const user = await users_model_1.default.findOne({ email: req.body.email });
@@ -59,25 +111,27 @@ const login = async (req, res) => {
             res.status(500).send("Server Error");
             return;
         }
-        // generate token
-        // const tokens = generateToken(user._id);
-        // if (!tokens) {
-        //   res.status(500).send("Server Error");
-        //   return;
-        // }
-        // if (!user.refreshToken) {
-        //   user.refreshToken = [];
-        // }
-        // user.refreshToken.push(tokens.refreshToken);
-        // await user.save();
-        // res.status(200).send({
-        //   accessToken: tokens.accessToken,
-        //   refreshToken: tokens.refreshToken,
-        //   _id: user._id,
-        // });
+        const tokens = generateToken(user._id);
+        if (!tokens) {
+            res.status(500).send("Server Error");
+            return;
+        }
+        if (!user.refreshToken) {
+            user.refreshToken = [];
+        }
+        user.refreshToken.push(tokens.refreshToken);
+        await user.save();
+        res.status(200).send({
+            username: user.username,
+            avatar: user.avatar,
+            email: user.email,
+            accessToken: tokens.accessToken,
+            refreshToken: tokens.refreshToken,
+            _id: user._id,
+        });
     }
-    catch (error) {
-        res.status(400).send(error);
+    catch (err) {
+        res.status(400).send(err);
     }
 };
 const verifyRefreshToken = (refreshToken) => {
@@ -110,7 +164,7 @@ const verifyRefreshToken = (refreshToken) => {
                 }
                 const tokens = user.refreshToken.filter((token) => token !== refreshToken);
                 user.refreshToken = tokens;
-                //   resolve(user);
+                resolve(user);
             }
             catch (err) {
                 reject("fail");
@@ -120,13 +174,32 @@ const verifyRefreshToken = (refreshToken) => {
     });
 };
 const logout = async (req, res) => {
-    try {
-        const user = await verifyRefreshToken(req.body.refreshToken);
-        await user.save();
-        res.status(200).send("success");
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    if (!token) {
+        return res.status(401).json({ message: "Unauthorized" });
     }
-    catch (err) {
-        res.status(400).send("fail");
+    try {
+        jsonwebtoken_1.default.verify(token, process.env.TOKEN_SECRET, async (err, userInfo) => {
+            if (err) {
+                return res.status(403).json({ message: "Forbidden" });
+            }
+            const userId = userInfo?._id;
+            if (!userId) {
+                return res.status(404).json({ message: "User not found" });
+            }
+            const user = await users_model_1.default.findById(userId);
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
+            }
+            user.refreshToken = [];
+            await user.save();
+            return res.status(200).json({ message: "User logged out" });
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error logging out user" });
     }
 };
 const refresh = async (req, res) => {
@@ -151,7 +224,6 @@ const refresh = async (req, res) => {
             refreshToken: tokens.refreshToken,
             _id: user._id,
         });
-        //send new token
     }
     catch (err) {
         res.status(400).send("fail");
@@ -178,4 +250,20 @@ const authMiddleware = (req, res, next) => {
     });
 };
 exports.authMiddleware = authMiddleware;
-exports.default = { register, login, refresh, logout };
+const updateUser = async (req, res) => {
+    const id = req.params.id;
+    const newUsername = req.body.username;
+    const newAvatar = req.body.avatar;
+    try {
+        const rs = await users_model_1.default.findByIdAndUpdate(id, {
+            username: newUsername,
+            avatar: newAvatar,
+        });
+        res.status(200).send("updated");
+    }
+    catch (error) {
+        res.status(400).send(error);
+    }
+};
+exports.updateUser = updateUser;
+exports.default = { googleSignIn, register, login, refresh, logout, updateUser: exports.updateUser };
