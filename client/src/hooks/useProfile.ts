@@ -19,7 +19,7 @@ export const useProfile = (userId: string) => {
         },
       })
       .then((res) => {
-        setPosts(res.data.posts);
+        setPosts(res.data);
       })
       .catch((err) => console.error("CORS Error:", err));
   };

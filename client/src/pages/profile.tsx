@@ -69,8 +69,6 @@ const Profile = () => {
 
   // Gets an array and slice it to an array of arrays that each sub-array contains 3 posts
   const chunkPosts = (posts: IPost[]) => {
-    console.log("dchsdljkc", posts);
-
     const result = [];
     for (let i = 0; i < posts.length; i += 3) {
       result.push(posts.slice(i, i + 3));
