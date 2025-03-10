@@ -14,6 +14,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { RoutesValues } from "../../consts/routes";
 import picturePlaceHolder from "../../assets/pic_placeholder.jpg";
 import { useUploadImage } from "../../hooks/useUploadImage";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const Profile = () => {
   const [editMode, setEditMode] = useState(false);
@@ -28,9 +29,15 @@ const Profile = () => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const { uploadImage } = useUploadImage();
 
+  const [getRefreshToken, setRefreshToken] = useLocalStorage(
+    "refreshToken",
+    ""
+  );
+
   useEffect(() => {
     if (user === defaultUser) {
       navigate(RoutesValues.LOGIN);
+      setRefreshToken("");
     }
   }, [user, navigate]);
 

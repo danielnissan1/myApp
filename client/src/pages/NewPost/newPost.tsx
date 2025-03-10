@@ -11,6 +11,7 @@ import { createPost } from "../../services/postsService";
 import { useRecoilValue } from "recoil";
 import { defaultUser, userAtom } from "../../atoms/userAtom";
 import { useUploadImage } from "../../hooks/useUploadImage";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 interface FormData {
   img: File;
@@ -31,10 +32,15 @@ const NewPost: React.FC = () => {
 
   const { register, handleSubmit, formState, setValue } = useForm<FormData>();
   const { uploadImage } = useUploadImage();
+  const [getRefreshToken, setRefreshToken] = useLocalStorage(
+    "refreshToken",
+    ""
+  );
 
   useEffect(() => {
     if (curruser === defaultUser) {
       navigate(RoutesValues.LOGIN);
+      setRefreshToken("");
     }
   }, [curruser, navigate]);
 

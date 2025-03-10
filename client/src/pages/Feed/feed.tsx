@@ -9,11 +9,17 @@ import { RoutesValues } from "../../consts/routes";
 import PaginationControls from "../../components/Pagination/paginationControls";
 import useGetPostsPagination from "../../hooks/useGetPostPagination";
 import { CircularProgress } from "@mui/material";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 interface Props {}
 
 const Feed = ({}: Props) => {
   const user = useRecoilValue(userAtom);
+
+  const [getRefreshToken, setRefreshToken] = useLocalStorage(
+    "refreshToken",
+    ""
+  );
 
   const [allposts, setPosts] = useState<IPost[]>([]);
   const [page, setPage] = useState<number>(1);
@@ -33,6 +39,7 @@ const Feed = ({}: Props) => {
   useEffect(() => {
     if (user === defaultUser) {
       navigate(RoutesValues.LOGIN);
+      setRefreshToken("");
     }
   }, [user, navigate]);
 
