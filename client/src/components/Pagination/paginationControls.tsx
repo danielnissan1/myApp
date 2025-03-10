@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import "./paginationControls.css";
-import { colors } from "../consts/colors";
+import { colors } from "../../consts/colors";
 
 interface PaginationControlsProps {
   page: number;

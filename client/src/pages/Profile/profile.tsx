@@ -1,23 +1,21 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { IPost } from "../types/types";
-import { Avatar, Button, IconButton } from "@mui/material";
+import { IPost } from "../../types/types";
+import { Avatar, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import CameraIcon from "@mui/icons-material/CameraAltOutlined";
-import { colors } from "../consts/colors";
-import EditableText from "../components/Inputs/editableText";
-import { useProfile } from "../hooks/useProfile";
-import ProfilePost from "../components/Posts/profilePost";
-import { defaultUser, userAtom } from "../atoms/userAtom";
+import { colors } from "../../consts/colors";
+import EditableText from "../../components/Inputs/editableText";
+import { useProfile } from "../../hooks/useProfile";
+import ProfilePost from "../../components/Posts/profilePost";
+import { defaultUser, userAtom } from "../../atoms/userAtom";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { RoutesValues } from "../consts/routes";
-import { useAxiosPostRequests } from "../hooks/useAxiosPostRequests";
-import picturePlaceHolder from "../assets/pic_placeholder.jpg";
+import { RoutesValues } from "../../consts/routes";
+import { useAxiosPostRequests } from "../../hooks/useAxiosPostRequests";
+import picturePlaceHolder from "../../assets/pic_placeholder.jpg";
 
 const Profile = () => {
-  const [userPosts, setUserPosts] = useState<IPost[]>([]);
   const [editMode, setEditMode] = useState(false);
   const user = useRecoilValue(userAtom);
   const navigate = useNavigate();
