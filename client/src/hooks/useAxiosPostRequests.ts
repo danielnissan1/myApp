@@ -44,7 +44,6 @@ export const useAxiosPostRequests = () => {
   };
 
   const onSignUp = async (data: FieldValues) => {
-    console.log(data);
     const imgUrl = await uploadImage(
       data.profileImage[0],
       "http://localhost:3001/file"
@@ -75,5 +74,5 @@ export const useAxiosPostRequests = () => {
       });
   };
 
-  return { onSignUp, uploadImage, error, setError };
+  return { onSignUp, error, setError, uploadImage };
 };

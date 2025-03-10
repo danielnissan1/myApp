@@ -4,7 +4,6 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import HomeIcon from "@mui/icons-material/Home";
-import Avatar from "@mui/material/Avatar";
 import { RoutesValues } from "../../consts/routes";
 import { useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
