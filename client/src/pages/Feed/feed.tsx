@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Post from "../components/Posts/post";
-import { IPost } from "../types/types";
+import Post from "../../components/Posts/post";
+import { IPost } from "../../types/types";
 import Box from "@mui/material/Box";
-import { defaultUser, userAtom } from "../atoms/userAtom";
+import { defaultUser, userAtom } from "../../atoms/userAtom";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { RoutesValues } from "../consts/routes";
-import PaginationControls from "../components/Pagination/paginationControls";
-import useGetPostsPagination from "../hooks/useGetPostPagination";
+import { RoutesValues } from "../../consts/routes";
+import PaginationControls from "../../components/Pagination/paginationControls";
+import useGetPostsPagination from "../../hooks/useGetPostPagination";
 import { CircularProgress } from "@mui/material";
 
 interface Props {}

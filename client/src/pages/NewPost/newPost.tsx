@@ -4,7 +4,7 @@ import { LocationOn } from "@mui/icons-material";
 import { RoutesValues } from "../../consts/routes";
 import { useNavigate } from "react-router-dom";
 import { IPost } from "../../types/types";
-import picturePlaceHolder from "../assets/pic_placeholder.jpg";
+import picturePlaceHolder from "../../assets/pic_placeholder.jpg";
 import "./newpost.css";
 import { FieldValues, useForm } from "react-hook-form";
 import { useAxiosPostRequests } from "../../hooks/useAxiosPostRequests";
