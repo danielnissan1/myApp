@@ -7,7 +7,7 @@ import { useSetRecoilState } from "recoil";
 import { useLocalStorage } from "./useLocalStorage";
 import { useState } from "react";
 
-export const useAxiosPostRequests = () => {
+export const useSignUp = () => {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userAtom);
   const [error, setError] = useState<any>();
@@ -16,38 +16,9 @@ export const useAxiosPostRequests = () => {
     ""
   );
 
-  const uploadImage = (file: File, url: string) => {
-    return new Promise<string>((resolve, reject) => {
-      const formData = new FormData();
-
-      if (file) {
-        formData.append("file", file);
-        axios
-          .post(url, formData, {
-            headers: {
-              "Content-Type": "image/jpeg",
-            },
-            withCredentials: true,
-          })
-          .then((res) => {
-            const url = res.data.url;
-            resolve(url);
-          })
-          .catch((err) => {
-            setError("Upload Image Failed");
-            reject(err);
-          });
-      } else {
-        setError("Image profile is missing");
-      }
-    });
-  };
-
-  const onSignUp = async (data: FieldValues) => {
-    const imgUrl = await uploadImage(
-      data.profileImage[0],
-      "http://localhost:3001/file"
-    );
+  const onSignUp = async (imgUrl: string, data: FieldValues) => {
+    console.log("imageurl", imgUrl);
+    console.log("data:", data);
 
     axios
       .post("http://localhost:3001/auth/register", {
@@ -65,7 +36,6 @@ export const useAxiosPostRequests = () => {
 
         setUser(response.data);
 
-        console.log("res: ", response.data);
         navigate(RoutesValues.HOME);
       })
       .catch((err) => {
@@ -74,5 +44,5 @@ export const useAxiosPostRequests = () => {
       });
   };
 
-  return { onSignUp, error, setError, uploadImage };
+  return { onSignUp, error, setError };
 };

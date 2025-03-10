@@ -7,10 +7,10 @@ import { IPost } from "../../types/types";
 import picturePlaceHolder from "../../assets/pic_placeholder.jpg";
 import "./newpost.css";
 import { FieldValues, useForm } from "react-hook-form";
-import { useAxiosPostRequests } from "../../hooks/useAxiosPostRequests";
 import { createPost } from "../../services/postsService";
 import { useRecoilValue } from "recoil";
 import { defaultUser, userAtom } from "../../atoms/userAtom";
+import { useUploadImage } from "../../hooks/useUploadImage";
 
 interface FormData {
   img: File;
@@ -30,7 +30,7 @@ const NewPost: React.FC = () => {
   const [imgUrl, setImgUrl] = useState<string>("");
 
   const { register, handleSubmit, formState, setValue } = useForm<FormData>();
-  const { uploadImage } = useAxiosPostRequests();
+  const { uploadImage } = useUploadImage();
 
   useEffect(() => {
     if (curruser === defaultUser) {
