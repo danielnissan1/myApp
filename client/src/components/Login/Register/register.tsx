@@ -11,13 +11,12 @@ import {
 import { useForm } from "react-hook-form";
 import { AccountCircle, Email, Lock } from "@mui/icons-material";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import AddPhotoIcon from "@mui/icons-material/AddPhotoAlternate";
 import { formSchema, formData } from "./formData";
 import { useAxiosPostRequests } from "../../../hooks/useAxiosPostRequests";
 import { colors } from "../../../consts/colors";
 import ErrorModal from "../../Modals/errorModal";
-import { on } from "events";
 import { useAuth } from "../../../services/userService";
 
 const Register = () => {

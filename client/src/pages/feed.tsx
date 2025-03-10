@@ -1,17 +1,14 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Post from "../components/Posts/post";
-import { IPost, IUser } from "../types/types";
+import { IPost } from "../types/types";
 import Box from "@mui/material/Box";
-import axios from "axios";
 import { defaultUser, userAtom } from "../atoms/userAtom";
 import { useRecoilValue } from "recoil";
-import { getPosts } from "../services/postsService";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../consts/routes";
-import PaginationControls from "../components/paginationControls";
+import PaginationControls from "../components/Pagination/paginationControls";
 import useGetPostsPagination from "../hooks/useGetPostPagination";
 import { CircularProgress } from "@mui/material";
-import { log } from "console";
 
 interface Props {}
 

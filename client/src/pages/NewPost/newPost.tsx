@@ -1,24 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  TextField,
-  Button,
-  Box,
-  InputAdornment,
-  Typography,
-} from "@mui/material";
+import { TextField, Button, Box, InputAdornment } from "@mui/material";
 import { LocationOn } from "@mui/icons-material";
-import { RoutesValues } from "../consts/routes";
+import { RoutesValues } from "../../consts/routes";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { IPost } from "../types/types";
+import { IPost } from "../../types/types";
 import picturePlaceHolder from "../assets/pic_placeholder.jpg";
 import "./newpost.css";
-import { apiClient } from "../services/api-client";
-import { Field, FieldValues, set, useForm } from "react-hook-form";
-import { useAxiosPostRequests } from "../hooks/useAxiosPostRequests";
-import { createPost } from "../services/postsService";
+import { FieldValues, useForm } from "react-hook-form";
+import { useAxiosPostRequests } from "../../hooks/useAxiosPostRequests";
+import { createPost } from "../../services/postsService";
 import { useRecoilValue } from "recoil";
-import { defaultUser, userAtom } from "../atoms/userAtom";
+import { defaultUser, userAtom } from "../../atoms/userAtom";
 
 interface FormData {
   img: File;

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Feed from "./pages/feed";
 import Profile from "./pages/profile";
-import NewPost from "./pages/newPost";
+import NewPost from "./pages/NewPost/newPost";
 import Login from "./components/Login/login";
 import Register from "./components/Login/Register/register";
 import "./App.css";
