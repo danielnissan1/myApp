@@ -8,16 +8,17 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { AccountCircle, Email, Lock } from "@mui/icons-material";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GoogleLogin } from "@react-oauth/google";
 import AddPhotoIcon from "@mui/icons-material/AddPhotoAlternate";
 import { formSchema, formData } from "./formData";
-import { useAxiosPostRequests } from "../../../hooks/useAxiosPostRequests";
 import { colors } from "../../../consts/colors";
 import ErrorModal from "../../Modals/errorModal";
 import { useAuth } from "../../../services/userService";
+import { useUploadImage } from "../../../hooks/useUploadImage";
+import { useSignUp } from "../../../hooks/useSignup";
 
 const Register = () => {
   const {
@@ -26,13 +27,16 @@ const Register = () => {
     formState: { errors, isValid },
     watch,
   } = useForm<formData>({ resolver: zodResolver(formSchema) });
-  const { onSignUp, error, setError } = useAxiosPostRequests();
+  const { onSignUp, error, setError } = useSignUp();
   const { onGoogleLoginSuccess, onGoogleLoginError } = useAuth();
 
   const [profileImage] = watch(["profileImage"]);
   const [profileImageSource, setProfileImageSource] = useState<string>();
   const photoRef: { current: HTMLInputElement | null } = { current: null };
   const { ref, ...rest } = register("profileImage", { required: true });
+  const { uploadImage } = useUploadImage();
+  const [imgUrl, setImgUrl] = useState<string>();
+  const [data, setData] = useState<FieldValues>();
 
   useEffect(() => {
     if (profileImage && profileImage[0]) {
@@ -42,6 +46,19 @@ const Register = () => {
       }
     }
   }, [profileImage]);
+
+  const signUp = async (data: FieldValues) => {
+    const img = await uploadImage(
+      data.profileImage[0],
+      "http://localhost:3001/file"
+    );
+    setImgUrl(img);
+    setData(data);
+  };
+
+  useEffect(() => {
+    imgUrl && data && onSignUp(imgUrl, data);
+  }, [imgUrl]);
 
   return (
     <Box
@@ -62,7 +79,7 @@ const Register = () => {
         <form
           onSubmit={handleSubmit((data) => {
             console.log("Validation Passed:", data);
-            onSignUp(data);
+            signUp(data);
           })}
         >
           <Box display={"flex"} justifyContent="center" alignItems={"center"}>

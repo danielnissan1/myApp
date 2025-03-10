@@ -1,8 +1,6 @@
 import axios from "axios";
 import { IPost } from "../types/types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import e from "cors";
-import { useAxiosPostRequests } from "../hooks/useAxiosPostRequests";
 
 const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
 

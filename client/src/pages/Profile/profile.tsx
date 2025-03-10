@@ -12,8 +12,8 @@ import { defaultUser, userAtom } from "../../atoms/userAtom";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { RoutesValues } from "../../consts/routes";
-import { useAxiosPostRequests } from "../../hooks/useAxiosPostRequests";
 import picturePlaceHolder from "../../assets/pic_placeholder.jpg";
+import { useUploadImage } from "../../hooks/useUploadImage";
 
 const Profile = () => {
   const [editMode, setEditMode] = useState(false);
@@ -26,7 +26,7 @@ const Profile = () => {
   const [newImage, setNewImage] = useState<File | undefined>(undefined);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
-  const { uploadImage } = useAxiosPostRequests();
+  const { uploadImage } = useUploadImage();
 
   useEffect(() => {
     if (user === defaultUser) {
