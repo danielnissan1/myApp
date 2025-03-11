@@ -36,7 +36,10 @@ const serverPromise: Promise<ServerInfo> = new Promise((resolve, reject) => {
 
         app.use(
           cors({
-            origin: `https://localhost:${process.env.HTTPS_PORT}`, // Change this to your frontend URL
+            origin: [
+              "https://localhost",
+              `https://localhost:${process.env.HTTPS_PORT}`,
+            ], // Change this to your frontend URL
             credentials: true, // Allows cookies and auth headers
           })
         );
