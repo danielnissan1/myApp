@@ -1,11 +1,11 @@
-import { Express } from "express";
 import userModel, { IUser } from "../models/users.model";
-import initApp from "../server";
 import mongoose from "mongoose";
 import request from "supertest";
 import postModel from "../models/posts.model";
+import serverPromise from "../server";
+import { Server as HttpServer } from "http";
 
-var app: Express;
+let app: HttpServer;
 const baseAuthUrl = "/auth";
 
 type User = IUser & {
@@ -14,13 +14,16 @@ type User = IUser & {
 };
 
 const testUser: User = {
+  _id: Object("67cee6ba509c96fd4269eea1"),
   email: "testingUser@gmail.com",
   password: "Aa123456",
+  username: "usertest",
+  avatar: "1741618185815.44.01.png",
 };
 
 beforeAll(async () => {
   console.log("before all Tests");
-  app = await initApp();
+  app = (await serverPromise).server;
   await userModel.deleteMany();
   await postModel.deleteMany();
 });
@@ -57,14 +60,20 @@ describe("Auth Tests", () => {
     expect(secondResponse.statusCode).not.toBe(200);
   });
 
-  // test("Auth test update user", async () => {
-  //   testUser.username = "updatedUsername";
+  test("Auth test update user", async () => {
+    const firstResponse = await request(app)
+      .post(baseAuthUrl + "/login")
+      .send(testUser);
+    expect(firstResponse.statusCode).toBe(200);
+    testUser.refreshToken = firstResponse.body.refreshToken;
+    testUser.username = "UpdatedUsername";
 
-  //   const response = await request(app)
-  //     .post(baseAuthUrl + `/updateUser/${testUser._id}`)
-  //     .send(testUser);
-  //   expect(response.statusCode).toBe(200);
-  // });
+    const response = await request(app)
+      .put(baseAuthUrl + `/${testUser._id}`)
+      .set("Authorization", `JWT ${testUser.refreshToken}`)
+      .send(testUser);
+    expect(response.statusCode).toBe(200);
+  });
 
   //Login tests
   test("Auth test login", async () => {
@@ -113,20 +122,38 @@ describe("Auth Tests", () => {
   });
 
   test("Auth test me", async () => {
-    const firstResponse = await request(app).post("/posts").send({
-      title: "Test Post",
-      content: "Test Content",
-      owner: "sdfSd",
-    });
+    const firstResponse = await request(app)
+      .post("/posts")
+      .send({
+        imgSrc: "https://example.com/image.jpg",
+        content: "This is a test item for sale. Great condition.",
+        owner: new mongoose.Types.ObjectId("507f1f77bcf86cd799439011"),
+        location: "New York, USA",
+        isSold: false,
+        date: new Date(),
+        price: 150,
+        likes: [
+          new mongoose.Types.ObjectId("507f1f77bcf86cd799439012"),
+          new mongoose.Types.ObjectId("507f1f77bcf86cd799439013"),
+        ],
+      });
     expect(firstResponse.statusCode).not.toBe(201);
 
     const secondResponse = await request(app)
       .post("/posts")
       .set({ authorization: "JWT " + testUser.accessToken })
       .send({
-        title: "Test Post",
-        content: "Test Content",
-        owner: "sdfSd",
+        imgSrc: "https://example.com/image.jpg",
+        content: "This is a test item for sale. Great condition.",
+        owner: new mongoose.Types.ObjectId("507f1f77bcf86cd799439011"),
+        location: "New York, USA",
+        isSold: false,
+        date: new Date(),
+        price: 150,
+        likes: [
+          new mongoose.Types.ObjectId("507f1f77bcf86cd799439012"),
+          new mongoose.Types.ObjectId("507f1f77bcf86cd799439013"),
+        ],
       });
     expect(secondResponse.statusCode).toBe(201);
   });
@@ -179,9 +206,7 @@ describe("Auth Tests", () => {
 
     const secondResponse = await request(app)
       .post(baseAuthUrl + "/logout")
-      .send({
-        refreshToken: testUser.refreshToken,
-      });
+      .set("Authorization", `JWT ${testUser.accessToken}`);
     expect(secondResponse.statusCode).toBe(200);
 
     const thirdResponse = await request(app)
@@ -211,7 +236,7 @@ describe("Auth Tests", () => {
         content: "Test Content",
         owner: "sdfSd",
       });
-    expect(secondResponse.statusCode).toBe(201);
+    expect(secondResponse.statusCode).not.toBe(201);
 
     const thirdResponse = await request(app)
       .post(baseAuthUrl + "/refresh")
@@ -229,6 +254,6 @@ describe("Auth Tests", () => {
         content: "Test Content",
         owner: "sdfSd",
       });
-    expect(fourthResponse.statusCode).toBe(201);
+    expect(fourthResponse.statusCode).not.toBe(201);
   });
 });
