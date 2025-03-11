@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741694823404" clover="3.2.0">
-  <project timestamp="1741694823404" name="All files">
-    <metrics statements="400" coveredstatements="244" conditionals="56" coveredconditionals="16" methods="49" coveredmethods="26" elements="505" coveredelements="286" complexity="0" loc="400" ncloc="400" packages="5" files="14" classes="14"/>
+<coverage generated="1741695098621" clover="3.2.0">
+  <project timestamp="1741695098621" name="All files">
+    <metrics statements="400" coveredstatements="243" conditionals="56" coveredconditionals="16" methods="49" coveredmethods="27" elements="505" coveredelements="286" complexity="0" loc="400" ncloc="400" packages="5" files="14" classes="14"/>
     <package name="src">
       <metrics statements="45" coveredstatements="38" conditionals="8" coveredconditionals="3" methods="5" coveredmethods="2"/>
       <file name="server.ts" path="/Users/noa/Desktop/Projects/Degree/webApplications/firstAssignment/myApp/server/src/server.ts">
@@ -54,7 +54,7 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="263" coveredstatements="138" conditionals="46" coveredconditionals="13" methods="33" coveredmethods="19"/>
+      <metrics statements="263" coveredstatements="137" conditionals="46" coveredconditionals="13" methods="33" coveredmethods="20"/>
       <file name="auth.controller.ts" path="/Users/noa/Desktop/Projects/Degree/webApplications/firstAssignment/myApp/server/src/controllers/auth.controller.ts">
         <metrics statements="154" coveredstatements="108" conditionals="32" coveredconditionals="11" methods="14" coveredmethods="13"/>
         <line num="2" count="2" type="stmt"/>
@@ -77,28 +77,28 @@
         <line num="31" count="0" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
         <line num="44" count="2" type="stmt"/>
-        <line num="45" count="4" type="stmt"/>
-        <line num="46" count="4" type="stmt"/>
-        <line num="47" count="4" type="cond" truecount="0" falsecount="1"/>
+        <line num="45" count="3" type="stmt"/>
+        <line num="46" count="3" type="stmt"/>
+        <line num="47" count="3" type="cond" truecount="0" falsecount="1"/>
         <line num="48" count="0" type="stmt"/>
-        <line num="51" count="4" type="stmt"/>
-        <line num="52" count="4" type="stmt"/>
-        <line num="53" count="4" type="stmt"/>
-        <line num="54" count="3" type="stmt"/>
-        <line num="60" count="2" type="stmt"/>
-        <line num="61" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="53" count="3" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="61" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="62" count="0" type="stmt"/>
-        <line num="65" count="2" type="stmt"/>
-        <line num="66" count="2" type="stmt"/>
-        <line num="68" count="2" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
         <line num="76" count="2" type="stmt"/>
         <line num="85" count="2" type="stmt"/>
-        <line num="86" count="11" type="cond" truecount="0" falsecount="1"/>
+        <line num="86" count="10" type="cond" truecount="0" falsecount="1"/>
         <line num="87" count="0" type="stmt"/>
-        <line num="90" count="11" type="stmt"/>
-        <line num="92" count="11" type="stmt"/>
-        <line num="100" count="11" type="stmt"/>
-        <line num="109" count="11" type="stmt"/>
+        <line num="90" count="10" type="stmt"/>
+        <line num="92" count="10" type="stmt"/>
+        <line num="100" count="10" type="stmt"/>
+        <line num="109" count="10" type="stmt"/>
         <line num="115" count="2" type="stmt"/>
         <line num="116" count="8" type="stmt"/>
         <line num="117" count="8" type="stmt"/>
@@ -191,17 +191,17 @@
         <line num="290" count="7" type="stmt"/>
         <line num="291" count="7" type="cond" truecount="2" falsecount="0"/>
         <line num="293" count="7" type="cond" truecount="1" falsecount="0"/>
-        <line num="294" count="1" type="stmt"/>
-        <line num="295" count="1" type="stmt"/>
-        <line num="297" count="6" type="cond" truecount="0" falsecount="1"/>
+        <line num="294" count="2" type="stmt"/>
+        <line num="295" count="2" type="stmt"/>
+        <line num="297" count="5" type="cond" truecount="0" falsecount="1"/>
         <line num="298" count="0" type="stmt"/>
         <line num="299" count="0" type="stmt"/>
-        <line num="302" count="6" type="stmt"/>
-        <line num="303" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="302" count="5" type="stmt"/>
+        <line num="303" count="5" type="cond" truecount="1" falsecount="0"/>
         <line num="304" count="1" type="stmt"/>
         <line num="305" count="1" type="stmt"/>
-        <line num="307" count="5" type="stmt"/>
-        <line num="308" count="5" type="stmt"/>
+        <line num="307" count="4" type="stmt"/>
+        <line num="308" count="4" type="stmt"/>
         <line num="312" count="2" type="stmt"/>
         <line num="313" count="1" type="stmt"/>
         <line num="314" count="1" type="stmt"/>
@@ -213,16 +213,16 @@
         <line num="328" count="2" type="stmt"/>
       </file>
       <file name="base.controller.ts" path="/Users/noa/Desktop/Projects/Degree/webApplications/firstAssignment/myApp/server/src/controllers/base.controller.ts">
-        <metrics statements="27" coveredstatements="7" conditionals="4" coveredconditionals="0" methods="5" coveredmethods="2"/>
+        <metrics statements="27" coveredstatements="14" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="3"/>
         <line num="7" count="4" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="14" count="0" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="1" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
         <line num="29" count="0" type="stmt"/>
@@ -230,11 +230,11 @@
         <line num="31" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
-        <line num="41" count="5" type="stmt"/>
-        <line num="42" count="5" type="stmt"/>
-        <line num="43" count="5" type="stmt"/>
+        <line num="41" count="4" type="stmt"/>
+        <line num="42" count="4" type="stmt"/>
+        <line num="43" count="4" type="stmt"/>
         <line num="44" count="1" type="stmt"/>
-        <line num="46" count="4" type="stmt"/>
+        <line num="46" count="3" type="stmt"/>
         <line num="51" count="0" type="stmt"/>
         <line num="52" count="0" type="stmt"/>
         <line num="53" count="0" type="stmt"/>
@@ -243,13 +243,13 @@
         <line num="61" count="2" type="stmt"/>
       </file>
       <file name="comments.controller.ts" path="/Users/noa/Desktop/Projects/Degree/webApplications/firstAssignment/myApp/server/src/controllers/comments.controller.ts">
-        <metrics statements="14" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="1"/>
+        <metrics statements="14" coveredstatements="7" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
@@ -260,28 +260,28 @@
         <line num="35" count="2" type="stmt"/>
       </file>
       <file name="posts.controller.ts" path="/Users/noa/Desktop/Projects/Degree/webApplications/firstAssignment/myApp/server/src/controllers/posts.controller.ts">
-        <metrics statements="68" coveredstatements="19" conditionals="8" coveredconditionals="2" methods="11" coveredmethods="3"/>
+        <metrics statements="68" coveredstatements="8" conditionals="8" coveredconditionals="0" methods="11" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
-        <line num="12" count="5" type="stmt"/>
-        <line num="13" count="5" type="stmt"/>
-        <line num="17" count="5" type="stmt"/>
-        <line num="18" count="5" type="stmt"/>
-        <line num="22" count="4" type="stmt"/>
-        <line num="23" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="24" count="4" type="stmt"/>
-        <line num="25" count="4" type="stmt"/>
-        <line num="26" count="4" type="stmt"/>
-        <line num="27" count="4" type="stmt"/>
-        <line num="28" count="4" type="stmt"/>
-        <line num="35" count="4" type="stmt"/>
-        <line num="37" count="4" type="stmt"/>
-        <line num="49" count="4" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
         <line num="50" count="0" type="stmt"/>
         <line num="51" count="0" type="stmt"/>
         <line num="53" count="0" type="stmt"/>
-        <line num="59" count="4" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
         <line num="61" count="0" type="stmt"/>
         <line num="66" count="0" type="stmt"/>
         <line num="67" count="0" type="stmt"/>
@@ -363,7 +363,7 @@
         <line num="2" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
         <line num="65" count="2" type="stmt"/>
-        <line num="66" count="4" type="stmt"/>
+        <line num="66" count="3" type="stmt"/>
         <line num="109" count="2" type="stmt"/>
         <line num="110" count="0" type="stmt"/>
         <line num="150" count="2" type="stmt"/>
