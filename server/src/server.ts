@@ -1,11 +1,5 @@
 import express, { Express } from "express";
 import mongoose from "mongoose";
-// import postsController from './controllers/post.controller';
-// import commentsController from './controllers/comment.controller';
-// import authenticate from './middlewares/auth.middleware';
-// import authController from './controllers/auth.controller';
-// import usersController from './controllers/user.controller';
-// import { swaggerSpec } from './swagger';
 import cors from "cors";
 import https, { Server as HttpsServer } from "https";
 import http, { Server as HttpServer } from "http";
@@ -52,6 +46,11 @@ const serverPromise: Promise<ServerInfo> = new Promise((resolve, reject) => {
           })
         );
       }
+
+      //   app.use("/api", (req, res, next) => {
+      //     req.url = req.url.startsWith("/") ? req.url : `/${req.url}`;
+      //     next();
+      //   });
 
       app.use(express.json());
       app.use(`${prefix}/posts`, postsRoute);
