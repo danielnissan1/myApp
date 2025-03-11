@@ -1,5 +1,4 @@
 import request from "supertest";
-import initApp from "../server";
 import mongoose from "mongoose";
 import postModel from "../models/posts.model";
 import userModel, { IUser } from "../models/users.model";
@@ -23,9 +22,9 @@ beforeAll(async () => {
   app = (await serverPromise).server;
   await postModel.deleteMany();
   await userModel.deleteMany();
-  await request(app).post("/auth/register").send(testUser);
+  await request(app).post("/api/auth/register").send(testUser);
 
-  const res = await request(app).post("/auth/login").send(testUser);
+  const res = await request(app).post("/api/auth/login").send(testUser);
 
   console.log("Login Response:", res.body);
 
@@ -44,14 +43,14 @@ afterAll((done) => {
 let postId = "";
 describe("Posts Tests", () => {
   test("Posts test get all", async () => {
-    const response = await request(app).get("/posts");
+    const response = await request(app).get("/api/posts");
     expect(response.statusCode).toBe(200);
     expect(response.body.posts.length).toBe(0);
   });
 
   test("Test Create Post", async () => {
     const response = await request(app)
-      .post("/posts")
+      .post("/api/posts")
       .set({ authorization: "JWT " + testUser.token })
       .send({
         owner: testUser._id,
@@ -74,7 +73,7 @@ describe("Posts Tests", () => {
   });
 
   test("Test get post by owner", async () => {
-    const response = await request(app).get(`/posts?owner=${testUser._id}`);
+    const response = await request(app).get(`/api/posts?owner=${testUser._id}`);
     expect(response.statusCode).toBe(200);
     expect(response.body.posts.length).toBe(1);
     expect(response.body.posts[0].content).toBe(
@@ -84,13 +83,13 @@ describe("Posts Tests", () => {
 
   test("Test get post by id", async () => {
     const response = await request(app)
-      .get(`/posts/${postId}`)
+      .get(`/api/posts/${postId}`)
       .set({ authorization: "JWT " + testUser.token });
     expect(response.statusCode).toBe(200);
   });
 
   test("Posts test get all 2", async () => {
-    const response = await request(app).get("/posts");
+    const response = await request(app).get("/api/posts");
     expect(response.statusCode).toBe(200);
     expect(response.body.posts.length).toBe(1);
   });
@@ -98,7 +97,7 @@ describe("Posts Tests", () => {
   test("Test add like", async () => {
     console.log("postid", postId), console.log("userid", testUser._id);
     const response = await request(app)
-      .post("/posts/addlike")
+      .post("/api/posts/addlike")
       .set({ authorization: "JWT " + testUser.token })
       .send({
         postId: postId,
@@ -110,7 +109,7 @@ describe("Posts Tests", () => {
 
   test("Test delete like", async () => {
     const response = await request(app)
-      .post("/posts/removelike")
+      .post("/api/posts/removelike")
       .set({ authorization: "JWT " + testUser.token })
       .send({
         postId: postId,
@@ -121,14 +120,14 @@ describe("Posts Tests", () => {
 
   test("Test Delete Post", async () => {
     const response = await request(app)
-      .delete(`/posts/${postId}`)
+      .delete(`/api/posts/${postId}`)
       .set({ authorization: "JWT " + testUser.token });
     expect(response.statusCode).toBe(200);
   });
 
   test("Test update post", async () => {
     const response = await request(app)
-      .post("/posts")
+      .post("/api/posts")
       .set({ authorization: "JWT " + testUser.token })
       .send({
         owner: testUser._id,
@@ -151,7 +150,7 @@ describe("Posts Tests", () => {
     testpost.content = "This is a test item for sale. Great condition.";
     console.log("testpost", testpost);
     const response2 = await request(app)
-      .put(`/posts/${testpost._id}`)
+      .put(`/api/posts/${testpost._id}`)
       .set({ authorization: "JWT " + testUser.token })
       .send({
         testpost,
@@ -161,14 +160,14 @@ describe("Posts Tests", () => {
 
   test("Test get deleted Post", async () => {
     const response2 = await request(app)
-      .get(`/posts/${postId}`)
+      .get(`/api/posts/${postId}`)
       .set({ authorization: "JWT " + testUser.token });
     expect(response2.body.length).toBe(0);
   });
 
   test("Test Create Post fail", async () => {
     const response = await request(app)
-      .post("/posts")
+      .post("/api/posts")
       .set({ authorization: "JWT " + testUser.token })
       .send({
         content: "Test Content 2", // should fail
