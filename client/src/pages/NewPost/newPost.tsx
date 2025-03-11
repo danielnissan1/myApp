@@ -13,6 +13,7 @@ import { defaultUser, userAtom } from "../../atoms/userAtom";
 import { useUploadImage } from "../../hooks/useUploadImage";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { usePosts } from "../../hooks/usePosts";
+import { instance } from "../../App";
 
 interface FormData {
   img: File;
@@ -76,15 +77,12 @@ const NewPost: React.FC = () => {
 
   const getPriceRecommendation = async (itemDescription: string) => {
     try {
-      const response = await fetch(
-        `${baseUrl}/priceRec/getPriceRecommendation`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ itemDescription }),
-        }
-      );
-      const data = await response.json();
+      const response = await instance.post(`/priceRec/getPriceRecommendation`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itemDescription }),
+      });
+      const data = await response.data;
       console.log(response);
       return data.recommendedPrice;
     } catch (error) {
