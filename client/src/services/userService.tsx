@@ -18,7 +18,6 @@ export const useAuth = () => {
   const onGoogleLoginSuccess = async (
     credentialResponse: CredentialResponse
   ) => {
-    console.log("ppppppp", credentialResponse);
     try {
       const res = await googleSignIn(credentialResponse);
       console.log("res", res);

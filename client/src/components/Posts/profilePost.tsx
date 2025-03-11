@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -14,7 +14,7 @@ import PriceIcon from "@mui/icons-material/AttachMoney";
 import EditableText from "../Inputs/editableText";
 import { deletePost, updatePost } from "../../services/postsService";
 import { IPost } from "../../types/types";
-import { useAxiosPostRequests } from "../../hooks/useAxiosPostRequests";
+import { useUploadImage } from "../../hooks/useUploadImage";
 
 interface postProps {
   price: number;
@@ -29,7 +29,7 @@ interface postProps {
   setCountPosts: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const profilePost = ({
+const ProfilePost = ({
   price,
   content,
   location,
@@ -49,7 +49,7 @@ const profilePost = ({
   const [newImage, setNewImage] = useState<File | undefined>(undefined);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
-  const { uploadImage } = useAxiosPostRequests();
+  const { uploadImage } = useUploadImage();
 
   const deleteById = () => {
     id && deletePost(id);
@@ -182,4 +182,4 @@ const profilePost = ({
   );
 };
 
-export default profilePost;
+export default ProfilePost;

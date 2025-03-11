@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Feed from "./pages/feed";
-import Profile from "./pages/profile";
-import NewPost from "./pages/newPost";
+import Feed from "./pages/Feed/feed";
+import Profile from "./pages/Profile/profile";
+import NewPost from "./pages/NewPost/newPost";
 import Login from "./components/Login/login";
 import Register from "./components/Login/Register/register";
 import "./App.css";
@@ -11,7 +11,6 @@ import { RoutesValues } from "./consts/routes";
 import Layout from "./components/Layout/layout";
 import { RecoilRoot, useRecoilValue } from "recoil";
 
-//TODO: REMOVE TO ANOTHER FILE
 const baseURL = "http://localhost:3001";
 export const instance = axios.create({
   baseURL,

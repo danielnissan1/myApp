@@ -21,7 +21,7 @@ class PostsController extends BaseController<IPost> {
   async getAllPosts(req: Request, res: Response) {
     const filter = req.query.owner;
     const page = parseInt(req.query.page as string) || 1;
-    const limit = 10; // Number of posts per page
+    const limit = 10;
     try {
       const totalPosts = await postModel.countDocuments();
       const totalPages = Math.ceil(totalPosts / limit);
@@ -56,10 +56,6 @@ class PostsController extends BaseController<IPost> {
         };
       });
 
-      // const items = await this.model
-      //   .find()
-      //   .populate("owner", "avatar username")
-      //   .lean();
       res.send({ posts: postsWithCounts, totalPages });
     } catch (error) {
       res.status(400).send(error);
@@ -140,6 +136,16 @@ class PostsController extends BaseController<IPost> {
       res.status(400).send(error);
     }
   }
-}
 
+  async getByUserId(req: Request, res: Response) {
+    const userId = req.params.id;
+    try {
+      const posts = await postModel.find({ owner: userId });
+      console.log("posts to send:", posts);
+      res.send(posts);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+}
 export default new PostsController();

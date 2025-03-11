@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SwipeableDrawer } from "@mui/material";
 import "./comments.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,7 +25,6 @@ export function Comments({
 }: CommentsDialogProps) {
   const curruser = useRecoilValue(userAtom);
 
-  // const [currComments, setCurrComments] = useState<IComment[]>(comments);
   const [newComment, setNewComment] = useState("");
 
   const handleSubmitComment = (e: React.FormEvent) => {

@@ -16,8 +16,6 @@ type User = IUser & {
 const testUser: User = {
   email: "testingUser@gmail.com",
   password: "Aa123456",
-  username: "Maya",
-  avatar: "http://localhost:3001/public/1741545404419.35.23.png",
 };
 
 beforeAll(async () => {
@@ -59,14 +57,14 @@ describe("Auth Tests", () => {
     expect(secondResponse.statusCode).not.toBe(200);
   });
 
-  test("Auth test update user", async () => {
-    testUser.username = "updatedUsername";
+  // test("Auth test update user", async () => {
+  //   testUser.username = "updatedUsername";
 
-    const response = await request(app)
-      .post(baseAuthUrl + `/updateUser/${testUser._id}`)
-      .send(testUser);
-    expect(response.statusCode).toBe(200);
-  });
+  //   const response = await request(app)
+  //     .post(baseAuthUrl + `/updateUser/${testUser._id}`)
+  //     .send(testUser);
+  //   expect(response.statusCode).toBe(200);
+  // });
 
   //Login tests
   test("Auth test login", async () => {

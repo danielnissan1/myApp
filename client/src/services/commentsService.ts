@@ -2,7 +2,7 @@ import axios from "axios";
 import { IComment } from "../types/types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
+// const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
 
 export const getComments = async (postId: string): Promise<IComment[]> => {
   try {
@@ -14,13 +14,13 @@ export const getComments = async (postId: string): Promise<IComment[]> => {
   }
 };
 
-const storedRefreshToken = getRefreshToken();
+// const storedRefreshToken = getRefreshToken();
 
 export const createComment = (comment: IComment) => {
   axios
     .post("http://localhost:3001/comments", comment, {
       headers: {
-        Authorization: `Bearer ${storedRefreshToken}`,
+        // Authorization: `Bearer ${storedRefreshToken}`,
       },
     })
     .then((res) => console.log(res.data))
