@@ -15,9 +15,9 @@ import { RecoilRoot, useRecoilValue } from "recoil";
 const baseURL = process.env.REACT_APP_BASE_URL;
 export const instance = axios.create({
   baseURL,
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-  },
+  // headers: {
+  //   "Access-Control-Allow-Origin": "*",
+  // },
   withCredentials: true,
 });
 
