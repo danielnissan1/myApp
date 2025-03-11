@@ -78,9 +78,7 @@ const NewPost: React.FC = () => {
   const getPriceRecommendation = async (itemDescription: string) => {
     try {
       const response = await instance.post(`/priceRec/getPriceRecommendation`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ itemDescription }),
+        itemDescription,
       });
       const data = await response.data;
       console.log(response);
