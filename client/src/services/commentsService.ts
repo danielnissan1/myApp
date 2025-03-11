@@ -1,28 +1,28 @@
-import axios from "axios";
-import { IComment } from "../types/types";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+// import axios from "axios";
+// import { IComment } from "../types/types";
+// import { useLocalStorage } from "../hooks/useLocalStorage";
 
-// const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
+// // const [getRefreshToken, setRefreshToken] = useLocalStorage("refreshToken", "");
 
-export const getComments = async (postId: string): Promise<IComment[]> => {
-  try {
-    const res = await axios.get(`http://localhost:80/comments/${postId}`);
-    return res.data;
-  } catch (err) {
-    console.error("CORS Error:", err);
-    return [];
-  }
-};
+// export const getComments = async (postId: string): Promise<IComment[]> => {
+//   try {
+//     const res = await axios.get(`http://localhost:80/comments/${postId}`);
+//     return res.data;
+//   } catch (err) {
+//     console.error("CORS Error:", err);
+//     return [];
+//   }
+// };
 
-// const storedRefreshToken = getRefreshToken();
+// // const storedRefreshToken = getRefreshToken();
 
-export const createComment = (comment: IComment) => {
-  axios
-    .post("http://localhost:80/comments", comment, {
-      headers: {
-        // Authorization: `Bearer ${storedRefreshToken}`,
-      },
-    })
-    .then((res) => console.log(res.data))
-    .catch((err) => console.error("CORS Error:", err));
-};
+// export const createComment = (comment: IComment) => {
+//   axios
+//     .post("http://localhost:80/comments", comment, {
+//       headers: {
+//         // Authorization: `Bearer ${storedRefreshToken}`,
+//       },
+//     })
+//     .then((res) => console.log(res.data))
+//     .catch((err) => console.error("CORS Error:", err));
+// };

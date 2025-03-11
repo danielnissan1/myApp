@@ -9,10 +9,7 @@ import { RoutesValues } from "../consts/routes";
 
 export const useAuth = () => {
   const setUser = useSetRecoilState(userAtom);
-  const [getRefreshToken, setRefreshToken] = useLocalStorage(
-    "refreshToken",
-    "accessToken"
-  );
+  const [, setRefreshToken] = useLocalStorage("refreshToken", "accessToken");
   const navigate = useNavigate();
 
   const onGoogleLoginSuccess = async (

@@ -1,6 +1,8 @@
 import express from "express";
 const router = express.Router();
 import multer from "multer";
+import dotenv from "dotenv";
+dotenv.config();
 
 const base = "http://" + process.env.DOMAIN_BASE + ":" + process.env.PORT + "/";
 const storage = multer.diskStorage({
