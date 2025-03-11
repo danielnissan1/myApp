@@ -63,9 +63,13 @@ const serverPromise: Promise<ServerInfo> = new Promise((resolve, reject) => {
       app.use(`${prefix}/auth`, authRoutes);
       app.use(`${prefix}/priceRec`, priceRec);
       app.use(`${prefix}/file`, fileRoutes);
+      app.use("/public", express.static("public"));
       app.options("*", cors());
       // Serve static files from the public directory
-      app.use(`${prefix}`, express.static(path.join(__dirname, "../public")));
+      app.use(
+        `${prefix}/public`,
+        express.static(path.join(__dirname, "../public"))
+      );
 
       // CLIENT -> Serve static files from the build directory
       app.use(express.static(path.join(__dirname, "../build")));
