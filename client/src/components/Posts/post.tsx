@@ -7,11 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
 import { Comments } from "./comments";
-import { getComments } from "../../services/commentsService";
+// import { getComments } from "../../services/commentsService";
 // import { likePost, unlikePost } from "../../services/postsService";
 import { userAtom } from "../../atoms/userAtom";
 import { useRecoilValue } from "recoil";
 import { usePosts } from "../../hooks/usePosts";
+import { useComments } from "../../hooks/useComments";
 
 interface Props {
   post: IPost;
@@ -27,6 +28,7 @@ const Post = ({ post }: Props) => {
   const [likesNum, setLikesNum] = useState<number>(0);
 
   const { likePost, unlikePost } = usePosts();
+  const { getComments } = useComments();
 
   useEffect(() => {
     if (post && post.likes) {
