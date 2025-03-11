@@ -16,7 +16,7 @@ import AddPhotoIcon from "@mui/icons-material/AddPhotoAlternate";
 import { formSchema, formData } from "./formData";
 import { colors } from "../../../consts/colors";
 import ErrorModal from "../../Modals/errorModal";
-import { useAuth } from "../../../services/userService";
+import { useAuth } from "../../../hooks/useAuth";
 import { useUploadImage } from "../../../hooks/useUploadImage";
 import { useSignUp } from "../../../hooks/useSignup";
 
