@@ -50,7 +50,7 @@ const Register = () => {
   const signUp = async (data: FieldValues) => {
     const img = await uploadImage(
       data.profileImage[0],
-      "http://localhost:80/file"
+      `${process.env.BASE_URL}/file`
     );
     setImgUrl(img);
     setData(data);

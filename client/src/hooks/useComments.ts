@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { IComment, IPost, IUser } from "../types/types";
 import { useLocalStorage } from "./useLocalStorage";
+import { instance } from "../App";
 
 export const useComments = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -13,7 +14,7 @@ export const useComments = () => {
 
   const getComments = async (postId: string): Promise<IComment[]> => {
     try {
-      const res = await axios.get(`http://localhost:80/comments/${postId}`);
+      const res = await instance.get(`/comments/${postId}`);
       return res.data;
     } catch (err) {
       console.error("CORS Error:", err);
@@ -23,7 +24,7 @@ export const useComments = () => {
 
   const createComment = (comment: IComment) => {
     axios
-      .post("http://localhost:80/comments", comment, {
+      .post(`${process.env.BASE_URL}/comments`, comment, {
         headers: {
           Authorization: `Bearer ${storedRefreshToken}`,
         },

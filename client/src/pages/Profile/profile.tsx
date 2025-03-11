@@ -46,7 +46,7 @@ const Profile = () => {
       if (newImage) {
         const newImgUrl = await uploadImage(
           newImage,
-          "http://localhost:80/file"
+          `${process.env.BASE_URL}/file`
         );
         setUser({ ...user, avatar: newImgUrl });
       }

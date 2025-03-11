@@ -75,7 +75,7 @@ const NewPost: React.FC = () => {
   const getPriceRecommendation = async (itemDescription: string) => {
     try {
       const response = await fetch(
-        "http://localhost:80/priceRec/getPriceRecommendation",
+        `${process.env.BASE_URL}/priceRec/getPriceRecommendation`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

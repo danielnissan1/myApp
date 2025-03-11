@@ -64,7 +64,10 @@ const ProfilePost = ({
     newContent && (post.content = newContent);
     post.isSold = newSoldStatus;
     if (newImage) {
-      const newImgUrl = await uploadImage(newImage, "http://localhost:80/file");
+      const newImgUrl = await uploadImage(
+        newImage,
+        `${process.env.BASE_URL}/file`
+      );
       post.imgSrc = newImgUrl;
     }
 

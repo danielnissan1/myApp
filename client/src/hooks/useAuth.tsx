@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "../atoms/userAtom";
 import { RoutesValues } from "../consts/routes";
+import { instance } from "../App";
 
 export const useAuth = () => {
   const setUser = useSetRecoilState(userAtom);
@@ -42,8 +43,8 @@ export const useAuth = () => {
 export const googleSignIn = async (credentialResponse: CredentialResponse) => {
   return new Promise<IUser>((resolve, reject) => {
     console.log("googleSignIn...");
-    axios
-      .post("http://localhost:80/auth/google", credentialResponse)
+    instance
+      .post(`/auth/google`, credentialResponse)
       .then((res) => {
         console.log("googleSignIn response:", res);
         resolve(res.data);

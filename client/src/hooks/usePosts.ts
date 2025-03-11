@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { IPost, IUser } from "../types/types";
 import { useLocalStorage } from "./useLocalStorage";
+import { instance } from "../App";
 
 export const usePosts = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -13,7 +14,7 @@ export const usePosts = () => {
 
   const getPosts = async (): Promise<IPost[]> => {
     try {
-      const res = await axios.get("http://localhost:80/posts");
+      const res = await instance.get(`/posts`);
 
       return res.data;
     } catch (err) {
@@ -24,7 +25,7 @@ export const usePosts = () => {
 
   const getPost = async (id: string): Promise<IPost | undefined> => {
     try {
-      const res = await axios.get(`http://localhost:80/posts/${id}`);
+      const res = await instance.get(`/posts/${id}`);
       return res.data;
     } catch (err) {
       console.error("CORS Error:", err);
@@ -37,11 +38,11 @@ export const usePosts = () => {
     img: File,
     uploadImage: (file: File, url: string) => Promise<string>
   ) => {
-    const imgUrl = await uploadImage(img, "http://localhost:80/file");
+    const imgUrl = await uploadImage(img, `${process.env.BASE_URL}/file`);
 
     try {
       const response = await axios.post(
-        "http://localhost:80/posts",
+        `${process.env.BASE_URL}/posts`,
         {
           ...post,
           imgSrc: imgUrl,
@@ -62,7 +63,7 @@ export const usePosts = () => {
 
   const deletePost = (postId: string) => {
     axios
-      .delete(`http://localhost:80/posts/${postId}`, {
+      .delete(`${process.env.BASE_URL}/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${storedRefreshToken}`,
         },
@@ -73,7 +74,7 @@ export const usePosts = () => {
 
   const updatePost = (postId: string, post: IPost) => {
     axios
-      .put(`http://localhost:80/posts/${postId}`, post, {
+      .put(`${process.env.BASE_URL}/posts/${postId}`, post, {
         headers: {
           Authorization: `Bearer ${storedRefreshToken}`,
         },
@@ -85,7 +86,7 @@ export const usePosts = () => {
   const likePost = (postId: string, userId: string) => {
     axios
       .post(
-        "http://localhost:80/posts/addlike",
+        `${process.env.BASE_URL}/posts/addlike`,
         { postId, userId },
         {
           headers: {
@@ -100,7 +101,7 @@ export const usePosts = () => {
   const unlikePost = (postId: string, userId: string) => {
     axios
       .post(
-        `http://localhost:80/posts/removelike`,
+        `${process.env.BASE_URL}/posts/removelike`,
         { postId, userId },
         {
           headers: {

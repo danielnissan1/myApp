@@ -4,6 +4,8 @@ import { RoutesValues } from "../consts/routes";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "../atoms/userAtom";
 import { useLocalStorage } from "./useLocalStorage";
+import { instance } from "../App";
+import axiosInstance from "../services/axiosInstance";
 
 export const useLogin = (
   email: string,
@@ -18,8 +20,8 @@ export const useLogin = (
   );
 
   const onLogin = () => {
-    axios
-      .post("http://localhost:80/auth/login", {
+    instance
+      .post(`/auth/login`, {
         email: email,
         password: password,
       })

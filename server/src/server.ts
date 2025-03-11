@@ -35,25 +35,21 @@ const serverPromise: Promise<ServerInfo> = new Promise((resolve, reject) => {
       const app: Express = express();
 
       const prefix = "/api";
+      // app.use(cors());
 
-      app.use((req, res, next) => {
-        res.setHeader("Access-Control-Allow-Origin", "http://localhost:80");
-        res.setHeader(
-          "Access-Control-Allow-Methods",
-          "GET, POST, PUT, DELETE, OPTIONS"
-        );
-        res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-        res.setHeader("Access-Control-Allow-Credentials", "true");
-        next();
-      });
+      app.use(
+        cors({
+          origin: "http://localhost:3000", // Change this to your frontend URL
+          credentials: true, // Allows cookies and auth headers
+        })
+      );
 
-      app.use(cors());
       app.use(express.json());
-      app.use("/posts", postsRoute);
-      app.use("/comments", commentsRoute);
-      app.use("/auth", authRoutes);
-      app.use("/priceRec", priceRec);
-      app.use("/file", fileRoutes);
+      app.use(`${prefix}/posts`, postsRoute);
+      app.use(`${prefix}/comments`, commentsRoute);
+      app.use(`${prefix}/auth`, authRoutes);
+      app.use(`${prefix}/priceRec`, priceRec);
+      app.use(`${prefix}/file`, fileRoutes);
       app.options("*", cors());
       // Serve static files from the public directory
       app.use(
