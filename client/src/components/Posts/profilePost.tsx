@@ -12,9 +12,10 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import LocationIcon from "@mui/icons-material/LocationOn";
 import PriceIcon from "@mui/icons-material/AttachMoney";
 import EditableText from "../Inputs/editableText";
-import { deletePost, updatePost } from "../../services/postsService";
+// import { deletePost, updatePost } from "../../services/postsService";
 import { IPost } from "../../types/types";
 import { useUploadImage } from "../../hooks/useUploadImage";
+import { usePosts } from "../../hooks/usePosts";
 
 interface postProps {
   price: number;
@@ -50,6 +51,7 @@ const ProfilePost = ({
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const { uploadImage } = useUploadImage();
+  const { deletePost, updatePost } = usePosts();
 
   const deleteById = () => {
     id && deletePost(id);
@@ -62,10 +64,7 @@ const ProfilePost = ({
     newContent && (post.content = newContent);
     post.isSold = newSoldStatus;
     if (newImage) {
-      const newImgUrl = await uploadImage(
-        newImage,
-        "http://localhost:3001/file"
-      );
+      const newImgUrl = await uploadImage(newImage, `/file`);
       post.imgSrc = newImgUrl;
     }
 

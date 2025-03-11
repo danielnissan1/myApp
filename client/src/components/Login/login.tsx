@@ -18,7 +18,7 @@ import { useLogin } from "../../hooks/useLogin";
 import ErrorModal from "../Modals/errorModal";
 import { colors } from "../../consts/colors";
 import { GoogleLogin } from "@react-oauth/google";
-import { useAuth } from "../../services/userService";
+import { useAuth } from "../../hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);

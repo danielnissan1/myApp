@@ -4,9 +4,10 @@ import "./comments.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { IComment } from "../../types/types";
-import { createComment } from "../../services/commentsService";
+// import { createComment } from "../../services/commentsService";
 import { useRecoilValue } from "recoil";
 import { userAtom } from "../../atoms/userAtom";
+import { useComments } from "../../hooks/useComments";
 
 interface CommentsDialogProps {
   comments: IComment[];
@@ -24,6 +25,7 @@ export function Comments({
   setComments,
 }: CommentsDialogProps) {
   const curruser = useRecoilValue(userAtom);
+  const { createComment } = useComments();
 
   const [newComment, setNewComment] = useState("");
 

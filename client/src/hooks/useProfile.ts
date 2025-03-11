@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useState } from "react";
 import { IPost, IUser } from "../types/types";
 import { useLocalStorage } from "./useLocalStorage";
+import { instance } from "../App";
 
 export const useProfile = (userId: string) => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -12,8 +12,8 @@ export const useProfile = (userId: string) => {
   const storedRefreshToken = getRefreshToken();
 
   const getUsersPosts = async () => {
-    axios
-      .get(`http://localhost:3001/posts/${userId}`, {
+    instance
+      .get(`/posts/${userId}`, {
         headers: {
           Authorization: `Bearer ${storedRefreshToken}`,
         },
@@ -27,8 +27,8 @@ export const useProfile = (userId: string) => {
   const updateUser = (userId: string, user: IUser) => {
     console.log("user in req:", user);
 
-    axios
-      .put(`http://localhost:3001/auth/${userId}`, user, {
+    instance
+      .put(`/auth/${userId}`, user, {
         headers: {
           Authorization: `Bearer ${storedRefreshToken}`,
         },

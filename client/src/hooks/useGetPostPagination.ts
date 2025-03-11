@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { IPost } from "../types/types";
+import { instance } from "../App";
 
 const useGetPostsPagination = (page: number) => {
   const [data, setData] = useState<{ posts: IPost[]; totalPages: number }>({
@@ -15,7 +15,7 @@ const useGetPostsPagination = (page: number) => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get("http://localhost:3001/posts", {
+        const response = await instance.get(`/posts`, {
           params: { page },
         });
         setData({

@@ -1,18 +1,15 @@
-import axios from "axios";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useLocalStorage } from "./useLocalStorage";
 import { CredentialResponse } from "@react-oauth/google";
 import { IUser } from "../types/types";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "../atoms/userAtom";
 import { RoutesValues } from "../consts/routes";
+import { instance } from "../App";
 
 export const useAuth = () => {
   const setUser = useSetRecoilState(userAtom);
-  const [getRefreshToken, setRefreshToken] = useLocalStorage(
-    "refreshToken",
-    "accessToken"
-  );
+  const [, setRefreshToken] = useLocalStorage("refreshToken", "accessToken");
   const navigate = useNavigate();
 
   const onGoogleLoginSuccess = async (
@@ -45,8 +42,8 @@ export const useAuth = () => {
 export const googleSignIn = async (credentialResponse: CredentialResponse) => {
   return new Promise<IUser>((resolve, reject) => {
     console.log("googleSignIn...");
-    axios
-      .post("http://localhost:3001/auth/google", credentialResponse)
+    instance
+      .post(`/auth/google`, credentialResponse)
       .then((res) => {
         console.log("googleSignIn response:", res);
         resolve(res.data);
