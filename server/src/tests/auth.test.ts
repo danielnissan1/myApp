@@ -66,8 +66,8 @@ describe("Auth Tests", () => {
       .send(testUser);
     expect(firstResponse.statusCode).toBe(200);
     testUser.refreshToken = firstResponse.body.refreshToken;
-    testUser.username = "UpdatedUsername";
 
+    testUser.username = "UpdatedUsername";
     const response = await request(app)
       .put(baseAuthUrl + `/${testUser._id}`)
       .set("Authorization", `JWT ${testUser.refreshToken}`)
