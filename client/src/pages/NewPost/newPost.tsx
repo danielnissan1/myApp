@@ -137,7 +137,7 @@ const NewPost: React.FC = () => {
               src={previewImage || picturePlaceHolder}
               alt="Uploaded"
               className="uploaded-image"
-              style={{ height: "45vh", cursor: "pointer" }}
+              style={{ height: "45vh", width: "45vh", cursor: "pointer" }}
               onClick={() =>
                 inputFileRef.current && inputFileRef.current.click()
               }

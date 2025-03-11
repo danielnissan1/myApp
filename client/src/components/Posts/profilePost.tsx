@@ -81,7 +81,7 @@ const ProfilePost = ({
   };
 
   return (
-    <Card sx={{ height: "22rem", width: "27rem", margin: "1rem" }}>
+    <Card sx={{ height: "26rem", width: "20rem", margin: "1rem" }}>
       <CardActions
         sx={{
           direction: "rtl",
@@ -120,17 +120,24 @@ const ProfilePost = ({
           </Button>
         )}
       </CardActions>
-      <CardContent sx={{ pt: "0rem" }}>
+      <CardContent
+        sx={{
+          pt: "0rem",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
           }}
         >
-          <Box>
+          <Box marginLeft={"2.5rem"} display={"flex"} flexDirection={"row"}>
             <LocationIcon />
             <EditableText
-              width="20rem"
+              width="15rem"
               textAlignOnDisplay="left"
               defaultText={location}
               editMode={editMode}
@@ -138,7 +145,13 @@ const ProfilePost = ({
             ></EditableText>
           </Box>
           {editMode ? (
-            <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <input
                 type="file"
                 accept="image/*"
@@ -148,28 +161,47 @@ const ProfilePost = ({
               ></input>
               <img
                 src={previewImage || imgSrc}
-                style={{ height: "12rem", cursor: "pointer" }}
+                style={{ height: "15rem", width: "15rem", cursor: "pointer" }}
                 onClick={() =>
                   inputFileRef.current && inputFileRef.current.click()
                 }
               />
             </div>
           ) : (
-            <img src={previewImage || imgSrc} style={{ height: "12rem" }}></img>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={previewImage || imgSrc}
+                style={{
+                  height: "15rem",
+                  width: "15rem",
+                }}
+              ></img>
+            </div>
           )}
-          <Box pt={"0.5rem"}>
+          <Box
+            pt={"0.5rem"}
+            marginLeft={"2rem"}
+            display={"flex"}
+            flexDirection={"row"}
+          >
             <PriceIcon />
             <EditableText
-              width="20rem"
+              width="15rem"
               textAlignOnDisplay="left"
               defaultText={String(price)}
               editMode={editMode}
               setValue={setNewPrice}
             ></EditableText>
           </Box>
-          <Box sx={{ ml: "1.5rem" }}>
+          <Box sx={{ ml: "3rem" }}>
             <EditableText
-              width="20rem"
+              width="15rem"
               textAlignOnDisplay="left"
               defaultText={content}
               editMode={editMode}
