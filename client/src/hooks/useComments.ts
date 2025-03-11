@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { IComment, IPost, IUser } from "../types/types";
 import { useLocalStorage } from "./useLocalStorage";
@@ -23,8 +22,8 @@ export const useComments = () => {
   };
 
   const createComment = (comment: IComment) => {
-    axios
-      .post(`${process.env.BASE_URL}/comments`, comment, {
+    instance
+      .post(`/comments`, comment, {
         headers: {
           Authorization: `Bearer ${storedRefreshToken}`,
         },

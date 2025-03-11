@@ -4,7 +4,8 @@ import multer from "multer";
 import dotenv from "dotenv";
 dotenv.config();
 
-const base = "http://" + process.env.DOMAIN_BASE + ":" + process.env.PORT + "/";
+const base =
+  "http://" + process.env.DOMAIN_BASE + ":" + process.env.PORT + "/api/";
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/");

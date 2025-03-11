@@ -1,11 +1,9 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../consts/routes";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "../atoms/userAtom";
 import { useLocalStorage } from "./useLocalStorage";
 import { instance } from "../App";
-import axiosInstance from "../services/axiosInstance";
 
 export const useLogin = (
   email: string,

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { IPost, IUser } from "../types/types";
 import { useLocalStorage } from "./useLocalStorage";
@@ -38,11 +37,11 @@ export const usePosts = () => {
     img: File,
     uploadImage: (file: File, url: string) => Promise<string>
   ) => {
-    const imgUrl = await uploadImage(img, `${process.env.BASE_URL}/file`);
+    const imgUrl = await uploadImage(img, `/file`);
 
     try {
-      const response = await axios.post(
-        `${process.env.BASE_URL}/posts`,
+      const response = await instance.post(
+        `/posts`,
         {
           ...post,
           imgSrc: imgUrl,
@@ -62,8 +61,8 @@ export const usePosts = () => {
   };
 
   const deletePost = (postId: string) => {
-    axios
-      .delete(`${process.env.BASE_URL}/posts/${postId}`, {
+    instance
+      .delete(`/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${storedRefreshToken}`,
         },
@@ -73,8 +72,8 @@ export const usePosts = () => {
   };
 
   const updatePost = (postId: string, post: IPost) => {
-    axios
-      .put(`${process.env.BASE_URL}/posts/${postId}`, post, {
+    instance
+      .put(`/posts/${postId}`, post, {
         headers: {
           Authorization: `Bearer ${storedRefreshToken}`,
         },
@@ -84,9 +83,9 @@ export const usePosts = () => {
   };
 
   const likePost = (postId: string, userId: string) => {
-    axios
+    instance
       .post(
-        `${process.env.BASE_URL}/posts/addlike`,
+        `/posts/addlike`,
         { postId, userId },
         {
           headers: {
@@ -99,9 +98,9 @@ export const usePosts = () => {
   };
 
   const unlikePost = (postId: string, userId: string) => {
-    axios
+    instance
       .post(
-        `${process.env.BASE_URL}/posts/removelike`,
+        `/posts/removelike`,
         { postId, userId },
         {
           headers: {

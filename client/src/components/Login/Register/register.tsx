@@ -48,10 +48,7 @@ const Register = () => {
   }, [profileImage]);
 
   const signUp = async (data: FieldValues) => {
-    const img = await uploadImage(
-      data.profileImage[0],
-      `${process.env.BASE_URL}/file`
-    );
+    const img = await uploadImage(data.profileImage[0], `/file`);
     setImgUrl(img);
     setData(data);
   };

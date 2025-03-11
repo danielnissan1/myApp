@@ -44,10 +44,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUpload = async () => {
       if (newImage) {
-        const newImgUrl = await uploadImage(
-          newImage,
-          `${process.env.BASE_URL}/file`
-        );
+        const newImgUrl = await uploadImage(newImage, `/file`);
         setUser({ ...user, avatar: newImgUrl });
       }
     };

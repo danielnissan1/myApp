@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useLocalStorage } from "./useLocalStorage";
 import { CredentialResponse } from "@react-oauth/google";
 import { IUser } from "../types/types";
