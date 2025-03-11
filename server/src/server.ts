@@ -32,7 +32,7 @@ const serverPromise: Promise<ServerInfo> = new Promise((resolve, reject) => {
       // app.use(cors());
 
       if (isProduction) {
-        console.log("Production mode");
+        console.log("Production mode", process.env.HTTPS_PORT);
 
         app.use(
           cors({
