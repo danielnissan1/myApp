@@ -1,8 +1,4 @@
 /node_modules
 .env
 /cert
-<<<<<<< HEAD
 /coverage
-=======
-/coverage
->>>>>>> 940df5357c876d1774b296d701274f878cbf5911

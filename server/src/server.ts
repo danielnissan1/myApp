@@ -32,6 +32,8 @@ const serverPromise: Promise<ServerInfo> = new Promise((resolve, reject) => {
       // app.use(cors());
 
       if (isProduction) {
+        console.log("Production mode");
+
         app.use(
           cors({
             origin: `https://localhost:${process.env.HTTPS_PORT}`, // Change this to your frontend URL
