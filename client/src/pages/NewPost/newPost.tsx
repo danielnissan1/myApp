@@ -74,14 +74,11 @@ const NewPost: React.FC = () => {
 
   const getPriceRecommendation = async (itemDescription: string) => {
     try {
-      const response = await fetch(
-        `${process.env.BASE_URL}/priceRec/getPriceRecommendation`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ itemDescription }),
-        }
-      );
+      const response = await fetch(`/priceRec/getPriceRecommendation`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itemDescription }),
+      });
       const data = await response.json();
       console.log(response);
       return data.recommendedPrice;
