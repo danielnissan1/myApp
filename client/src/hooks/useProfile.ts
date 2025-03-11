@@ -13,7 +13,7 @@ export const useProfile = (userId: string) => {
 
   const getUsersPosts = async () => {
     axios
-      .get(`http://localhost:3001/posts/${userId}`, {
+      .get(`http://localhost:80/posts/${userId}`, {
         headers: {
           Authorization: `Bearer ${storedRefreshToken}`,
         },
@@ -28,7 +28,7 @@ export const useProfile = (userId: string) => {
     console.log("user in req:", user);
 
     axios
-      .put(`http://localhost:3001/auth/${userId}`, user, {
+      .put(`http://localhost:80/auth/${userId}`, user, {
         headers: {
           Authorization: `Bearer ${storedRefreshToken}`,
         },

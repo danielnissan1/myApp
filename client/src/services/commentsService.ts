@@ -6,7 +6,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const getComments = async (postId: string): Promise<IComment[]> => {
   try {
-    const res = await axios.get(`http://localhost:3001/comments/${postId}`);
+    const res = await axios.get(`http://localhost:80/comments/${postId}`);
     return res.data;
   } catch (err) {
     console.error("CORS Error:", err);
@@ -18,7 +18,7 @@ export const getComments = async (postId: string): Promise<IComment[]> => {
 
 export const createComment = (comment: IComment) => {
   axios
-    .post("http://localhost:3001/comments", comment, {
+    .post("http://localhost:80/comments", comment, {
       headers: {
         // Authorization: `Bearer ${storedRefreshToken}`,
       },

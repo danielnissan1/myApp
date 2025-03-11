@@ -6,7 +6,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const getPosts = async (): Promise<IPost[]> => {
   try {
-    const res = await axios.get("http://localhost:3001/posts");
+    const res = await axios.get("http://localhost:80/posts");
 
     return res.data;
   } catch (err) {
@@ -17,7 +17,7 @@ export const getPosts = async (): Promise<IPost[]> => {
 
 export const getPost = async (id: string): Promise<IPost | undefined> => {
   try {
-    const res = await axios.get(`http://localhost:3001/posts/${id}`);
+    const res = await axios.get(`http://localhost:80/posts/${id}`);
     return res.data;
   } catch (err) {
     console.error("CORS Error:", err);
@@ -32,11 +32,11 @@ export const createPost = async (
   img: File,
   uploadImage: (file: File, url: string) => Promise<string>
 ) => {
-  const imgUrl = await uploadImage(img, "http://localhost:3001/file");
+  const imgUrl = await uploadImage(img, "http://localhost:80/file");
 
   try {
     const response = await axios.post(
-      "http://localhost:3001/posts",
+      "http://localhost:80/posts",
       {
         ...post,
         imgSrc: imgUrl,
@@ -57,7 +57,7 @@ export const createPost = async (
 
 export const deletePost = (postId: string) => {
   axios
-    .delete(`http://localhost:3001/posts/${postId}`, {
+    .delete(`http://localhost:80/posts/${postId}`, {
       headers: {
         // Authorization: `Bearer ${storedRefreshToken}`,
       },
@@ -68,7 +68,7 @@ export const deletePost = (postId: string) => {
 
 export const updatePost = (postId: string, post: IPost) => {
   axios
-    .put(`http://localhost:3001/posts/${postId}`, post, {
+    .put(`http://localhost:80/posts/${postId}`, post, {
       headers: {
         // Authorization: `Bearer ${storedRefreshToken}`,
       },
@@ -80,7 +80,7 @@ export const updatePost = (postId: string, post: IPost) => {
 export const likePost = (postId: string, userId: string) => {
   axios
     .post(
-      "http://localhost:3001/posts/addlike",
+      "http://localhost:80/posts/addlike",
       { postId, userId },
       {
         headers: {
@@ -95,7 +95,7 @@ export const likePost = (postId: string, userId: string) => {
 export const unlikePost = (postId: string, userId: string) => {
   axios
     .post(
-      `http://localhost:3001/posts/removelike`,
+      `http://localhost:80/posts/removelike`,
       { postId, userId },
       {
         headers: {

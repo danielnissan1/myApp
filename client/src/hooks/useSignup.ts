@@ -21,7 +21,7 @@ export const useSignUp = () => {
     console.log("data:", data);
 
     axios
-      .post("http://localhost:3001/auth/register", {
+      .post("http://localhost:80/auth/register", {
         username: data.username,
         email: data.email,
         password: data.password,

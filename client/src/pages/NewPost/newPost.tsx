@@ -7,11 +7,12 @@ import { IPost } from "../../types/types";
 import picturePlaceHolder from "../../assets/pic_placeholder.jpg";
 import "./newpost.css";
 import { FieldValues, useForm } from "react-hook-form";
-import { createPost } from "../../services/postsService";
+// import { createPost } from "../../services/postsService";
 import { useRecoilValue } from "recoil";
 import { defaultUser, userAtom } from "../../atoms/userAtom";
 import { useUploadImage } from "../../hooks/useUploadImage";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { usePosts } from "../../hooks/usePosts";
 
 interface FormData {
   img: File;
@@ -32,6 +33,7 @@ const NewPost: React.FC = () => {
 
   const { register, handleSubmit, formState, setValue } = useForm<FormData>();
   const { uploadImage } = useUploadImage();
+  const { createPost } = usePosts();
   const [getRefreshToken, setRefreshToken] = useLocalStorage(
     "refreshToken",
     ""
@@ -73,7 +75,7 @@ const NewPost: React.FC = () => {
   const getPriceRecommendation = async (itemDescription: string) => {
     try {
       const response = await fetch(
-        "http://localhost:3001/priceRec/getPriceRecommendation",
+        "http://localhost:80/priceRec/getPriceRecommendation",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

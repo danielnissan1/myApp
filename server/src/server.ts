@@ -36,6 +36,17 @@ const serverPromise: Promise<ServerInfo> = new Promise((resolve, reject) => {
 
       const prefix = "/api";
 
+      app.use((req, res, next) => {
+        res.setHeader("Access-Control-Allow-Origin", "http://localhost:80");
+        res.setHeader(
+          "Access-Control-Allow-Methods",
+          "GET, POST, PUT, DELETE, OPTIONS"
+        );
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        res.setHeader("Access-Control-Allow-Credentials", "true");
+        next();
+      });
+
       app.use(cors());
       app.use(express.json());
       app.use("/posts", postsRoute);

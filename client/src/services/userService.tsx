@@ -46,7 +46,7 @@ export const googleSignIn = async (credentialResponse: CredentialResponse) => {
   return new Promise<IUser>((resolve, reject) => {
     console.log("googleSignIn...");
     axios
-      .post("http://localhost:3001/auth/google", credentialResponse)
+      .post("http://localhost:80/auth/google", credentialResponse)
       .then((res) => {
         console.log("googleSignIn response:", res);
         resolve(res.data);

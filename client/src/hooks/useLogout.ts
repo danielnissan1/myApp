@@ -25,7 +25,7 @@ export const useLogout = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3001/auth/logout",
+        "http://localhost:80/auth/logout",
         {
           refreshToken: storedRefreshToken,
         },

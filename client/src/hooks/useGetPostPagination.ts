@@ -15,7 +15,7 @@ const useGetPostsPagination = (page: number) => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get("http://localhost:3001/posts", {
+        const response = await axios.get("http://localhost:80/posts", {
           params: { page },
         });
         setData({
