@@ -7,6 +7,13 @@
 //   });
 // });
 
+// async function startApp() {
+//   const app = await initApp;  // Waits for the promise to resolve
+//   app.listen(port, () => {
+//     console.log(`Example app listening at http://localhost:${port}`);
+//   });
+// }
+
 import dotenv from "dotenv";
 import serverPromise from "./server";
 import { Server as HttpsServer } from "https";

@@ -66,8 +66,8 @@ describe("Auth Tests", () => {
       .send(testUser);
     expect(firstResponse.statusCode).toBe(200);
     testUser.refreshToken = firstResponse.body.refreshToken;
-    testUser.username = "UpdatedUsername";
 
+    testUser.username = "UpdatedUsername";
     const response = await request(app)
       .put(baseAuthUrl + `/${testUser._id}`)
       .set("Authorization", `JWT ${testUser.refreshToken}`)
@@ -123,7 +123,7 @@ describe("Auth Tests", () => {
 
   test("Auth test me", async () => {
     const firstResponse = await request(app)
-      .post("/posts")
+      .post("/api/posts")
       .send({
         imgSrc: "https://example.com/image.jpg",
         content: "This is a test item for sale. Great condition.",
@@ -140,7 +140,7 @@ describe("Auth Tests", () => {
     expect(firstResponse.statusCode).not.toBe(201);
 
     const secondResponse = await request(app)
-      .post("/posts")
+      .post("/api/posts")
       .set({ authorization: "JWT " + testUser.accessToken })
       .send({
         imgSrc: "https://example.com/image.jpg",
@@ -229,7 +229,7 @@ describe("Auth Tests", () => {
     await new Promise((resolve) => setTimeout(resolve, 5000));
 
     const secondResponse = await request(app)
-      .post("/posts")
+      .post("/api/posts")
       .set({ authorization: "JWT " + testUser.accessToken })
       .send({
         title: "Test Post",
@@ -247,7 +247,7 @@ describe("Auth Tests", () => {
     testUser.accessToken = thirdResponse.body.accessToken;
 
     const fourthResponse = await request(app)
-      .post("/posts")
+      .post("/api/posts")
       .set({ authorization: "JWT " + testUser.accessToken })
       .send({
         title: "Test Post",
