@@ -7,8 +7,7 @@ var __importDefault =
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const multer_1 = __importDefault(require("multer"));
-const start = process.env.NODE_ENV === "production" ? "https://" : "http://";
-const base = start + process.env.DOMAIN_BASE + ":" + process.env.PORT + "/";
+const base = "http://" + process.env.DOMAIN_BASE + ":" + process.env.PORT + "/";
 const storage = multer_1.default.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/");
