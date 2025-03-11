@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../consts/routes";
 import { useSetRecoilState } from "recoil";
 import { userAtom } from "../atoms/userAtom";
 import { useLocalStorage } from "./useLocalStorage";
+import { instance } from "../App";
 
 export const useLogin = (
   email: string,
@@ -18,8 +18,8 @@ export const useLogin = (
   );
 
   const onLogin = () => {
-    axios
-      .post("http://localhost:3001/auth/login", {
+    instance
+      .post(`/auth/login`, {
         email: email,
         password: password,
       })

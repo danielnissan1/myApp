@@ -1,4 +1,3 @@
-import axios from "axios";
 import { FieldValues } from "react-hook-form";
 import { RoutesValues } from "../consts/routes";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +5,7 @@ import { userAtom } from "../atoms/userAtom";
 import { useSetRecoilState } from "recoil";
 import { useLocalStorage } from "./useLocalStorage";
 import { useState } from "react";
+import { instance } from "../App";
 
 export const useSignUp = () => {
   const navigate = useNavigate();
@@ -20,8 +20,8 @@ export const useSignUp = () => {
     console.log("imageurl", imgUrl);
     console.log("data:", data);
 
-    axios
-      .post("http://localhost:3001/auth/register", {
+    instance
+      .post("/auth/register", {
         username: data.username,
         email: data.email,
         password: data.password,

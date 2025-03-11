@@ -11,7 +11,8 @@ import { RoutesValues } from "./consts/routes";
 import Layout from "./components/Layout/layout";
 import { RecoilRoot, useRecoilValue } from "recoil";
 
-const baseURL = "http://localhost:3001";
+// const baseURL = "http://localhost:80/api";
+const baseURL = process.env.REACT_APP_BASE_URL;
 export const instance = axios.create({
   baseURL,
   headers: {

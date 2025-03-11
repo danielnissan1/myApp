@@ -1,11 +1,5 @@
 import express, { Express } from "express";
 import mongoose from "mongoose";
-// import postsController from './controllers/post.controller';
-// import commentsController from './controllers/comment.controller';
-// import authenticate from './middlewares/auth.middleware';
-// import authController from './controllers/auth.controller';
-// import usersController from './controllers/user.controller';
-// import { swaggerSpec } from './swagger';
 import cors from "cors";
 import https, { Server as HttpsServer } from "https";
 import http, { Server as HttpServer } from "http";
@@ -35,14 +29,35 @@ const serverPromise: Promise<ServerInfo> = new Promise((resolve, reject) => {
       const app: Express = express();
 
       const prefix = "/api";
+      // app.use(cors());
 
-      app.use(cors());
+      if (isProduction) {
+        app.use(
+          cors({
+            origin: `https://localhost:${process.env.HTTPS_PORT}`, // Change this to your frontend URL
+            credentials: true, // Allows cookies and auth headers
+          })
+        );
+      } else {
+        app.use(
+          cors({
+            origin: `http://localhost:${process.env.HTTP_PORT}`, // Change this to your frontend URL
+            credentials: true, // Allows cookies and auth headers
+          })
+        );
+      }
+
+      //   app.use("/api", (req, res, next) => {
+      //     req.url = req.url.startsWith("/") ? req.url : `/${req.url}`;
+      //     next();
+      //   });
+
       app.use(express.json());
-      app.use("/posts", postsRoute);
-      app.use("/comments", commentsRoute);
-      app.use("/auth", authRoutes);
-      app.use("/priceRec", priceRec);
-      app.use("/file", fileRoutes);
+      app.use(`${prefix}/posts`, postsRoute);
+      app.use(`${prefix}/comments`, commentsRoute);
+      app.use(`${prefix}/auth`, authRoutes);
+      app.use(`${prefix}/priceRec`, priceRec);
+      app.use(`${prefix}/file`, fileRoutes);
       app.options("*", cors());
       // Serve static files from the public directory
       app.use(

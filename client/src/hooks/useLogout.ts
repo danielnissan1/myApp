@@ -3,6 +3,7 @@ import { useLocalStorage } from "./useLocalStorage";
 import { useNavigate } from "react-router-dom";
 import { RoutesValues } from "../consts/routes";
 import { googleLogout } from "@react-oauth/google";
+import { instance } from "../App";
 
 export const useLogout = () => {
   const navigate = useNavigate();
@@ -24,8 +25,8 @@ export const useLogout = () => {
     }
 
     try {
-      const res = await axios.post(
-        "http://localhost:3001/auth/logout",
+      const res = await instance.post(
+        `/auth/logout`,
         {
           refreshToken: storedRefreshToken,
         },

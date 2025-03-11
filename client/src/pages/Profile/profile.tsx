@@ -44,10 +44,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUpload = async () => {
       if (newImage) {
-        const newImgUrl = await uploadImage(
-          newImage,
-          "http://localhost:3001/file"
-        );
+        const newImgUrl = await uploadImage(newImage, `/file`);
         setUser({ ...user, avatar: newImgUrl });
       }
     };
@@ -75,8 +72,8 @@ const Profile = () => {
   // Gets an array and slice it to an array of arrays that each sub-array contains 3 posts
   const chunkPosts = (posts: IPost[]) => {
     const result = [];
-    for (let i = 0; i < posts.length; i += 3) {
-      result.push(posts.slice(i, i + 3));
+    for (let i = 0; i < posts.length; i += 4) {
+      result.push(posts.slice(i, i + 4));
     }
     return result;
   };

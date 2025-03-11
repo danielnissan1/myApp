@@ -16,7 +16,7 @@ import AddPhotoIcon from "@mui/icons-material/AddPhotoAlternate";
 import { formSchema, formData } from "./formData";
 import { colors } from "../../../consts/colors";
 import ErrorModal from "../../Modals/errorModal";
-import { useAuth } from "../../../services/userService";
+import { useAuth } from "../../../hooks/useAuth";
 import { useUploadImage } from "../../../hooks/useUploadImage";
 import { useSignUp } from "../../../hooks/useSignup";
 
@@ -48,10 +48,7 @@ const Register = () => {
   }, [profileImage]);
 
   const signUp = async (data: FieldValues) => {
-    const img = await uploadImage(
-      data.profileImage[0],
-      "http://localhost:3001/file"
-    );
+    const img = await uploadImage(data.profileImage[0], `/file`);
     setImgUrl(img);
     setData(data);
   };

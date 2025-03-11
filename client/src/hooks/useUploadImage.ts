@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useState } from "react";
+import { instance } from "../App";
 
 export const useUploadImage = () => {
   const [error, setError] = useState<any>();
@@ -10,7 +10,7 @@ export const useUploadImage = () => {
 
       if (file) {
         formData.append("file", file);
-        axios
+        instance
           .post(url, formData, {
             headers: {
               "Content-Type": "image/jpeg",
