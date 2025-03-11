@@ -72,8 +72,9 @@ const NewPost: React.FC = () => {
     }
   };
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const getPriceRecommendation = async (itemDescription: string) => {
-    const baseUrl = process.env.REACT_APP_BASE_URL;
     try {
       const response = await fetch(
         `${baseUrl}/priceRec/getPriceRecommendation`,
