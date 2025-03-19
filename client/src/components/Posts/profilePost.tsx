@@ -16,7 +16,8 @@ import EditableText from "../Inputs/editableText";
 import { IPost } from "../../types/types";
 import { useUploadImage } from "../../hooks/useUploadImage";
 import { usePosts } from "../../hooks/usePosts";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShekelSign } from "@fortawesome/free-solid-svg-icons";
 interface postProps {
   price: number;
   isSold: boolean;
@@ -183,21 +184,6 @@ const ProfilePost = ({
               ></img>
             </div>
           )}
-          <Box
-            pt={"0.5rem"}
-            marginLeft={"2rem"}
-            display={"flex"}
-            flexDirection={"row"}
-          >
-            <PriceIcon />
-            <EditableText
-              width="15rem"
-              textAlignOnDisplay="left"
-              defaultText={String(price)}
-              editMode={editMode}
-              setValue={setNewPrice}
-            ></EditableText>
-          </Box>
           <Box sx={{ ml: "3rem" }}>
             <EditableText
               width="15rem"
@@ -205,6 +191,22 @@ const ProfilePost = ({
               defaultText={content}
               editMode={editMode}
               setValue={setNewContent}
+            ></EditableText>
+          </Box>
+
+          <Box
+            pt={"0.5rem"}
+            marginLeft={"2rem"}
+            display={"flex"}
+            flexDirection={"row"}
+          >
+            <FontAwesomeIcon icon={faShekelSign} />
+            <EditableText
+              width="15rem"
+              textAlignOnDisplay="left"
+              defaultText={String(price)}
+              editMode={editMode}
+              setValue={setNewPrice}
             ></EditableText>
           </Box>
         </Box>

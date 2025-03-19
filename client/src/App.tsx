@@ -9,7 +9,8 @@ import "./App.css";
 import axios from "axios";
 import { RoutesValues } from "./consts/routes";
 import Layout from "./components/Layout/layout";
-import { RecoilRoot, useRecoilValue } from "recoil";
+import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
+import { userAtom } from "./atoms/userAtom";
 
 // const baseURL = "http://localhost:80/api";
 const baseURL = process.env.REACT_APP_BASE_URL;
@@ -22,19 +23,27 @@ export const instance = axios.create({
 });
 
 function App() {
-  return (
-    <RecoilRoot>
-      <Routes>
-        <Route path={RoutesValues.LOGIN} element={<Login />}></Route>
-        <Route path={RoutesValues.REGISTER} element={<Register />}></Route>
+  const [user, setUser] = useRecoilState(userAtom);
 
-        <Route element={<Layout />}>
-          <Route path={RoutesValues.HOME} element={<Feed />}></Route>
-          <Route path={RoutesValues.PROFILE} element={<Profile />}></Route>
-          <Route path={RoutesValues.NEW_POST} element={<NewPost />}></Route>
-        </Route>
-      </Routes>
-    </RecoilRoot>
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
+  }, [user]);
+
+  return (
+    <Routes>
+      <Route path={RoutesValues.LOGIN} element={<Login />}></Route>
+      <Route path={RoutesValues.REGISTER} element={<Register />}></Route>
+
+      <Route element={<Layout />}>
+        <Route path={RoutesValues.HOME} element={<Feed />}></Route>
+        <Route path={RoutesValues.PROFILE} element={<Profile />}></Route>
+        <Route path={RoutesValues.NEW_POST} element={<NewPost />}></Route>
+      </Route>
+    </Routes>
   );
 }
 

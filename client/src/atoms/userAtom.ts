@@ -8,7 +8,10 @@ export const defaultUser: IUser = {
   avatar: "",
 };
 
+const storedUser = localStorage.getItem("user");
+const initialUser = storedUser ? JSON.parse(storedUser) : defaultUser;
+
 export const userAtom: RecoilState<IUser> = atom({
   key: "userAtom",
-  default: defaultUser,
+  default: initialUser,
 });
