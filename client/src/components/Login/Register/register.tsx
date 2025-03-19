@@ -57,6 +57,18 @@ const Register = () => {
     imgUrl && data && onSignUp(imgUrl, data);
   }, [imgUrl]);
 
+  const [isFormValid, setIsFormValid] = useState(false);
+  const username = watch("username");
+  const password = watch("password");
+  const email = watch("email");
+
+  useEffect(() => {
+    setIsFormValid(!!username && !!password && !!email);
+  }, [username, password, email, profileImage]);
+
+  console.log("profileimage", profileImage);
+  console.log("formvalid", isFormValid);
+
   return (
     <Box
       display="flex"
@@ -171,23 +183,9 @@ const Register = () => {
             }}
             variant="standard"
           ></TextField>
-          {/* <TextField
-            fullWidth
-            sx={{ margin: "20px", width: "400px"  }}
-            label="address"
-            {...register("address")}
-            required={true}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Home />
-                </InputAdornment>
-              ),
-            }}
-            variant="standard"
-          ></TextField> */}
           <Box display="flex" justifyContent="center" mt="10px">
             <Button
+              disabled={!isFormValid || !profileImage.length}
               type="submit"
               sx={{
                 width: "400px",
